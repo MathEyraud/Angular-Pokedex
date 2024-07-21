@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pokedex';
+
+  title       :string = 'pokedex';
+  subTitle    :string = 'subTitle';
+  searchValue :string = '';
+
+  handleSearch(searchValue : string) : void{
+    this.searchValue = searchValue;
+  }
 }

@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  angular:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"

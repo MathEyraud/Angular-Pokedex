@@ -1,0 +1,20 @@
+@keyframes bounce {
+
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+  
+.pokemon-card-container {
+    transition: transform 0.2s;
+}
+  
+.pokemon-card-container:hover {
+    animation: bounce 1s;
+}
