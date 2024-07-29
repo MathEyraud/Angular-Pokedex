@@ -14,4 +14,10 @@ export class LoggerService {
     }
   }
 
+  error(message:string, obj?:unknown){
+    if(!environment.production) {
+      console.error(message, obj);
+    }
+  }
+
 }

@@ -1,0 +1,51 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;     /* Désactive le défilement horizontal pour la page entière */
+}
+
+/* .container-fluid est un conteneur Bootstrap qui occupe toute la largeur de l'écran */
+.container-fluid {
+    height: 100vh;          /* Assure que le conteneur prend toute la hauteur de la fenêtre */
+    padding: 0;             /* Enlève les padding par défaut */
+    overflow-x: hidden;     /* Désactive le défilement horizontal pour le conteneur */
+}
+
+/* .row est une classe Bootstrap pour définir une ligne dans la grille */
+.row {
+    height: 100%;           /* Assure que la ligne prend toute la hauteur du conteneur parent */
+    margin: 0;              /* Enlève les marges par défaut */
+    overflow-x: hidden;     /* Désactive le défilement horizontal pour la ligne */
+}
+
+/* #sidebar définit le style de la barre latérale */
+#sidebar {
+    height: 100vh;          /* Ajuste la hauteur pour être la hauteur de la fenêtre */
+    overflow-y: auto;       /* Permet le défilement vertical dans la sidebar */
+    overflow-x: hidden;     /* Désactive le défilement horizontal pour la sidebar */
+}
+
+/* .sidebar-scroll est une classe personnalisée pour gérer le défilement dans la sidebar */
+.sidebar-scroll {
+    height: 100%;           /* Assure que le conteneur prend toute la hauteur de la sidebar */
+    overflow-y: auto;       /* Permet le défilement vertical */
+    overflow-x: hidden;     /* Désactive le défilement horizontal pour le conteneur scroll de la sidebar */
+}
+
+/* .detail-scroll est une classe personnalisée pour gérer le défilement dans le contenu principal */
+.detail-scroll {
+    height: 100%;           /* Assure que le conteneur prend toute la hauteur disponible */
+    overflow-y: auto;       /* Permet le défilement vertical */
+    overflow-x: hidden;     /* Désactive le défilement horizontal pour le conteneur scroll du contenu principal */
+}
+
+/* Media queries pour les écrans de moins de 768 pixels de large */
+@media (max-width: 768px) {
+    #sidebar {
+        display: none;      /* Cache la sidebar sur les petits écrans */
+    }
+
+    .detail-scroll {
+        flex: 1 0 100%;     /* Le contenu principal occupe toute la largeur disponible */
+    }
+}

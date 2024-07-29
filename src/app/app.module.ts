@@ -17,7 +17,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
   imports: [
     BrowserModule,
     HttpClientModule,
-    PokemonModule,
+    PokemonModule,    // Important à mettre avant AppRoutingModule
     AppRoutingModule,
   ],
   providers: [],

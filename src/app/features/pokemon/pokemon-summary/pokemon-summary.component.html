@@ -1,20 +1,22 @@
-<article class="row">
+<article class="row justify-content-center">
                 
     <!-- NUMERO & NOM -->
-    <div class="row id">N°{{formatPokemonId(photoPokemon.pokemon.id)}}</div>
-    <div class="row text-capitalize name">{{photoPokemon.pokemon.name}}</div>
+    <div class="row id">N°{{pokemon.formattedId}}</div>
+    <div class="row text-capitalize name">{{pokemon.name}}</div>
     
     <!-- RETOUR A LA LIGNE -->
     <div class="row w-100"></div>
     
     <!--PHOTO DU POKEMON -->
     <div class="row">
+        
+        <!--(click)="navigateToDetails((pokemon.id).toString())"-->
         <img 
             style="background-color: beige" 
             class="rounded" 
-            *ngIf="photoPokemon.url;else noPhoto" 
-            [src]="photoPokemon.url"
-            (click)="navigateToDetails(photoPokemon.pokemon.id)"
+            *ngIf="pokemon.urlPhoto;else noPhoto" 
+            [src]="pokemon.urlPhoto"
+            (click)="onSelectPokemon(pokemon.id)"
         >
 
         <ng-template #noPhoto>
@@ -29,12 +31,12 @@
 
             <div class="row justify-content-between">
 
-                <div class="col-5 text-center rounded text-capitalize" [ngClass]="getTypeClass(photoPokemon.pokemon.type1)">
-                    {{photoPokemon.pokemon.type1}}
+                <div class="col-5 text-center rounded text-capitalize" [ngClass]="getTypeClass(pokemon.types1?.name)">
+                    {{pokemon.types1?.name}}
                 </div>
 
-                <div class="col-5 text-center rounded text-capitalize" *ngIf="photoPokemon.pokemon.type2" [ngClass]="getTypeClass(photoPokemon.pokemon.type2)">
-                    {{photoPokemon.pokemon.type2}}
+                <div class="col-5 text-center rounded text-capitalize" *ngIf="pokemon.types2?.name" [ngClass]="getTypeClass(pokemon.types2?.name)">
+                    {{pokemon.types2?.name}}
                 </div>
             </div>
 

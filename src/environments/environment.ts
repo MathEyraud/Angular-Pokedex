@@ -10,6 +10,9 @@ export const environment = {
         dataPokemon:{
             url:'https://pokeapi.co/api/v2/pokemon/'
         },
+        dataSpeciesPokemon:{
+            url:'https://pokeapi.co/api/v2/pokemon-species/'
+        },
         dataPokemonFr1:{
             url:'https://tyradex.vercel.app/api/v1/pokemon/'
         },

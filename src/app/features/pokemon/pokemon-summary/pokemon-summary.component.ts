@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { PhotoPokemon } from 'src/app/models/photo-pokemon';
+import { Pokemon } from 'src/app/models/pokemon';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 
 @Component({
   selector: 'app-pokemon-summary',
@@ -13,51 +14,43 @@ export class PokemonSummaryComponent {
    * ATTRIBUT
    */
   @Input()
-  public photoPokemon : PhotoPokemon = {url:'', pokemon:{id:'',name:'',type1:'', type2:'', photos:[]}}
+  public pokemon !: Pokemon;
+
+  @Output() 
+  selectPokemon = new EventEmitter<number>();
 
   /**
    * CONSTRUCTEUR
    * @param router 
    */
-  constructor(private router: Router) { }
+  constructor(
+    private router        : Router,
+    private loggerService : LoggerService, 
+  ) { }
 
   /**
    * 
    * @param id 
    */
   navigateToDetails(id : string) : void{
-    this.router.navigate(['/pokemon', parseInt(id)]);
+    this.router.navigate(['/details', parseInt(id)]);
   }
 
-  /**
-   * AFFICHAGE CHIFFRE POKEMON
-   * @param id 
-   * @returns 
-   * PERMET D'AFFICHER LE NUMERO AVEC 4 CHIFFRES
-   */
-  formatPokemonId(id: string): string {
-
-    if (parseInt(id) < 10) {
-      return `000${id}`;
-
-    } else if (parseInt(id) < 100) {
-      return `00${id}`;
-
-    } else if (parseInt(id) < 1000) {
-      return `0${id}`;
-
-    } else {
-      return `${id}`;
-    }
+  onSelectPokemon(id: number): void {
+    this.loggerService.log("[PokemonSummaryComponent - onSelectPokemon] Pokemon :", id)
+    this.selectPokemon.emit(id);
   }
-  
+
   /**
    * AFFICHAGE TYPE POKEMON
    * @param type 
    * @returns 
    * MODIFIER LE CSS EN FONCTION DU TYPE
    */
-  getTypeClass(type: string): string {
+  getTypeClass(type: string | null | undefined): string {
+
+    if(type===null || type===undefined){return ''}
+
     switch (type.toLowerCase()) {
       case 'steel':
         return 'type-steel';
@@ -93,7 +86,8 @@ export class PokemonSummaryComponent {
         return 'type-dark';
       case 'flying':
         return 'type-flying';
-      // Ajoutez d'autres types ici
+        case 'psychic':
+          return 'type-flying';
       default:
         return '';
     }

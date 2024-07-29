@@ -11,10 +11,10 @@
     }
 }
   
-.pokemon-card-container {
+.animation-pokemon {
     transition: transform 0.2s;
 }
   
-.pokemon-card-container:hover {
+.animation-pokemon:hover {
     animation: bounce 1s;
 }

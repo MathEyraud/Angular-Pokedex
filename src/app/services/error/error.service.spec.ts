@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PokemonPhotoService } from './pokemon-photo.service';
+import { ErrorService } from './error.service';
 
-describe('PokemonPhotoService', () => {
-  let service: PokemonPhotoService;
+describe('ErrorService', () => {
+  let service: ErrorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PokemonPhotoService);
+    service = TestBed.inject(ErrorService);
   });
 
   it('should be created', () => {

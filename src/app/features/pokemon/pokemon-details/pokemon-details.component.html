@@ -1,4 +1,120 @@
-<h1>Pokemon Details for ID: {{ pokemon.id }}</h1>
-<h1>Pokemon Details for ID: {{ pokemon.name }}</h1>
-<h1>Pokemon Details for ID: {{ pokemon.type1 }}</h1>
-<h1>Pokemon Details for ID: {{ pokemon.type2 }}</h1>
+<div *ngIf="pokemon" class="container">
+
+    <!-- NUMERO DU POKEMON -->
+    <div class="row">Pokemon Details for ID: {{ pokemon.formattedId }}</div>
+
+    <!-- NOM DU POKEMON -->
+    <div class="row">Pokemon Details for name: {{ pokemon.formattedName }}</div>
+
+    <!-- TYPES DU POKEMON -->
+    <div class="row">
+        <div>Pokemon Details for types: {{ pokemon.types1?.name }}</div>
+        <div *ngIf="pokemon.types2?.name">Pokemon Details for type2: {{ pokemon.types2?.name }}</div>
+    </div>
+
+    <!-- TAILLE DU POKEMON -->
+    <div class="row">Pokemon Details for height: {{ pokemon.formattedHeight }} m</div>
+    
+    <!-- POIDS DU POKEMON -->
+    <div class="row">Pokemon Details for weight: {{ pokemon.formattedWeight }} kg</div>
+
+    <!-- EXP2RIENCE DE BASE DU POKEMON -->
+    <div class="row">Pokemon Details for base_experience: {{ pokemon.base_experience }}</div>
+
+    <!-- NATURE DU POKEMON -->
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let abilitie of pokemon.abilities">
+            {{abilitie.name}}
+        </div>
+    </div>
+
+    <!-- STATS DE BASE DU POKEMON -->
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let stat of pokemon.stats">
+            {{stat.name}} : {{stat.base_stat}}
+        </div>
+    </div>
+
+    <!-- SPRITES DU POKEMON -->
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let sprite of objectValue(pokemon.sprites)">
+            <img 
+                style="background-color: beige" 
+                class="rounded justify-content-center" 
+                *ngIf="sprite;else noPhoto" 
+                [src]="sprite"
+            >
+            <ng-template #noPhoto>
+            </ng-template>
+        </div>
+    </div>
+
+    <!-- CHAINE D'EVOLUTION -->
+    <div *ngIf="pokemon.evolutionChain">
+        <h3>Chaîne d'évolution</h3>
+        <ul>
+            <li *ngFor="let evo of pokemon.allEvolutions">
+                {{ evo.name }}
+                <ng-container *ngIf="evo.details.minLevel">
+                    (Niveau {{ evo.details.minLevel }})
+                </ng-container>
+                <ng-container *ngIf="evo.details.item">
+                    (Pierre {{ evo.details.item }})
+                </ng-container>
+                <ng-container *ngIf="evo.details.heldItem">
+                    (Objet à tenir {{ evo.details.heldItem }})
+                </ng-container>
+                <ng-container *ngIf="evo.details.minHappiness">
+                    (Bonheur minimum {{ evo.details.minHappiness }})
+                </ng-container>
+                <ng-container *ngIf="evo.details.minAffection">
+                    (Affection minimum {{ evo.details.minAffection }})
+                </ng-container>
+                <ng-container *ngIf="evo.details.gender">
+                    (Affection minimum {{ evo.details.gender }})
+                </ng-container>
+                <ng-container *ngIf="evo.details.timeOfDay">
+                    (Affection minimum {{ evo.details.timeOfDay }})
+                </ng-container>
+            </li>
+        </ul>
+    </div>
+
+    <!-- PHOTO DU POKEMON -->
+    <div class="row">
+        <img 
+            style="background-color: beige" 
+            class="rounded col-2" 
+            *ngIf="pokemon.urlPhoto;else noPhoto" 
+            [src]="pokemon.urlPhoto"
+        >
+
+        <ng-template #noPhoto>
+            <b>Pas d'image</b>
+        </ng-template>
+    </div>
+
+    <!-- ATTAQUES DU POKEMON -->
+    <div>
+        <h3>Sélectionner la version du jeu :</h3>
+        <select [(ngModel)]="selectedVersion" (change)="onVersionChange($event)">
+            <option *ngFor="let version of gameVersions" [value]="version">{{version}}</option>
+        </select>
+    </div>
+  
+    <div>
+        <h3>Attaques pour {{selectedVersion}} :</h3>
+        <ul>
+        <li *ngFor="let move of getMovesForSelectedVersion()">
+            {{ move.name }} 
+            <ng-container *ngFor="let detail of move.version_group_details">
+            <span *ngIf="detail.version_group === selectedVersion">
+                (Niveau: {{detail.level_learned_at}}, 
+                Méthode: {{detail.move_learn_method}})
+            </span>
+            </ng-container>
+        </li>
+        </ul>
+  </div>
+
+</div>

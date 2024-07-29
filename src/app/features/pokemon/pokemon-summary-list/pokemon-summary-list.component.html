@@ -1,15 +1,25 @@
-<!-- POUR TESTER
- <div class="row">
-    <div class="col">
-        <button type="button" class="btn btn-success" (click)="showAddPhoto()"> Ajouter une photo</button>
-    </div>
-</div>
+<!-- Conteneur principal utilisant une grille responsive -->
+<div class="container">
 
-<app-add-photo *ngIf="isAddPhoto" [newPhoto]="newPhoto" (eventCloseAddPhoto)="hideAddPhoto()"></app-add-photo> 
--->
+    <div class="row pt-5">
 
-<div class="row pt-5">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5 pokemon-card-container" *ngFor="let photo of photosPokemon">
-        <app-pokemon-summary [photoPokemon]="photo"></app-pokemon-summary>
+        <!-- Boucle sur chaque Pokémon dans le tableau -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5 animation-pokemon" *ngFor="let pokemon of pokemons">
+            <app-pokemon-summary [pokemon]="pokemon" (selectPokemon)="navigateToDetails($event)"></app-pokemon-summary>
+        </div>
+
     </div>
+
+    <!-- Indicateur de chargement -->
+    <div class="text-center mt-3 mb-5" *ngIf="isLoading">
+        <div class="spinner-border" role="status">
+        <span class="visually-hidden">Chargement...</span>
+        </div>
+    </div>
+    
+    <!-- Message de fin de liste -->
+    <div class="text-center mt-3 mb-5" *ngIf="pokemons.length >= totalPokemons">
+        <p>Vous avez atteint la fin de la liste des Pokémon !</p>
+    </div>
+
 </div>
