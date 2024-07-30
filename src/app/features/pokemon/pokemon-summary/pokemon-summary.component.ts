@@ -37,7 +37,6 @@ export class PokemonSummaryComponent {
   }
 
   onSelectPokemon(id: number): void {
-    this.loggerService.log("[PokemonSummaryComponent - onSelectPokemon] Pokemon :", id)
     this.selectPokemon.emit(id);
   }
 

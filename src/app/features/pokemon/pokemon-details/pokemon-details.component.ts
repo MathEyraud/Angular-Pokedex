@@ -49,8 +49,6 @@ export class PokemonDetailsComponent implements OnInit {
    */
   ngOnInit(): void {
 
-    this.loggerService.log("[PokemonDetailsComponent - ngOnInit] ")
-
     // Initialisation du composant
     this.getPokemonId().pipe(
 

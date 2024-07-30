@@ -5,7 +5,7 @@
 
         <!-- Boucle sur chaque Pokémon dans le tableau -->
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5 animation-pokemon" *ngFor="let pokemon of pokemons">
-            <app-pokemon-summary [pokemon]="pokemon" (selectPokemon)="navigateToDetails($event)"></app-pokemon-summary>
+            <app-pokemon-summary [pokemon]="pokemon" (selectPokemon)="onSelectPokemon($event)"></app-pokemon-summary>
         </div>
 
     </div>

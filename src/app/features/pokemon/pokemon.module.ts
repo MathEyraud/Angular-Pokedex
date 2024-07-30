@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { PokemonRoutingModule } from './pokemon-routing.module';
 import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.component';
 import { PokemonSummaryListSidebarComponent } from './pokemon-summary-list-sidebar/pokemon-summary-list-sidebar.component';
+import { PokemonBaseList } from './pokemon-base-list/pokemon-base-list.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { PokemonSummaryListSidebarComponent } from './pokemon-summary-list-sideb
     PokemonSummaryComponent,
     PokemonDetailsComponent,
     PokemonSummaryListSidebarComponent,
+    PokemonBaseList,
   ],
   imports: [
     CommonModule,
