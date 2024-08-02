@@ -49,3 +49,24 @@ html, body {
         flex: 1 0 100%;     /* Le contenu principal occupe toute la largeur disponible */
     }
 }
+
+@keyframes bounce {
+
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.animation-pokemon {
+    transition: transform 0.2s;
+}
+  
+.animation-pokemon:hover {
+    animation: bounce 1s;
+}

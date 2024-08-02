@@ -8,6 +8,8 @@ import { PokemonRoutingModule } from './pokemon-routing.module';
 import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.component';
 import { PokemonSummaryListSidebarComponent } from './pokemon-summary-list-sidebar/pokemon-summary-list-sidebar.component';
 import { PokemonBaseList } from './pokemon-base-list/pokemon-base-list.component';
+import { PokemonSummaryCardComponent } from './pokemon-summary-card/pokemon-summary-card.component';
+import { PokemonSummaryTileComponent } from './pokemon-summary-tile/pokemon-summary-tile.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { PokemonBaseList } from './pokemon-base-list/pokemon-base-list.component
     PokemonDetailsComponent,
     PokemonSummaryListSidebarComponent,
     PokemonBaseList,
+    PokemonSummaryCardComponent,
+    PokemonSummaryTileComponent,
   ],
   imports: [
     CommonModule,
