@@ -1,3 +1,19 @@
+<!-- Sidebar avec les classes Bootstrap :
+    - col-xxl-X : Occupe X colonnes sur 12 pour les écrans (≥ 1400px)
+    - col-xl-X  : Occupe X colonnes sur 12 pour les écrans (≥ 1200px)
+    - col-lg-X  : Occupe X colonnes sur 12 pour les écrans (≥ 992px)
+    - col-md-X  : Occupe X colonnes sur 12 pour les écrans (≥ 768px)
+    - col-sm-X  : Occupe X colonnes sur 12 pour les écrans (≥ 576px)
+    - col-xs-X  : Occupe X colonnes sur 12 pour les écrans (< 576px)
+
+    - offset-lg-X : Décale de X colonnes pour les écrans de grande taille (compense la sidebar fixe)
+    - d-md-block : Affiche le bloc pour les écrans de taille moyenne et plus
+    - bg-light : Applique une couleur de fond légère
+    - sidebar : Classe personnalisée pour des styles supplémentaires
+    - collapse : Permet de replier la sidebar sur les petits écrans
+    - position-fixed : Fixe la sidebar à gauche de l'écran
+-->
+
 <!-- Utilisation de Bootstrap pour un conteneur fluide occupant toute la largeur de l'écran -->
 <div class="container-fluid">
     
@@ -5,16 +21,11 @@
     <div class="row flex-nowrap">
       
   
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse position-fixed">
-        <!-- Sidebar avec les classes Bootstrap :
-            - col-md-3 : Occupe 3 colonnes sur 12 pour les écrans de taille moyenne (≥ 768px)
-            - col-lg-2 : Occupe 2 colonnes sur 12 pour les écrans de grande taille (≥ 992px)
-            - d-md-block : Affiche le bloc pour les écrans de taille moyenne et plus
-            - bg-light : Applique une couleur de fond légère
-            - sidebar : Classe personnalisée pour des styles supplémentaires
-            - collapse : Permet de replier la sidebar sur les petits écrans
-            - position-fixed : Fixe la sidebar à gauche de l'écran
-        -->
+        <nav id="sidebar" class="
+            col-md-3 
+            d-md-block collapse
+            bg-light sidebar position-fixed"
+        >
             
             <div #sidebarScroll class="position-sticky pt-3 sidebar-scroll">
             <!-- position-sticky : Maintient la position relative à son conteneur parent
@@ -22,9 +33,9 @@
                 sidebar-scroll : Classe personnalisée pour le défilement vertical -->
                 
                 <!-- Sidebar de navigation -->
-                <div class="mb-5 animation-pokemon" *ngFor="let pokemon of pokemons">
+                <div class="mb-2 animation-pokemon" *ngFor="let pokemon of pokemons">
                     <!-- Boucle sur la liste des pokémons et affiche un résumé pour chacun -->
-                    <app-pokemon-summary [pokemon]="pokemon" (selectPokemon)="onSelectPokemon($event)"></app-pokemon-summary>
+                    <app-pokemon-summary-tile [pokemon]="pokemon" (selectPokemon)="onSelectPokemon($event)"></app-pokemon-summary-tile>
                 </div>
         
                 <div class="text-center mt-3 mb-5" *ngIf="isLoading">
@@ -42,18 +53,12 @@
             </div>
       </nav>
   
-      <!-- Détails du Pokémon -->
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 offset-md-3 offset-lg-2 detail-scroll">
-        <!-- Colonne principale avec les classes Bootstrap :
-          - col-md-9 : Occupe 9 colonnes sur 12 pour les écrans de taille moyenne (≥ 768px)
-          - ms-sm-auto : Ajoute un margin-start automatique pour centrer sur les petits écrans (≥ 576px)
-          - col-lg-10 : Occupe 10 colonnes sur 12 pour les écrans de grande taille (≥ 992px)
-          - px-md-4 : Ajoute un padding horizontal de 1.5rem pour les écrans de taille moyenne et plus
-          - offset-md-3 : Décale de 3 colonnes pour les écrans de taille moyenne (compense la sidebar fixe)
-          - offset-lg-2 : Décale de 2 colonnes pour les écrans de grande taille (compense la sidebar fixe)
-          - detail-scroll : Classe personnalisée pour le défilement vertical
-        -->
-  
+        <!-- Détails du Pokémon -->
+        <main class="
+            col-md-9    offset-md-3
+            detail-scroll"
+        >
+
         <!-- AFFICHER LES DETAILS DU POKEMON ICI -->
         <div *ngIf="selectedPokemonId">
             <app-pokemon-details [pokemonId]="selectedPokemonId"></app-pokemon-details>

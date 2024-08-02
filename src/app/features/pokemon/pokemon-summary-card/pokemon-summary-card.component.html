@@ -1,0 +1,50 @@
+<article class="row justify-content-center" (click)="onSelectPokemon(pokemon.id)">
+                
+    <!-- NUMERO & NOM -->
+    <div class="row id">N°{{pokemon.formattedId}}</div>
+    <div class="row text-capitalize name">{{pokemon.name}}</div>
+    
+    <!-- RETOUR A LA LIGNE -->
+    <div class="row w-100"></div>
+    
+    <!--PHOTO DU POKEMON -->
+    <div class="row">
+        
+        <img 
+            style="background-color: beige" 
+            class="rounded" 
+            *ngIf="pokemon.urlPhoto;else noPhoto" 
+            [src]="pokemon.urlPhoto"
+        >
+
+        <ng-template #noPhoto>
+            <b>Pas d'image</b>
+        </ng-template>
+
+    </div>
+
+    <!-- TYPES -->
+    <div class="row mt-3">
+        
+        <div class="col-12">
+
+            <div class="row justify-content-between">
+
+                <div class="col-5 badge text-capitalize" [ngClass]="getTypeClass(pokemon.types1?.name)">
+                    {{pokemon.types1?.name}}
+                </div>
+
+                <div class="col-5 badge text-capitalize" *ngIf="pokemon.types2?.name" [ngClass]="getTypeClass(pokemon.types2?.name)">
+                    {{pokemon.types2?.name}}
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RETOUR A LA LIGNE -->
+    <div class="row w-100"></div>
+
+</article>

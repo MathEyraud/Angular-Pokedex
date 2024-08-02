@@ -1,0 +1,49 @@
+<article class="d-flex align-items-center gap-2 p-2 rounded border" (click)="onSelectPokemon(pokemon.id)">
+
+    <!-- Photo -->
+    <div class="align-items-center">
+        <img 
+            style="background-color: lightgray; width: 50px; height: 50px;" 
+            class="rounded" 
+            *ngIf="pokemon.urlPhoto;else noPhoto" 
+            [src]="pokemon.urlPhoto"
+        >
+        <ng-template #noPhoto>
+            <div class="align-items-center justify-content-center rounded" style="width: 50px; height: 50px; background-color: lightgray;">
+                <b>Pas d'image</b>
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- Informations -->
+    <div class="justify-content-center align-items-center flex-grow-1">
+
+        <!-- Numéro -->
+        <div class="d-flex flex-grow-1">
+            <div class="text-muted">N°{{pokemon.formattedId}}</div>
+        </div>
+
+        
+        <div class="d-flex flex-wrap flex-grow-1">
+
+            <!-- Nom -->
+            <div class="d-flex flex-grow-1 text-capitalize font-weight-bold">{{pokemon.name}}</div>
+            
+            <!-- Types -->
+            <div class="d-flex flex-wrap gap-2">
+
+                <div class="badge text-capitalize" [ngClass]="getTypeClass(pokemon.types1?.name)">
+                    {{pokemon.types1?.name}}
+                </div>
+
+                <div *ngIf="pokemon.types2?.name" class="badge text-capitalize" [ngClass]="getTypeClass(pokemon.types2?.name)">
+                    {{pokemon.types2?.name}}
+                </div>
+                
+            </div>
+            
+        </div>
+
+    </div>
+    
+</article>
