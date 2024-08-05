@@ -10,8 +10,7 @@ import { LoggerService } from '../logger/logger.service';
 import { ErrorService } from '../error/error.service';
 
 import { PokemonMapper } from 'src/app/mappers/pokemon.mapper';
-import { IPokemonApiResponse } from 'src/app/interfaces/pokemon-api-response'; 
-import { IPokemon } from 'src/app/interfaces/pokemon-api-reponse-detail';
+import { IPokemon, IPokemonApiResponse } from 'src/app/interfaces/pokemon'; 
 import { IEvolutionChain } from 'src/app/interfaces/evolution-chain';
 import { IPokemonSpecies } from 'src/app/interfaces/specie';
 
@@ -42,10 +41,10 @@ export class PokemonService {
 
 
   /**
-   * Récupère une liste de Pokémon avec pagination
-   * @param limit Nombre de Pokémon à récupérer
+   * Récupère une liste de data avec pagination
+   * @param limit Nombre de data à récupérer
    * @param offset Indice de départ pour la pagination
-   * @returns Observable contenant un tableau de Pokémon et le nombre total
+   * @returns Observable contenant un tableau avec les datas et le nombre total
    */
   getPokemons(limit: number, offset: number): Observable<{ results: Pokemon[], total: number }> {
 
@@ -57,17 +56,17 @@ export class PokemonService {
     // Appel à l'API et traitement de la réponse
     return this.httpClient.get<IPokemonApiResponse>(this.apiUrl, { params }).pipe(
 
-      switchMap(response => this.mapApiResponseToPokemonList(response)),
+      switchMap(response => this.mapApiResponse(response)),
       catchError(error => this.errorService.handlePokemonError(error))
     );
   }
 
   /**
-   * Traite la réponse de l'API Pokémon
+   * Traite la réponse de l'API
    * @param response Réponse de l'API
-   * @returns Observable avec les Pokémon détaillés et le nombre total
+   * @returns Observable avec les data détaillés et le nombre total
    */
-  private mapApiResponseToPokemonList(response: IPokemonApiResponse): Observable<{ results: Pokemon[], total: number }> {
+  private mapApiResponse(response: IPokemonApiResponse): Observable<{ results: Pokemon[], total: number }> {
 
     return this.getPokemonDetails(response.results).pipe(
       map(pokemons => ({ results: pokemons, total: response.count }))
@@ -75,16 +74,16 @@ export class PokemonService {
   }
 
   /**
-   * Récupère les détails de chaque Pokémon
-   * @param pokemonList Liste des Pokémon avec leurs URLs
-   * @returns Observable avec un tableau de Pokémon détaillés
+   * Récupère les détails de chaque donnée
+   * @param dataList Liste des data avec leurs URLs
+   * @returns Observable avec un tableau des données détaillés
    */
-  private getPokemonDetails(pokemonList: Array<{ url: string }>): Observable<Pokemon[]> {
+  private getPokemonDetails(dataList: Array<{ url: string }>): Observable<Pokemon[]> {
 
-    // Mapping chaque URL de Pokémon pour récupérer ses détails
-    const detailRequests$ = pokemonList.map(pokemon => {
+    // Mapping de chaque URL pour récupérer ses détails
+    const detailRequests$ = dataList.map(data => {
 
-      return this.getPokemonDetail(pokemon.url).pipe(
+      return this.getPokemonDetail(data.url).pipe(
 
         // Utilisation de mergeMap pour gérer les cas où le détail est nul (Bug de certain pokemon de l'API)
         mergeMap(detailJSON => {
@@ -92,7 +91,7 @@ export class PokemonService {
             return of(null); // Continue avec les autres Pokémons en renvoyant un Observable de null
           }
           
-          // Si le détail n'est pas nul, appelle createPokemonFromDetail
+          // Si le détail n'est pas nul
           return this.createPokemonFromDetail(detailJSON);
         })
       );
@@ -127,10 +126,10 @@ export class PokemonService {
 
 
   /**
-   * Récupère les détails d'un Pokémon spécifique
-   * @param url URL de l'API pour les détails du Pokémon
-   * @returns Observable avec les détails du Pokémon
-   */
+   * Récupère les détails spécifique d'une data
+   * @param url URL de l'API pour les détails
+   * @returns Observable avec les détails
+  */
   getPokemonDetail(url: string): Observable<any> {
 
     return this.httpClient.get<IPokemon>(url).pipe(
@@ -146,7 +145,6 @@ export class PokemonService {
       }),
 
       catchError(error => {
-        this.loggerService.error("[PokemonService - getPokemonDetail] error : ", error);
         this.errorService.handlePokemonError(error);
         return of(null); // Retourne un observable null en cas d'erreur
       })

@@ -40,9 +40,7 @@
         
                 <div class="text-center mt-3 mb-5" *ngIf="isLoading">
                     <!-- Affiche un spinner de chargement si isLoading est vrai -->
-                    <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Chargement...</span>
-                    </div>
+                    <app-spinner></app-spinner>
                 </div>
         
                 <div class="text-center mt-3 mb-5" *ngIf="pokemons.length >= totalPokemons">

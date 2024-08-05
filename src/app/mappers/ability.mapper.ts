@@ -1,4 +1,4 @@
-import { IAbility } from "../interfaces/pokemon-api-reponse-detail";
+import { IAbility } from "../interfaces/pokemon";
 import { AbilityPokemon } from "../models/ability-pokemon";
 
 export class AbilityMapper {

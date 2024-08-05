@@ -30,12 +30,12 @@
 
             <div class="row justify-content-between">
 
-                <div class="col-5 badge text-capitalize" [ngClass]="getTypeClass(pokemon.types1?.name)">
-                    {{pokemon.types1?.name}}
+                <div class="col-6">
+                    <app-pokemon-type [type]="pokemon.types1?.name"></app-pokemon-type>
                 </div>
 
-                <div class="col-5 badge text-capitalize" *ngIf="pokemon.types2?.name" [ngClass]="getTypeClass(pokemon.types2?.name)">
-                    {{pokemon.types2?.name}}
+                <div class="col-6">
+                    <app-pokemon-type *ngIf="pokemon.types2?.name" [type]="pokemon.types2?.name"></app-pokemon-type>
                 </div>
                 
             </div>

@@ -7,14 +7,10 @@ import { PokemonSummaryListSidebarComponent } from './pokemon-summary-list-sideb
 const routes: Routes = [
 
   // Page de la liste des pokemons
-  { path: 'list', component: PokemonSummaryListComponent}, 
-
-  { path: 'sidebar', component: PokemonSummaryListSidebarComponent },
-  { path: 'sidebar/:id', component: PokemonSummaryListSidebarComponent },
-
-  { path: 'details/:id', component: PokemonDetailsComponent },
+  { path: 'pokemon', component: PokemonSummaryListComponent}, 
 
   // Page des détails des pokemons
+  { path: 'pokemon/:id', component: PokemonSummaryListSidebarComponent },
 ];
 
 @NgModule({

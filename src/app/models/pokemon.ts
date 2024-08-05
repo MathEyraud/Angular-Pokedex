@@ -1,9 +1,10 @@
 import { AbilityPokemon } from "./ability-pokemon";
-import { MovePokemon } from "./move-pokemon";
+import { PokemonMove } from "./move-pokemon";
 import { SpritesPokemon } from "./sprites-pokemon";
 import { StatPokemon } from "./stat-pokemon";
 import { TypePokemon } from "./type-pokemon";
 import { Evolution, EvolutionChain, EvolutionDetails } from "./evolution-chain";
+import { capitalizeFirstLetter } from "../utils/string-utils";
 
 export class Pokemon {
 
@@ -18,7 +19,7 @@ export class Pokemon {
         private _base_experience  : number              | null,
         private _abilities        : AbilityPokemon[]    | null,
         private _stats            : StatPokemon[]       | null,
-        private _moves            : MovePokemon[]       | null,
+        private _moves            : PokemonMove[]       | null,
         private _evolutionChain   : EvolutionChain      | null,
     ) {}
 
@@ -69,8 +70,8 @@ export class Pokemon {
     set stats(value: StatPokemon[] | null) {this._stats = value;}
 
     // moves
-    get moves(): MovePokemon[] | null {return this._moves;}
-    set moves(value: MovePokemon[] | null) {this._moves = value;}
+    get moves(): PokemonMove[] | null {return this._moves;}
+    set moves(value: PokemonMove[] | null) {this._moves = value;}
 
     // evolutionChain
     get evolutionChain(): EvolutionChain | null {return this._evolutionChain ?? null;}
@@ -91,7 +92,7 @@ export class Pokemon {
     }
 
     get formattedName(): string {
-        return this._name ? this._name.toLocaleUpperCase() : 'N/A';
+        return this._name  ? capitalizeFirstLetter(this._name) : 'N/A';
     }
 
     // getter pour la hauteur formatée avec un chiffre après la virgule

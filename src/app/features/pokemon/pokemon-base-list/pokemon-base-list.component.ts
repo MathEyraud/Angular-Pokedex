@@ -21,7 +21,7 @@ export class PokemonBaseList implements OnInit, OnDestroy{
   totalPokemons             : number = 0;           // Nombre total de Pokémon disponibles dans l'API
   subscriptions             : Subscription[] = [];  // Tableau pour stocker les souscriptions afin de les désinscrire plus tard
   currentOffset             : number = 0;           // Offset actuel pour le chargement des Pokémon (utilisé pour la pagination côté serveur)
-  itemsPerLoad              : number = 20;          // Nombre de Pokémon à charger à chaque requête
+  itemsPerLoad              : number = 25;          // Nombre de Pokémon à charger à chaque requête
   isLoading                 : boolean = false;      // Indicateur de chargement en cours
   selectedPokemonId         : number = 0;
   protected scrollThreshold : number = 100;         // Seuil de déclenchement du chargement (en pixels avant le bas de la page)

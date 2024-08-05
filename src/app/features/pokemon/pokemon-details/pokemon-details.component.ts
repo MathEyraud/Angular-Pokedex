@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, finalize, map, Observable, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
-import { MovePokemon } from 'src/app/models/move-pokemon';
+import { PokemonMove } from 'src/app/models/move-pokemon';
 import { Pokemon } from 'src/app/models/pokemon';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
@@ -163,9 +163,9 @@ export class PokemonDetailsComponent implements OnInit {
 
       const versions = new Set<string>();
 
-      this.pokemon.moves.forEach(move => {
-        move.version_group_details.forEach(detail => {
-          versions.add(detail.version_group);
+      this.pokemon.moves.forEach(move => { 
+        move.versions.forEach(detail => {
+          versions.add(detail.version_group.name);
         });
       });
 
@@ -186,12 +186,12 @@ export class PokemonDetailsComponent implements OnInit {
   }
 
   // Filtre les moves pour la version de jeu sélectionnée
-  getMovesForSelectedVersion(): MovePokemon[] {
+  getMovesForSelectedVersion(): PokemonMove[] {
 
     if (!this.pokemon || !this.pokemon.moves) return [];
 
     return this.pokemon.moves.filter(move =>
-      move.version_group_details.some(detail => detail.version_group === this.selectedVersion)
+      move.versions.some(version => version.version_group.name === this.selectedVersion)
     );
   }
 
