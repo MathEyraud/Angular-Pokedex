@@ -106,11 +106,11 @@
         <h3>Attaques pour {{selectedVersion}} :</h3>
         <ul>
         <li *ngFor="let move of getMovesForSelectedVersion()">
-            {{ move.name }} 
-            <ng-container *ngFor="let detail of move.version_group_details">
-            <span *ngIf="detail.version_group === selectedVersion">
-                (Niveau: {{detail.level_learned_at}}, 
-                Méthode: {{detail.move_learn_method}})
+            {{ move.displayMoveName }} 
+            <ng-container *ngFor="let version of move.versions">
+            <span *ngIf="version.version_group.name === selectedVersion">
+                (Niveau: {{version.level_learned_at}}, 
+                Méthode: {{version.move_learn_method.name}})
             </span>
             </ng-container>
         </li>

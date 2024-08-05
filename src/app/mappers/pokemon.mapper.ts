@@ -4,7 +4,7 @@ import { AbilityMapper } from "./ability.mapper";
 import { SpriteMapper } from "./sprite.mapper";
 import { StatMapper } from "./stat.mapper";
 import { TypeMapper } from "./type.mapper";
-import { IPokemon } from "../interfaces/pokemon-api-reponse-detail";
+import { IPokemon } from "../interfaces/pokemon";
 
 export class PokemonMapper {
   

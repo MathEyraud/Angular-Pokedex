@@ -1,4 +1,4 @@
-import { IType } from '../interfaces/pokemon-api-reponse-detail';
+import { IType } from '../interfaces/pokemon';
 import { TypePokemon } from '../models/type-pokemon';
 
 export class TypeMapper {
@@ -6,8 +6,8 @@ export class TypeMapper {
   static getType(data: IType): TypePokemon {
 
     return new TypePokemon(
-        data.type.name,
-        data.type.url
+      data.type.name,
+      data.type.url
     );
   }
 

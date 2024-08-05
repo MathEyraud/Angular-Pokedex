@@ -36,6 +36,13 @@ export class ErrorService {
     return throwError(() => new Error(errorMessage));
   }
 
+  // GESTION DES ERREURS LIEE AUX ATTAQUES
+  handleMoveError(error: HttpErrorResponse): Observable<never> {
+    const errorMessage = 'Erreur lors de la récupération des données des attaques';
+    this.loggerService.error(errorMessage, error);
+    return throwError(() => new Error(errorMessage));
+  }
+
   handleEvolutionChainError(error: HttpErrorResponse): Observable<never> {
     const errorMessage = "Erreur lors de la récupération de la chaîne d'évolution";
     this.loggerService.error(errorMessage, error);

@@ -32,14 +32,9 @@
             <!-- Types -->
             <div class="d-flex flex-wrap gap-2">
 
-                <div class="badge text-capitalize" [ngClass]="getTypeClass(pokemon.types1?.name)">
-                    {{pokemon.types1?.name}}
-                </div>
+                <app-pokemon-type [type]="pokemon.types1?.name"></app-pokemon-type>
+                <app-pokemon-type *ngIf="pokemon.types2?.name" [type]="pokemon.types2?.name"></app-pokemon-type>
 
-                <div *ngIf="pokemon.types2?.name" class="badge text-capitalize" [ngClass]="getTypeClass(pokemon.types2?.name)">
-                    {{pokemon.types2?.name}}
-                </div>
-                
             </div>
             
         </div>

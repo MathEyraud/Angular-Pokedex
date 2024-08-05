@@ -1,0 +1,14 @@
+.damage-physical {
+    background-color: #c77b19;
+    color: white;
+}
+
+.damage-special {
+    background-color: #144763;
+    color: white;
+}
+
+.damage-status {
+    background-color: #B7B7CE;
+    color: white;
+}

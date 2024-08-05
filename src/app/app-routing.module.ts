@@ -5,7 +5,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
 const routes: Routes = [
 
   // Page de la liste des pokemons
-  { path: '', pathMatch:'full', redirectTo: '/list',},
+  { path: '', pathMatch:'full', redirectTo: '/pokemon',},
   
   // Route pour la page non trouvée
   { path: '**', component: PageNotFoundComponent }

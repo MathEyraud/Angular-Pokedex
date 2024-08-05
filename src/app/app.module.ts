@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MenuGeneralComponent } from './shared/components/menu-general/menu-general.component';
 import { PokemonModule } from './features/pokemon/pokemon.module';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { MovesModule } from './features/moves/moves.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
   imports: [
     BrowserModule,
     HttpClientModule,
-    PokemonModule,    // Important à mettre avant AppRoutingModule
+    PokemonModule,    // Important à mettre avant AppRoutingModule : Pour le chargement
+    MovesModule,
     AppRoutingModule,
   ],
   providers: [],

@@ -1,4 +1,4 @@
-import { IStat } from "../interfaces/pokemon-api-reponse-detail";
+import { IStat } from "../interfaces/pokemon";
 import { StatPokemon } from "../models/stat-pokemon";
 
 export class StatMapper {

@@ -10,6 +10,7 @@ import { PokemonSummaryListSidebarComponent } from './pokemon-summary-list-sideb
 import { PokemonBaseList } from './pokemon-base-list/pokemon-base-list.component';
 import { PokemonSummaryCardComponent } from './pokemon-summary-card/pokemon-summary-card.component';
 import { PokemonSummaryTileComponent } from './pokemon-summary-tile/pokemon-summary-tile.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,10 +26,10 @@ import { PokemonSummaryTileComponent } from './pokemon-summary-tile/pokemon-summ
     CommonModule,
     FormsModule,
     PokemonRoutingModule,
+    SharedModule,
   ],
   exports: [
     PokemonSummaryListComponent,
-    // Pas nécessaire : PokemonRoutingModule,
   ]
 })
 export class PokemonModule { }

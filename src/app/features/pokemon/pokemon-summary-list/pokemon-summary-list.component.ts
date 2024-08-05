@@ -41,6 +41,6 @@ export class PokemonSummaryListComponent extends PokemonBaseList implements OnIn
   // METHODES //
   // -------- //
   override onSelectPokemon(id : number) : void{
-    this.router.navigate(['/sidebar', id]);
+    this.router.navigate(['/pokemon', id]);
   }
 }
