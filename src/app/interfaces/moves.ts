@@ -1,4 +1,4 @@
-import { IAPIResource, INamedAPIResource } from "./api-ressource";
+import { IAPIResource, IName, INamedAPIResource, IVerboseEffect } from "./utility/common-models/common-models";
 
 // Interface définissant la structure de la réponse de l'API des attaques
 export interface IMoveApiResponse {
@@ -45,12 +45,6 @@ export interface IContestComboDetail {
     use_after: INamedAPIResource[] | null;
 }
 
-export interface IVerboseEffect {
-    effect: string;
-    short_effect: string;
-    language: INamedAPIResource;
-}
-
 export interface IAbilityEffectChange {
     effect_entries: IVerboseEffect[];
     version_group: INamedAPIResource;
@@ -90,11 +84,6 @@ export interface IPastMoveStatValues {
     effect_entries: IVerboseEffect[];
     type: INamedAPIResource | null;
     version_group: INamedAPIResource;
-}
-
-export interface IName {
-    name: string;
-    language: INamedAPIResource;
 }
 
 export interface IMachineVersionDetail {

@@ -1,4 +1,4 @@
-export class SpritesPokemon {
+export class PokemonSprites {
     
     constructor(
         public back_default        : string | null,

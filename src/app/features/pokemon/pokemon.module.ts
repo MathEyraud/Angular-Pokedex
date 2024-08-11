@@ -11,6 +11,7 @@ import { PokemonBaseList } from './pokemon-base-list/pokemon-base-list.component
 import { PokemonSummaryCardComponent } from './pokemon-summary-card/pokemon-summary-card.component';
 import { PokemonSummaryTileComponent } from './pokemon-summary-tile/pokemon-summary-tile.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MovesModule } from '../moves/moves.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     PokemonRoutingModule,
     SharedModule,
+    MovesModule,
   ],
   exports: [
     PokemonSummaryListComponent,

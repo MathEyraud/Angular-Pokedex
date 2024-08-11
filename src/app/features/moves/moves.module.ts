@@ -15,6 +15,8 @@ import { DamageClassComponent } from './damage-class/damage-class.component';
     MovesRoutingModule,
     SharedModule,
   ],
-  exports: []
+  exports: [
+    DamageClassComponent,
+  ]
 })
 export class MovesModule { }

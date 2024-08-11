@@ -1,4 +1,4 @@
-import { IAPIResource, INamedAPIResource } from "../interfaces/api-ressource";
+import { IAPIResource, INamedAPIResource } from "../interfaces/utility/common-models/common-models";
 import { APIResource, NamedAPIResource } from "../models/api-ressource";
 
 export class ApiRessourceMapper {
@@ -9,6 +9,10 @@ export class ApiRessourceMapper {
             apiData.name,
             apiData.url
         );
+    }
+
+    static mapToNamedAPIResources(apiDatas: INamedAPIResource[] ): NamedAPIResource[] {
+        return apiDatas.map(ApiRessourceMapper.mapToNamedAPIResource);
     }
 
     static mapToAPIResource(apiData: IAPIResource ): APIResource {

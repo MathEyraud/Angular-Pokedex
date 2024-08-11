@@ -8,6 +8,7 @@ import { MenuGeneralComponent } from './shared/components/menu-general/menu-gene
 import { PokemonModule } from './features/pokemon/pokemon.module';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { MovesModule } from './features/moves/moves.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MovesModule } from './features/moves/moves.module';
     PokemonModule,    // Important à mettre avant AppRoutingModule : Pour le chargement
     MovesModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { INamedAPIResource } from "./api-ressource";
+import { INamedAPIResource } from "../utility/common-models/common-models";
 
 export interface IPokemonMove {
     move                    : INamedAPIResource;

@@ -2,17 +2,18 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, forkJoin, map, mergeMap, Observable, of, switchMap } from 'rxjs';
 
-import { Pokemon } from 'src/app/models/pokemon';
+import { Pokemon } from 'src/app/models/pokemon/pokemon';
 import { EvolutionChain } from 'src/app/models/evolution-chain';
 
 import { environment } from 'src/environments/environment';
 import { LoggerService } from '../logger/logger.service';
 import { ErrorService } from '../error/error.service';
 
-import { PokemonMapper } from 'src/app/mappers/pokemon.mapper';
-import { IPokemon, IPokemonApiResponse } from 'src/app/interfaces/pokemon'; 
-import { IEvolutionChain } from 'src/app/interfaces/evolution-chain';
-import { IPokemonSpecies } from 'src/app/interfaces/specie';
+import { PokemonMapper } from 'src/app/mappers/pokemon/pokemon.mapper';
+import { IPokemon, IPokemonApiResponse } from 'src/app/interfaces/pokemon/pokemon';
+import { IPokemonSpecies } from 'src/app/interfaces/pokemon-species/pokemon-species';
+import { IEvolutionChain } from 'src/app/interfaces/evolution/evolution-chains';
+import { Moves } from 'src/app/models/moves/moves';
 
 
 
@@ -117,7 +118,7 @@ export class PokemonService {
 
     return this.getEvolutionPokemon(detailJSON.species.url).pipe(
       map(evolutionChain => {
-        const pokemon = PokemonMapper.getData(detailJSON);
+        const pokemon = PokemonMapper.mapData(detailJSON);
         pokemon.evolutionChain = evolutionChain;
         return pokemon;
       })
@@ -171,5 +172,16 @@ export class PokemonService {
       })
     );
   }
+
+  // METHODE POUR RECUPERE LES INFORMATIONS DETAILLERS D'UNE ATTAQUE
+  getMoveDetails(url: string): Observable<Moves> {
+    return this.httpClient.get<Moves>(url).pipe(
+        catchError(error => {
+          this.loggerService.error("[PokemonService - getMoveDetails] Failed to fetch move details from ${url} : ", error);
+          return of(null as any);
+        })
+    );
+  }
+
 
 }

@@ -1,0 +1,15 @@
+table th {
+    text-align: center;
+}
+
+table th:first-child {
+    text-align: left; /* Ou une autre valeur comme 'right', selon vos besoins */
+}
+
+table td {
+    text-align: center;
+}
+
+table td:first-child {
+    text-align: left;
+}

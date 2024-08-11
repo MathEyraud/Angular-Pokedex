@@ -8,8 +8,8 @@
 
     <!-- TYPES DU POKEMON -->
     <div class="row">
-        <div>Pokemon Details for types: {{ pokemon.types1?.name }}</div>
-        <div *ngIf="pokemon.types2?.name">Pokemon Details for type2: {{ pokemon.types2?.name }}</div>
+        <div>Pokemon Details for types: {{ pokemon.typesName1 }}</div>
+        <div *ngIf="pokemon.typesName2">Pokemon Details for type2: {{ pokemon.typesName2 }}</div>
     </div>
 
     <!-- TAILLE DU POKEMON -->
@@ -23,8 +23,8 @@
 
     <!-- NATURE DU POKEMON -->
     <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let abilitie of pokemon.abilities">
-            {{abilitie.name}}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let ability of pokemon.abilities">
+            {{ability.formattedName}} {{ability.is_hidden}}
         </div>
     </div>
 
@@ -39,6 +39,7 @@
     <div class="row">
         <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let sprite of objectValue(pokemon.sprites)">
             <img 
+                alt=""
                 style="background-color: beige" 
                 class="rounded justify-content-center" 
                 *ngIf="sprite;else noPhoto" 
@@ -83,6 +84,7 @@
     <!-- PHOTO DU POKEMON -->
     <div class="row">
         <img 
+            alt=""
             style="background-color: beige" 
             class="rounded col-2" 
             *ngIf="pokemon.urlPhoto;else noPhoto" 
@@ -94,27 +96,299 @@
         </ng-template>
     </div>
 
-    <!-- ATTAQUES DU POKEMON -->
+    <!-- SELECTION DE LA VERSION -->
     <div>
         <h3>Sélectionner la version du jeu :</h3>
         <select [(ngModel)]="selectedVersion" (change)="onVersionChange($event)">
             <option *ngFor="let version of gameVersions" [value]="version">{{version}}</option>
         </select>
     </div>
-  
+    
+    <!-- ATTAQUES DU POKEMON -->
     <div>
-        <h3>Attaques pour {{selectedVersion}} :</h3>
-        <ul>
-        <li *ngFor="let move of getMovesForSelectedVersion()">
-            {{ move.displayMoveName }} 
-            <ng-container *ngFor="let version of move.versions">
-            <span *ngIf="version.version_group.name === selectedVersion">
-                (Niveau: {{version.level_learned_at}}, 
-                Méthode: {{version.move_learn_method.name}})
-            </span>
-            </ng-container>
-        </li>
+
+        <!-- TABS : MENU -->
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+            <li class="nav-item" role="presentation">
+                <button 
+                    class="nav-link active" 
+                    id="pills-lvl-tab" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#pills-lvl" 
+                    type="button" 
+                    role="tab" 
+                    aria-controls="pills-lvl" 
+                    aria-selected="true"
+                    [class.active]="levelUpMovesMethod.length > 0"
+                    [attr.disabled]="levelUpMovesMethod.length === 0 ? true : null"
+                >Lvl-up</button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <button 
+                    class="nav-link" 
+                    id="pills-machine-tab" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#pills-machine" 
+                    type="button" 
+                    role="tab" 
+                    aria-controls="pills-machine" 
+                    aria-selected="false"
+                    [attr.disabled]="machineMovesMethod.length === 0 ? true : null"
+                >TM Machine</button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <button 
+                    class="nav-link" 
+                    id="pills-breeding-tab" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#pills-breeding" 
+                    type="button" 
+                    role="tab" 
+                    aria-controls="pills-breeding" 
+                    aria-selected="false" 
+                    aria-selected="false"
+                    [attr.disabled]="eggMovesMethod.length === 0 ? true : null"
+                >Breeding</button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <button 
+                    class="nav-link" 
+                    id="pills-tutor-tab" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#pills-tutor" 
+                    type="button" 
+                    role="tab" 
+                    aria-controls="pills-tutor" 
+                    aria-selected="false" 
+                    disabled
+                    [attr.disabled]="tutorMovesMethod.length === 0 ? true : null"
+                >Tutor</button>
+            </li>
+
         </ul>
-  </div>
+
+        <!-- TABS : DATA -->
+        <div class="tab-content" id="pills-tabContent">
+
+            <div class="tab-pane fade show active" id="pills-lvl" role="tabpanel" aria-labelledby="pills-lvl-tab" tabindex="0">
+                
+                <!-- TABLEAU PAR MONTEE DE NIVEAU -->
+                <div>
+                    
+                    <h3>Attaques par niveau pour Pokemon version {{selectedVersion}} :</h3>
+
+                    <table class="table table-striped table-hover">
+
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Level</th>
+                            <th>Power</th>
+                            <th>Accuracy</th>
+                            <th>PP</th>
+                            <th>Type</th>
+                            <th>Damage Class</th>
+                        </tr>
+                        </thead>
+                    
+                        <tbody>
+                        <tr *ngFor="let move of levelUpMovesMethod">
+
+                            <td>
+                                {{ move.displayMoveName }} 
+                            </td>
+
+                            <td>
+                                <span *ngFor="let version of getFilteredVersions(move)">
+
+                                    <span *ngIf="version.level_learned_at!=1">
+                                        {{version.level_learned_at}}
+                                    </span>
+
+                                    <span *ngIf="version.level_learned_at==1">
+                                        Initially
+                                    </span>
+
+                                </span>
+                            </td>
+
+                            <td>{{ moveDetailsMap.get(move)?.power }}</td>
+                            <td>{{ moveDetailsMap.get(move)?.accuracy }}</td>
+                            <td>{{ moveDetailsMap.get(move)?.pp }}</td>
+                            <td>
+                                <!-- {{ moveDetailsMap.get(move)?.type?.name }} -->
+                                <app-pokemon-type [type]="moveDetailsMap.get(move)?.type?.name"></app-pokemon-type>
+                            </td>
+                            <td>
+                                <!-- {{ moveDetailsMap.get(move)?.damage_class?.name }} -->
+                                <app-damage-class [damageClass]="moveDetailsMap.get(move)?.damage_class?.name"></app-damage-class>
+                            </td>
+                            
+                        </tr>
+                        </tbody>
+                        
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- TABLEAU PAR CT/CS : MENU -->
+            <div class="tab-pane fade" id="pills-machine" role="tabpanel" aria-labelledby="pills-machine-tab" tabindex="0">
+
+                <!-- TABLEAU PAR CT/CS : DATA -->
+                <div *ngIf="machineMovesMethod.length!">
+
+                    <h3>Attaques par CT/CS pour Pokemon version {{selectedVersion}} :</h3>
+
+                    <table class="table table-striped table-hover">
+
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <!-- TODO : A FAIRE DANS UNE PROCHAINE VERSION <th>CT</th> -->
+                            <th>Power</th>
+                            <th>Accuracy</th>
+                            <th>PP</th>
+                            <th>Type</th>
+                            <th>Damage Class</th>
+                        </tr>
+                        </thead>
+                    
+                        <tbody>
+                        <tr *ngFor="let move of machineMovesMethod">
+
+                            <td>
+                                {{ move.displayMoveName }} 
+                            </td>
+
+                            <!-- TODO : A FAIRE DANS UNE PROCHAINE VERSION <th>CT</th> -->
+                            <!-- TODO : CHERCHER LA CT/CS DE L'ATTAQUE EN FONCTION DU JEU -->
+                            <!-- <td>
+                                <span *ngFor="let version of move.versions">
+                                    <ng-container *ngIf="version.version_group.name === selectedVersion">
+                                        
+                                    </ng-container>
+                                </span>
+                            </td> -->
+
+                            <td>{{ moveDetailsMap.get(move)?.power }}</td>
+                            <td>{{ moveDetailsMap.get(move)?.accuracy }}</td>
+                            <td>{{ moveDetailsMap.get(move)?.pp }}</td>
+                            <td>
+                                <!-- {{ moveDetailsMap.get(move)?.type?.name }} -->
+                                <app-pokemon-type [type]="moveDetailsMap.get(move)?.type?.name"></app-pokemon-type>
+                            </td>
+                            <td>
+                                <!-- {{ moveDetailsMap.get(move)?.damage_class?.name }} -->
+                                <app-damage-class [damageClass]="moveDetailsMap.get(move)?.damage_class?.name"></app-damage-class>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                        
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- TABLEAU PAR REPRODUCTION : MENU -->
+            <div class="tab-pane fade" id="pills-breeding" role="tabpanel" aria-labelledby="pills-breeding-tab" tabindex="0">
+                
+                <!-- TABLEAU PAR REPRODUCTION : DATA -->
+                <div *ngIf="eggMovesMethod.length!">
+                    <h3>Attaques par reproduction pour Pokemon version {{selectedVersion}} :</h3>
+
+                    <table class="table table-striped table-hover">
+
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Power</th>
+                            <th>Accuracy</th>
+                            <th>PP</th>
+                            <th>Type</th>
+                            <th>Damage Class</th>
+                        </tr>
+                        </thead>
+                    
+                        <tbody>
+                        <tr *ngFor="let move of eggMovesMethod">
+
+                            <td>
+                                {{ move.displayMoveName }} 
+                            </td>
+
+                            <td>{{ moveDetailsMap.get(move)?.power }}</td>
+                            <td>{{ moveDetailsMap.get(move)?.accuracy }}</td>
+                            <td>{{ moveDetailsMap.get(move)?.pp }}</td>
+                            <td>
+                                <!-- {{ moveDetailsMap.get(move)?.type?.name }} -->
+                                <app-pokemon-type [type]="moveDetailsMap.get(move)?.type?.name"></app-pokemon-type>
+                            </td>
+                            <td>
+                                <!-- {{ moveDetailsMap.get(move)?.damage_class?.name }} -->
+                                <app-damage-class [damageClass]="moveDetailsMap.get(move)?.damage_class?.name"></app-damage-class>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+
+            <!-- TABLEAU PAR PNJ : MENU -->
+            <div class="tab-pane fade" id="pills-tutor" role="tabpanel" aria-labelledby="pills-tutor-tab" tabindex="0">
+                
+                <!-- TABLEAU PAR PNJ : DATA -->
+                <div *ngIf="tutorMovesMethod.length!">
+                    <h3>Attaques par PNJ pour Pokemon version {{selectedVersion}} :</h3>
+
+                    <table class="table table-striped table-hover">
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Power</th>
+                                <th>Accuracy</th>
+                                <th>PP</th>
+                                <th>Type</th>
+                                <th>Damage Class</th>
+                            </tr>
+                        </thead>
+                    
+                        <tbody>
+                            <tr *ngFor="let move of tutorMovesMethod">
+
+                                <td>
+                                    {{ move.displayMoveName }} 
+                                </td>
+
+                                <td>{{ moveDetailsMap.get(move)?.power }}</td>
+                                <td>{{ moveDetailsMap.get(move)?.accuracy }}</td>
+                                <td>{{ moveDetailsMap.get(move)?.pp }}</td>
+                                <td>
+                                    <!-- {{ moveDetailsMap.get(move)?.type?.name }} -->
+                                    <app-pokemon-type [type]="moveDetailsMap.get(move)?.type?.name"></app-pokemon-type>
+                                </td>
+                                <td>
+                                    <!-- {{ moveDetailsMap.get(move)?.damage_class?.name }} -->
+                                    <app-damage-class [damageClass]="moveDetailsMap.get(move)?.damage_class?.name"></app-damage-class>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
 
 </div>
