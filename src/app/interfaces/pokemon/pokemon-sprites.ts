@@ -1,5 +1,5 @@
 // src/app/models/sprites.interface.ts
-export interface ISprites {
+export interface IPokemonSprites {
   back_default: string;
   back_female: string | null;
   back_shiny: string;

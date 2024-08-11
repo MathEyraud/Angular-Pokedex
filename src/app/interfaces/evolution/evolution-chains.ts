@@ -1,12 +1,14 @@
+import { INamedAPIResource } from "../utility/common-models/common-models";
+
 export interface IEvolutionChain {
-    baby_trigger_item : null | INamedAPIResource;
-    chain :             IEvolutionChainLink;
+    baby_trigger_item : INamedAPIResource |null;
+    chain :             IChainLink;
     id :                number;
 }
   
-export interface IEvolutionChainLink {
+export interface IChainLink {
     evolution_details : IEvolutionDetail[];
-    evolves_to :        IEvolutionChainLink[];
+    evolves_to :        IChainLink[];
     is_baby :           boolean;
     species :           INamedAPIResource;
 }
@@ -30,9 +32,4 @@ export interface IEvolutionDetail {
     trade_species :             null | INamedAPIResource;
     trigger :                   INamedAPIResource;
     turn_upside_down :          boolean;
-}
-
-export interface INamedAPIResource {
-    name: string;
-    url: string;
 }

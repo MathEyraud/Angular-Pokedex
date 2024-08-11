@@ -1,24 +1,24 @@
-import { AbilityPokemon } from "./ability-pokemon";
-import { PokemonMove } from "./move-pokemon";
-import { SpritesPokemon } from "./sprites-pokemon";
-import { StatPokemon } from "./stat-pokemon";
-import { TypePokemon } from "./type-pokemon";
-import { Evolution, EvolutionChain, EvolutionDetails } from "./evolution-chain";
-import { capitalizeFirstLetter } from "../utils/string-utils";
+import { PokemonMove } from "./pokemon-move";
+import { PokemonSprites } from "./pokemon-sprites";
+import { PokemonStat } from "./pokemon-stat";
+import { PokemonType } from "./pokemon-type";
+import { Evolution, EvolutionChain, EvolutionDetails } from "../evolution-chain";
+import { capitalizeFirstLetter } from "src/app/utils/string-utils";
+import { PokemonAbility } from "./pokemon-ability";
 
 export class Pokemon {
 
     constructor(
         private _id               : number,
         private _name             : string              | null,
-        private _types            : TypePokemon[]       | null,
+        private _types            : PokemonType[]       | null,
         private _urlPhoto         : string              | null,
-        private _sprites          : SpritesPokemon      | null,
+        private _sprites          : PokemonSprites      | null,
         private _height           : number              | null,
         private _weight           : number              | null,
         private _base_experience  : number              | null,
-        private _abilities        : AbilityPokemon[]    | null,
-        private _stats            : StatPokemon[]       | null,
+        private _abilities        : PokemonAbility[]    | null,
+        private _stats            : PokemonStat[]       | null,
         private _moves            : PokemonMove[]       | null,
         private _evolutionChain   : EvolutionChain      | null,
     ) {}
@@ -35,19 +35,22 @@ export class Pokemon {
     set name(value: string | null) { this._name = value; }
 
     // types
-    get types1(): TypePokemon | null { return this._types && this._types.length > 0 ? this._types[0] : null;}
-    get types2(): TypePokemon | null { return this._types && this._types.length > 0 ? this._types[1] : null;}
+    get types1(): PokemonType | null { return this._types && this._types.length > 0 ? this._types[0] : null;}
+    get types2(): PokemonType | null { return this._types && this._types.length > 0 ? this._types[1] : null;}
 
-    get types(): TypePokemon[] | null { return this._types; }
-    set types(value: TypePokemon[] | null) { this._types = value; }
+    get typesName1(): string | null | undefined { return this.types1?.type?.name ?? null;}
+    get typesName2(): string | null | undefined{ return this.types2?.type?.name ?? null;}
+
+    get types(): PokemonType[] | null { return this._types; }
+    set types(value: PokemonType[] | null) { this._types = value; }
 
     // urlPhoto
     get urlPhoto(): string | null {return this._urlPhoto;}
     set urlPhoto(value: string | null) {this._urlPhoto = value;}
 
     // sprites
-    get sprites(): SpritesPokemon | null {return this._sprites;}
-    set sprites(value: SpritesPokemon | null) {this._sprites = value;}
+    get sprites(): PokemonSprites | null {return this._sprites;}
+    set sprites(value: PokemonSprites | null) {this._sprites = value;}
 
     // height
     get height(): number | null {return this._height;}
@@ -62,12 +65,12 @@ export class Pokemon {
     set base_experience(value: number | null) {this._base_experience = value;}
 
     // abilities
-    get abilities(): AbilityPokemon[] | null {return this._abilities;}
-    set abilities(value: AbilityPokemon[] | null) {this._abilities = value;}
+    get abilities(): PokemonAbility[] | null {return this._abilities;}
+    set abilities(value: PokemonAbility[] | null) {this._abilities = value;}
 
     // stats
-    get stats(): StatPokemon[] | null {return this._stats;}
-    set stats(value: StatPokemon[] | null) {this._stats = value;}
+    get stats(): PokemonStat[] | null {return this._stats;}
+    set stats(value: PokemonStat[] | null) {this._stats = value;}
 
     // moves
     get moves(): PokemonMove[] | null {return this._moves;}

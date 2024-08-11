@@ -31,11 +31,11 @@
             <div class="row justify-content-between">
 
                 <div class="col-6">
-                    <app-pokemon-type [type]="pokemon.types1?.name"></app-pokemon-type>
+                    <app-pokemon-type [type]="pokemon.typesName1"></app-pokemon-type>
                 </div>
 
                 <div class="col-6">
-                    <app-pokemon-type *ngIf="pokemon.types2?.name" [type]="pokemon.types2?.name"></app-pokemon-type>
+                    <app-pokemon-type *ngIf="pokemon.types2" [type]="pokemon.typesName2"></app-pokemon-type>
                 </div>
                 
             </div>

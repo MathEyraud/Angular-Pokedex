@@ -1,4 +1,4 @@
-export class StatPokemon {
+export class PokemonStat {
 
     constructor(
         public base_stat: number,
