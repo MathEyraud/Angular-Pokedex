@@ -1,5 +1,5 @@
 import { Component, Injectable, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Pokemon } from 'src/app/models/pokemon/pokemon';
 import { LoggerService } from 'src/app/services/logger/logger.service';
@@ -48,6 +48,8 @@ export class PokemonListComponent implements OnInit, OnDestroy{
     protected pokemonService            : PokemonService,
     protected route                     : ActivatedRoute,           // Pour accéder aux paramètres de l'URL
     protected pokemonPaginationService  : PokemonPaginationService, // Service de gestion de la pagination
+    private router                      : Router,
+
   ) {}
 
 
@@ -82,11 +84,6 @@ export class PokemonListComponent implements OnInit, OnDestroy{
   /**
    * METHODES
   */
-  // Méthode pour charger plus de Pokémon
-  /*loadMorePokemons(): void {
-    this.pokemonListService.loadMorePokemons(20).subscribe();
-  }*/
-  
   // Méthode pour charger plus de Pokémon
   loadMorePokemons(): void {
 
@@ -137,5 +134,6 @@ export class PokemonListComponent implements OnInit, OnDestroy{
 
   onSelectPokemon(id: number): void {
     this.selectedPokemonId = id;
+    this.router.navigate(['/pokemon', id]);
   }
 }

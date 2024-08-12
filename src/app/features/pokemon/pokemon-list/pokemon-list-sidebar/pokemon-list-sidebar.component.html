@@ -20,7 +20,7 @@
     <!-- Utilisation de Bootstrap pour une ligne flexible avec des colonnes sans wrap -->
     <div class="row flex-nowrap">
       
-  
+        <!-- Ecran avec la barre de navigation -->
         <nav id="sidebar" class="
             col-md-3 
             d-md-block collapse
@@ -37,36 +37,38 @@
                     <!-- Boucle sur la liste des pokémons et affiche un résumé pour chacun -->
                     <app-pokemon-summary-tile [pokemon]="pokemon" (selectPokemon)="onSelectPokemon($event)"></app-pokemon-summary-tile>
                 </div>
+                
+                <!-- Gestion de l'affichage du chargement -->
+                <div>
         
-                <div class="text-center mt-3 mb-5" *ngIf="isLoading">
-                    <!-- Affiche un spinner de chargement si isLoading est vrai -->
-                    <app-spinner></app-spinner>
-                </div>
-        
-                <div class="text-center mt-3 mb-5" *ngIf="pokemons.length >= totalPokemons">
-                    <!-- Message indiquant la fin de la liste des pokémons -->
-                    <p>Vous avez atteint la fin de la liste des Pokémon !</p>
+                    <div class="text-center mt-3 mb-5" *ngIf="isLoading">
+                        <!-- Affiche un spinner de chargement si isLoading est vrai -->
+                        <app-spinner></app-spinner>
+                    </div>
+            
+                    <div class="text-center mt-3 mb-5" *ngIf="pokemons.length >= totalPokemons">
+                        <!-- Message indiquant la fin de la liste des pokémons -->
+                        <p>Vous avez atteint la fin de la liste des Pokémon !</p>
+                    </div>
+
                 </div>
                 
             </div>
-      </nav>
+        </nav>
   
-        <!-- Détails du Pokémon -->
-        <main class="
-            col-md-9    offset-md-3
-            detail-scroll"
-        >
+        <!-- Ecran de détails du Pokémon -->
+        <main class="col-md-9 offset-md-3 detail-scroll">
 
-        <!-- AFFICHER LES DETAILS DU POKEMON ICI -->
-        <div *ngIf="selectedPokemonId">
-            <app-pokemon-details [pokemonId]="selectedPokemonId"></app-pokemon-details>
-        </div>
+            <!-- AFFICHER LES DETAILS DU POKEMON ICI -->
+            <div *ngIf="selectedPokemonId">
+                <app-pokemon-details [pokemonId]="selectedPokemonId"></app-pokemon-details>
+            </div>
 
-        <div *ngIf="!selectedPokemonId" class="text-center">
-            <p>Merci de selectionner un pokemon</p>
-        </div>
+            <div *ngIf="!selectedPokemonId" class="text-center">
+                <p>Merci de selectionner un pokemon</p>
+            </div>
 
-      </main>
+        </main>
   
     </div> 
   </div>  
