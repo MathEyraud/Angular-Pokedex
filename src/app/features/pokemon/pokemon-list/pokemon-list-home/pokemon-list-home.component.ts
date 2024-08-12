@@ -31,8 +31,15 @@ export class PokemonListHomeComponent extends PokemonListComponent implements On
   // Écouteur d'événement de défilement
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
+
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const threshold = document.documentElement.scrollHeight;
+
+    if (this.isLoading) return;
+
     // Vérifie si l'utilisateur est proche du bas de la page
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - this.scrollThreshold) {
+    if (scrollPosition >= threshold) {
+      console.log("this.loadMorePokemons : ");
       this.loadMorePokemons();
     }
   }
