@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PokemonSummaryListComponent } from './pokemon-summary-list/pokemon-summary-list.component';
+import { PokemonListHomeComponent } from './pokemon-list/pokemon-list-home/pokemon-list-home.component';
 import { PokemonSummaryComponent } from './pokemon-summary/pokemon-summary.component';
 import { FormsModule } from '@angular/forms';
 import { PokemonRoutingModule } from './pokemon-routing.module';
 import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.component';
-import { PokemonSummaryListSidebarComponent } from './pokemon-summary-list-sidebar/pokemon-summary-list-sidebar.component';
-import { PokemonBaseList } from './pokemon-base-list/pokemon-base-list.component';
-import { PokemonSummaryCardComponent } from './pokemon-summary-card/pokemon-summary-card.component';
-import { PokemonSummaryTileComponent } from './pokemon-summary-tile/pokemon-summary-tile.component';
+import { PokemonListSidebarComponent } from './pokemon-list/pokemon-list-sidebar/pokemon-list-sidebar.component';
+import { PokemonSummaryCardComponent } from './pokemon-summary/pokemon-summary-card/pokemon-summary-card.component';
+import { PokemonSummaryTileComponent } from './pokemon-summary/pokemon-summary-tile/pokemon-summary-tile.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MovesModule } from '../moves/moves.module';
+import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 
 @NgModule({
   declarations: [
-    PokemonSummaryListComponent,
+    PokemonListHomeComponent,
     PokemonSummaryComponent,
     PokemonDetailsComponent,
-    PokemonSummaryListSidebarComponent,
-    PokemonBaseList,
+    PokemonListSidebarComponent,
+    PokemonListComponent,
     PokemonSummaryCardComponent,
     PokemonSummaryTileComponent,
   ],
@@ -31,7 +31,7 @@ import { MovesModule } from '../moves/moves.module';
     MovesModule,
   ],
   exports: [
-    PokemonSummaryListComponent,
+    PokemonListHomeComponent,
   ]
 })
 export class PokemonModule { }

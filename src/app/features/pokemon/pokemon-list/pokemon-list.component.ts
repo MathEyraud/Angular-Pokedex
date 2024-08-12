@@ -7,11 +7,11 @@ import { PokemonPaginationService } from 'src/app/services/pokemon/pokemon-pagin
 import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
 
 @Component({
-  selector: 'app-pokemon-base-list',
-  templateUrl: './pokemon-base-list.component.html',
-  styleUrls: ['./pokemon-base-list.component.css']
+  selector: 'app-pokemon-list',
+  templateUrl: './pokemon-list.component.html',
+  styleUrls: ['./pokemon-list.component.css']
 })
-export class PokemonBaseList implements OnInit, OnDestroy{
+export class PokemonListComponent implements OnInit, OnDestroy{
 
   /**
     * ATTRIBUT

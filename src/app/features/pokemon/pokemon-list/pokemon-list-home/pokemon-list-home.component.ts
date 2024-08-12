@@ -3,14 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { PokemonPaginationService } from 'src/app/services/pokemon/pokemon-pagination.service';
 import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
-import { PokemonBaseList } from '../pokemon-base-list/pokemon-base-list.component';
+import { PokemonListComponent } from '../pokemon-list.component';
 
 @Component({
-  selector: 'app-pokemon-summary-list',
-  templateUrl: './pokemon-summary-list.component.html',
-  styleUrls: ['./pokemon-summary-list.component.css']
+  selector: 'app-pokemon-list-home',
+  templateUrl: './pokemon-list-home.component.html',
+  styleUrls: ['./pokemon-list-home.component.css']
 })
-export class PokemonSummaryListComponent extends PokemonBaseList implements OnInit {
+export class PokemonListHomeComponent extends PokemonListComponent implements OnInit {
 
   // ------------ //
   // CONSTRUCTEUR //

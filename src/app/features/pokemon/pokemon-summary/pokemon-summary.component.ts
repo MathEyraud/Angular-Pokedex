@@ -32,10 +32,6 @@ export class PokemonSummaryComponent {
    * 
    * @param id 
    */
-  navigateToDetails(id : string) : void{
-    this.router.navigate(['/details', parseInt(id)]);
-  }
-
   onSelectPokemon(id: number): void {
     this.selectPokemon.emit(id);
   }
