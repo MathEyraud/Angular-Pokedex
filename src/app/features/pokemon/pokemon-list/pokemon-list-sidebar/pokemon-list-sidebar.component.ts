@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { PokemonBaseList } from '../pokemon-base-list/pokemon-base-list.component';
+import { PokemonListComponent } from '../pokemon-list.component';
 
 @Component({
-  selector: 'app-pokemon-summary-list-sidebar',
-  templateUrl: './pokemon-summary-list-sidebar.component.html',
-  styleUrls: ['./pokemon-summary-list-sidebar.component.css']
+  selector: 'app-pokemon-list-sidebar',
+  templateUrl: './pokemon-list-sidebar.component.html',
+  styleUrls: ['./pokemon-list-sidebar.component.css']
 })
-export class PokemonSummaryListSidebarComponent extends PokemonBaseList implements OnInit, AfterViewInit, OnDestroy{
+export class PokemonListSidebarComponent extends PokemonListComponent implements OnInit, AfterViewInit, OnDestroy{
   
   // -------- //
   // ATTRIBUT //
