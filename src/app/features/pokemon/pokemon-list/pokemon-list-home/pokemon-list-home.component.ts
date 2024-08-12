@@ -20,9 +20,9 @@ export class PokemonListHomeComponent extends PokemonListComponent implements On
     pokemonService            : PokemonService,
     route                     : ActivatedRoute,           // Pour accéder aux paramètres de l'URL
     pokemonPaginationService  : PokemonPaginationService, // Service de gestion de la pagination
-    private router            : Router
+    router                    : Router,
   ) {
-    super(loggerService, pokemonService,route, pokemonPaginationService);
+    super(loggerService, pokemonService,route, pokemonPaginationService,router);
   }
 
   // -------- //
@@ -39,15 +39,7 @@ export class PokemonListHomeComponent extends PokemonListComponent implements On
 
     // Vérifie si l'utilisateur est proche du bas de la page
     if (scrollPosition >= threshold) {
-      console.log("this.loadMorePokemons : ");
       this.loadMorePokemons();
     }
-  }
-
-  // -------- //
-  // METHODES //
-  // -------- //
-  override onSelectPokemon(id : number) : void{
-    this.router.navigate(['/pokemon', id]);
   }
 }
