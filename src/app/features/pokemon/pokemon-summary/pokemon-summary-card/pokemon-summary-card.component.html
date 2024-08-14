@@ -13,8 +13,8 @@
         <img 
             style="background-color: beige" 
             class="rounded" 
-            *ngIf="pokemon.urlPhoto;else noPhoto" 
-            [src]="pokemon.urlPhoto"
+            *ngIf="pokemon.sprites?.otherSprites?.officialArtwork?.frontDefault;else noPhoto" 
+            [src]="pokemon.sprites?.otherSprites?.officialArtwork?.frontDefault"
         >
 
         <ng-template #noPhoto>

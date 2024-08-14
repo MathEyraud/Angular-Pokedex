@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Pokemon } from 'src/app/models/pokemon/pokemon';
+import { Pokemon } from 'src/app/models/pokemon/pokemon/pokemon';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 
 @Component({

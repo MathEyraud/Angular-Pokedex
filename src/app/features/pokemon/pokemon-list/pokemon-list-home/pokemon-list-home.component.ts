@@ -1,8 +1,8 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import { PokemonPaginationService } from 'src/app/services/pokemon/pokemon-pagination.service';
-import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
+import { PokemonPaginationService } from 'src/app/services/pokemon/pokemon/pokemon-pagination.service';
+import { PokemonService } from 'src/app/services/pokemon/pokemon/pokemon.service';
 import { PokemonListComponent } from '../pokemon-list.component';
 
 @Component({
