@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Moves } from 'src/app/models/moves/moves';
+import { Moves } from 'src/app/models/moves/moves/moves';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { MovePaginationService } from 'src/app/services/move/move-pagination.service';
 import { MoveService } from 'src/app/services/move/move.service';

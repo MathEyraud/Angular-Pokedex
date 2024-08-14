@@ -1,4 +1,4 @@
-import { INamedAPIResource } from "../utility/common-models/common-models";
+import { INamedAPIResource, IVersionGameIndex } from "../utility/common-models/common-models";
 import { IPokemonMove } from "./pokemon-move";
 import { IPokemonSprites } from "./pokemon-sprites";
 
@@ -7,42 +7,42 @@ export interface IPokemonApiResponse {
   count   : number;                               // Nombre total de Pokémon
   next    : string | null;                        // URL pour la page suivante de résultats
   previous: string | null;                        // URL pour la page précédente de résultats
-  results : Array<{ name: string; url: string }>; // Liste des Pokémon avec leur nom et URL
+  results : Array<{ name: string; url: string }>; // Liste des Pokémon avec leur nom et URL des détails
 }
 
 export interface IPokemon {
-  abilities :                 IPokemonAbility[];
-  base_experience :           number;
-  cries :                     PokemonCries[];
-  forms :                     INamedAPIResource[];
-  game_indices :              VersionGameIndex[];
-  height :                    number;
-  held_items :                PokemonHeldItem[];
   id :                        number;
+  name :                      string;
+  base_experience :           number;
+  height :                    number;
   is_default :                boolean;
+  order :                     number;
+  weight :                    number;
+  abilities :                 IPokemonAbility[];
+  forms :                     INamedAPIResource[];
+  game_indices :              IVersionGameIndex[];
+  held_items :                IPokemonHeldItem[];
   location_area_encounters :  string;
   moves :                     IPokemonMove[];
-  name :                      string;
-  order :                     number;
   past_types :                IPokemonTypePast[];
-  species :                   INamedAPIResource;
   sprites :                   IPokemonSprites;
+  cries :                     IPokemonCries;
+  species :                   INamedAPIResource;
   stats :                     IPokemonStat[];
   types :                     IPokemonType[];
-  weight :                    number;
 }
 
-export interface PokemonHeldItem {
+export interface IPokemonHeldItem {
   item: INamedAPIResource;
-  version_details: PokemonHeldItemVersion;
+  version_details: IPokemonHeldItemVersion[];
 }
 
-export interface PokemonHeldItemVersion {
+export interface IPokemonHeldItemVersion {
   version: INamedAPIResource;
   rarity: number;
 }
 
-export interface PokemonCries {
+export interface IPokemonCries {
   latest: string;
   legacy: string;
 }
@@ -52,11 +52,6 @@ export interface IPokemonType {
   type: INamedAPIResource;
 }
 
-export interface VersionGameIndex {
-  game_index: number;
-  version: INamedAPIResource;
-}
-
 export interface IPokemonAbility {
   is_hidden: boolean;
   slot: number;
@@ -64,9 +59,9 @@ export interface IPokemonAbility {
 }
 
 export interface IPokemonStat {
-  base_stat: number;
-  effort: number;
   stat: INamedAPIResource
+  effort: number;
+  base_stat: number;
 }
 
 export interface IPokemonTypePast {

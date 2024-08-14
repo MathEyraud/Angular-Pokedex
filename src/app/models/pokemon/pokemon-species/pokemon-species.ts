@@ -1,0 +1,146 @@
+import { APIResource, Description, FlavorText, Name, NamedAPIResource } from "../../utility/common-models/common-models";
+import { Genus } from "./genus";
+import { PalParkEncounterArea } from "./pal-park-encounter-area";
+import { PokemonSpeciesDexEntry } from "./pokemon-species-dex-entry";
+import { PokemonSpeciesVariety } from "./pokemon-species-variety";
+
+export class PokemonSpecies {
+
+    constructor(
+        private _base_happiness: number,
+        private _capture_rate: number,
+        private _color: NamedAPIResource,
+        private _egg_groups: NamedAPIResource[],
+        private _evolution_chain: APIResource,
+        private _evolves_from_species: NamedAPIResource,
+        private _flavor_text_entries: FlavorText[],
+        private _form_descriptions: Description[],
+        private _forms_switchable: boolean,
+        private _gender_rate: number,
+        private _genera: Genus[],
+        private _generation: NamedAPIResource,
+        private _growth_rate: NamedAPIResource,
+        private _habitat: NamedAPIResource,
+        private _has_gender_differences: boolean,
+        private _hatch_counter: number,
+        private _id: number,
+        private _is_baby: boolean,
+        private _is_legendary: boolean,
+        private _is_mythical: boolean,
+        private _name: string,
+        private _names: Name[],
+        private _order: number,
+        private _pal_park_encounters: PalParkEncounterArea[],
+        private _pokedex_numbers: PokemonSpeciesDexEntry[],
+        private _shape: NamedAPIResource,
+        private _varieties: PokemonSpeciesVariety[]
+    ) {}
+
+    // Getter and setter for baseHappiness
+    get baseHappiness() : number { return this._base_happiness; }
+    set baseHappiness(value: number) { this._base_happiness = value; }
+
+    // Getter and setter for captureRate
+    get captureRate() : number { return this._capture_rate; }
+    set captureRate(value: number) { this._capture_rate = value; }
+
+    // Getter and setter for color
+    get colorRessource() : NamedAPIResource { return this._color; }
+    set colorRessource(value: NamedAPIResource) { this._color = value; }
+
+    // Getter and setter for eggGroups
+    get eggGroupsRessource() : NamedAPIResource[] { return this._egg_groups; }
+    set eggGroupsRessource(value: NamedAPIResource[]) { this._egg_groups = value; }
+
+    // Getter and setter for evolutionChain
+    get evolutionChainRessource() : APIResource { return this._evolution_chain; }
+    set evolutionChainRessource(value: APIResource) { this._evolution_chain = value; }
+
+    // Getter and setter for evolvesFromSpecies
+    get evolvesFromSpeciesRessource() : NamedAPIResource { return this._evolves_from_species; }
+    set evolvesFromSpeciesRessource(value: NamedAPIResource) { this._evolves_from_species = value; }
+
+    // Getter and setter for flavorTextEntries
+    get flavorTextEntries() : FlavorText[] { return this._flavor_text_entries; }
+    set flavorTextEntries(value: FlavorText[]) { this._flavor_text_entries = value; }
+
+    // Getter and setter for formDescriptions
+    get formDescriptions() : Description[] { return this._form_descriptions; }
+    set formDescriptions(value: Description[]) { this._form_descriptions = value; }
+
+    // Getter and setter for formsSwitchable
+    get formsSwitchable() : boolean { return this._forms_switchable; }
+    set formsSwitchable(value: boolean) { this._forms_switchable = value; }
+
+    // Getter and setter for genderRate
+    get genderRate() : number  { return this._gender_rate; }
+    set genderRate(value: number) { this._gender_rate = value; }
+
+    // Getter and setter for genera
+    get genera() : Genus[] { return this._genera; }
+    set genera(value: Genus[]) { this._genera = value; }
+
+    // Getter and setter for generation
+    get generationRessource() : NamedAPIResource { return this._generation; }
+    set generationRessource(value: NamedAPIResource) { this._generation = value; }
+
+    // Getter and setter for growthRate
+    get growthRateRessource() : NamedAPIResource { return this._growth_rate; }
+    set growthRateRessource(value: NamedAPIResource) { this._growth_rate = value; }
+
+    // Getter and setter for habitat
+    get habitatRessource() : NamedAPIResource { return this._habitat; }
+    set habitatRessource(value: NamedAPIResource) { this._habitat = value; }
+
+    // Getter and setter for hasGenderDifferences
+    get hasGenderDifferences() : boolean { return this._has_gender_differences; }
+    set hasGenderDifferences(value: boolean) { this._has_gender_differences = value; }
+
+    // Getter and setter for hatchCounter
+    get hatchCounter() : number  { return this._hatch_counter; }
+    set hatchCounter(value: number) { this._hatch_counter = value; }
+
+    // Getter and setter for id
+    get id() : number  { return this._id; }
+    set id(value: number) { this._id = value; }
+
+    // Getter and setter for isBaby
+    get isBaby() : boolean { return this._is_baby; }
+    set isBaby(value: boolean) { this._is_baby = value; }
+
+    // Getter and setter for isLegendary
+    get isLegendary() : boolean { return this._is_legendary; }
+    set isLegendary(value: boolean) { this._is_legendary = value; }
+
+    // Getter and setter for isMythical
+    get isMythical() : boolean { return this._is_mythical; }
+    set isMythical(value: boolean) { this._is_mythical = value; }
+
+    // Getter and setter for name
+    get name() : string { return this._name; }
+    set name(value: string) { this._name = value; }
+
+    // Getter and setter for names
+    get names() : Name[] { return this._names; }
+    set names(value: Name[]) { this._names = value; }
+
+    // Getter and setter for order
+    get order() : number  { return this._order; }
+    set order(value: number) { this._order = value; }
+
+    // Getter and setter for palParkEncounters
+    get palParkEncounters() : PalParkEncounterArea[] { return this._pal_park_encounters; }
+    set palParkEncounters(value: PalParkEncounterArea[]) { this._pal_park_encounters = value; }
+
+    // Getter and setter for pokedexNumbers
+    get pokedexNumbers() : PokemonSpeciesDexEntry[] { return this._pokedex_numbers; }
+    set pokedexNumbers(value: PokemonSpeciesDexEntry[]) { this._pokedex_numbers = value; }
+
+    // Getter and setter for shape
+    get shapeRessource() : NamedAPIResource { return this._shape; }
+    set shapeRessource(value: NamedAPIResource) { this._shape = value; }
+
+    // Getter and setter for varieties
+    get varieties() : PokemonSpeciesVariety[] { return this._varieties; }
+    set varieties(value: PokemonSpeciesVariety[]) { this._varieties = value; }
+}

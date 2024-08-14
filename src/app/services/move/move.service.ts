@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { LoggerService } from '../logger/logger.service';
 import { ErrorService } from '../error/error.service';
 import { environment } from 'src/environments/environment';
-import { IMoveApiResponse, IMoves } from 'src/app/interfaces/moves';
+import { IMoveApiResponse, IMoves } from 'src/app/interfaces/moves/moves';
 import { catchError, forkJoin, map, mergeMap, Observable, of, switchMap } from 'rxjs';
-import { Moves } from 'src/app/models/moves/moves';
-import { MoveMapper } from 'src/app/mappers/move.mapper';
+import { Moves } from 'src/app/models/moves/moves/moves';
+import { MoveMapper } from 'src/app/mappers/moves/moves.mapper';
 
 @Injectable({
   providedIn: 'root'

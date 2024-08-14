@@ -1,10 +1,10 @@
 import { Component, Injectable, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Pokemon } from 'src/app/models/pokemon/pokemon';
+import { Pokemon } from 'src/app/models/pokemon/pokemon/pokemon';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import { PokemonPaginationService } from 'src/app/services/pokemon/pokemon-pagination.service';
-import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
+import { PokemonPaginationService } from 'src/app/services/pokemon/pokemon/pokemon-pagination.service';
+import { PokemonService } from 'src/app/services/pokemon/pokemon/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-list',

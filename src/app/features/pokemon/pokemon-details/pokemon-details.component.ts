@@ -1,12 +1,14 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, finalize, map, Observable, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
-import { PokemonMove, PokemonMoveVersion } from 'src/app/models/pokemon/pokemon-move';
-import { Pokemon } from 'src/app/models/pokemon/pokemon';
+import { catchError, map, Observable, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
+import { PokemonMove, PokemonMoveVersion } from 'src/app/models/pokemon/pokemon/pokemon-move';
+import { Pokemon } from 'src/app/models/pokemon/pokemon/pokemon';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
+import { PokemonService } from 'src/app/services/pokemon/pokemon/pokemon.service';
 import { environment } from 'src/environments/environment';
-import { Moves } from 'src/app/models/moves/moves';
+import { Moves } from 'src/app/models/moves/moves/moves';
+import { EvolutionChain } from 'src/app/models/evolution/evolution-chain';
+import { EvolutionChainsService } from 'src/app/services/evolution/evolution-chains.service';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -23,6 +25,7 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   moveDetailsMap    = new Map<PokemonMove, Moves>();
 
   pokemon             !: Pokemon;             // Objet Pokémon contenant les détails
+  evolutionChain      !: EvolutionChain;      // Chaine d'évolution du pokemon
   gameVersions        : string[] = [];        // Liste des versions de jeu disponibles
   selectedVersion     : string = '';          // Version de jeu actuellement sélectionnée
   isFirstGenerate     : number = 0;           // Gérer la 1er génération pour le passage de la page d'acceuil à la version sidebar
@@ -42,10 +45,11 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
    * @param route 
    */
   constructor(
-    private route           : ActivatedRoute, // Pour accéder aux paramètres de l'URL
-    private router          : Router,         // Pour la navigation
-    private pokemonService  : PokemonService, // Service pour récupérer les données Pokémon
-    private loggerService   : LoggerService,  // Service de logging
+    private route           : ActivatedRoute,         // Pour accéder aux paramètres de l'URL
+    private router          : Router,                 // Pour la navigation
+    private pokemonService  : PokemonService,         // Service pour récupérer les données Pokémon
+    private evolutionService: EvolutionChainsService, // Service pour récupérer les données Pokémon
+    private loggerService   : LoggerService,          // Service de logging
   ) { }
 
 
@@ -57,61 +61,14 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
    */
   ngOnInit(): void {
 
-    // Initialisation du composant
-    this.getPokemonId().pipe(
-
-      // Assigne l'ID à la propriété pokemonId
-      tap(id => this.pokemonId = id), 
-
-      // Utilise l'ID obtenu pour récupérer les détails du Pokémon
-      switchMap(() => this.getPokemonDetail()), 
-
-      // Initialise les versions de jeu une fois les détails récupérés
-      tap(() => this.initializeGameVersions()), 
-
-      // Initialise les attaques une fois les versions chargé
-      tap(() => this.getMovesForSelectedVersion()), 
-
-      catchError(error => {
-        console.error('Error in initialization sequence:', error);
-        return of(null);
-      }),
-
-      // désabonnements automatiquement
-      takeUntil(this.destroy$),
-
-    ).subscribe();
+    this.initializeComponent();
     
   }
 
   ngOnChanges(changes: SimpleChanges): void {
 
     if (changes['pokemonId'] && changes['pokemonId'].currentValue) {
-      
-      // Initialisation du composant
-      this.getPokemonId().pipe(
-
-        // Assigne l'ID à la propriété pokemonId
-        tap(id => this.pokemonId = id), 
-
-        // Utilise l'ID obtenu pour récupérer les détails du Pokémon
-        switchMap(() => this.getPokemonDetail()), 
-
-        // Initialise les versions de jeu une fois les détails récupérés
-        tap(() => this.initializeGameVersions()), 
-
-        // Initialise les attaques une fois les versions chargé
-        tap(() => this.getMovesForSelectedVersion()), 
-
-        catchError(error => {
-          console.error('Error in initialization sequence:', error);
-          return of(null);
-        }),
-
-        // désabonnements automatiquement
-        takeUntil(this.destroy$),
-
-      ).subscribe();
+      this.initializeComponent();
     }
   }
 
@@ -129,6 +86,41 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * METHODES
   */
+  private initializeComponent(): void {
+
+    // Initialisation du composant
+    this.getPokemonId().pipe(
+
+      // Assigne l'ID à la propriété pokemonId
+      tap(id => this.pokemonId = id), 
+
+      // Utilise l'ID obtenu pour récupérer les détails du Pokémon
+      switchMap(() => this.getPokemonDetail()), 
+
+      // Initialise les versions de jeu une fois les détails récupérés
+      tap(() => this.initializeGameVersions()), 
+
+      // Initialise les attaques une fois les versions chargé
+      tap(() => this.getMovesForSelectedVersion()), 
+
+      // Récupération de la chaîne d'évolution après avoir obtenu les détails du Pokémon
+      switchMap(() => this.getEvolutionChains(this.pokemon.species.url)),
+      tap(evolutionChain => { 
+        this.evolutionChain = evolutionChain; 
+      }),
+
+      // Gestion des erreurs
+      catchError(error => {
+        console.error('Error in initialization sequence:', error);
+        return of(null);
+      }),
+
+      // désabonnements automatiquement
+      takeUntil(this.destroy$),
+
+    ).subscribe();
+  }
+
   // Récupère l'ID du Pokémon à partir de l'URL
   getPokemonId(): Observable<number> {
 
@@ -197,8 +189,13 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   // Gère le changement de version sélectionnée
   onVersionChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    this.selectedVersion = selectElement.value;
-    this.getMovesForSelectedVersion();
+    const newVersion = selectElement.value;
+
+    // Vérifiez si la version sélectionnée est différente de l'actuelle
+    if (newVersion !== this.selectedVersion) {
+      this.selectedVersion = newVersion;
+      this.getMovesForSelectedVersion();
+    }
   }
 
   // Filtre les moves pour la version de jeu sélectionnée
@@ -234,6 +231,14 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
     this.machineMovesMethod = Array.from(moveMapMachine.values());
     this.eggMovesMethod     = Array.from(moveMapEgg.values());
     this.tutorMovesMethod   = Array.from(moveMapTutor.values());
+  }
+
+  // Récupérer la chaine d'évolution du pokemon
+  getEvolutionChains(urlSpecies: string): Observable<EvolutionChain> {
+
+    // 
+    return this.evolutionService.getEvolutionChains(urlSpecies)
+
   }
 
   // Méthode pour traiter les mouvements en fonction de la méthode d'apprentissage

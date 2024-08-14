@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { LoggerService } from '../logger/logger.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { EvolutionChain } from 'src/app/models/evolution-chain';
 
 @Injectable({
   providedIn: 'root'

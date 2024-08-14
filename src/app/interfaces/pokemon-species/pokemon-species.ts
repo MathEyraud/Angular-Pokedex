@@ -1,5 +1,13 @@
 import { IAPIResource, IDescription, IFlavorText, IName, INamedAPIResource } from "../utility/common-models/common-models";
 
+// Interface définissant la structure de la réponse de l'API PokémonSpecies
+export interface IPokemonApiResponse {
+    count   : number;                               // Nombre total de Pokémon
+    next    : string | null;                        // URL pour la page suivante de résultats
+    previous: string | null;                        // URL pour la page précédente de résultats
+    results : Array<{ name: string; url: string }>; // Liste des Pokémon avec leur nom et URL des détails
+}
+
 export interface IPokemonSpecies {
     base_happiness :           number;
     capture_rate :             number;
@@ -28,11 +36,6 @@ export interface IPokemonSpecies {
     pokedex_numbers :          IPokemonSpeciesDexEntry[];
     shape :                    INamedAPIResource;
     varieties :                IPokemonSpeciesVariety[];
-}
-
-export interface ILanguageName {
-    name: string;
-    url: string;
 }
 
 export interface IGenus {
