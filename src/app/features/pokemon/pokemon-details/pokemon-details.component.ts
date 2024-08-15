@@ -189,13 +189,7 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   // Gère le changement de version sélectionnée
   onVersionChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    const newVersion = selectElement.value;
-
-    // Vérifiez si la version sélectionnée est différente de l'actuelle
-    if (newVersion !== this.selectedVersion) {
-      this.selectedVersion = newVersion;
-      this.getMovesForSelectedVersion();
-    }
+    this.getMovesForSelectedVersion();
   }
 
   // Filtre les moves pour la version de jeu sélectionnée
