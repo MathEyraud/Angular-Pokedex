@@ -1,7 +1,14 @@
-<article class="d-flex align-items-center gap-2 p-2 rounded border" (click)="onSelectPokemon(pokemon.id)">
+<article 
+    [ngClass]="{
+        'not-selected-pokemon': !isSelected, 
+        'selected-pokemon': isSelected
+    }" 
+    (click)="onSelectPokemon(pokemon.id)" 
+>
 
     <!-- Photo -->
     <div class="align-items-center">
+
         <img 
             style="background-color: lightgray; width: 50px; height: 50px;" 
             class="rounded" 
@@ -13,6 +20,7 @@
                 <b>Pas d'image</b>
             </div>
         </ng-template>
+
     </div>
 
     <!-- Informations -->
