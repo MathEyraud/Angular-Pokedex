@@ -23,14 +23,14 @@ export class PokemonListComponent implements OnInit, OnDestroy{
   currentOffset             : number = 0;           // Offset actuel pour le chargement des Pokémon (utilisé pour la pagination côté serveur)
   itemsPerLoad              : number = 25;          // Nombre de Pokémon à charger à chaque requête
   isLoading                 : boolean = false;      // Indicateur de chargement en cours
-  selectedPokemonId         : number = 0;
+  selectedPokemonId         : number = 0;           // ID du Pokémon actuellement sélectionné
   protected scrollThreshold : number = 100;         // Seuil de déclenchement du chargement (en pixels avant le bas de la page)
 
 
   // Setter pour searchValue (inchangé)
   @Input()
   set searchValue(searchValue : string){
-    this.loggerService.log('[PokemonSummaryListSidebarComponent - Input searchValue]',searchValue)
+    this.loggerService.log('[PokemonListComponent - Input searchValue]',searchValue)
     // TODO : A GERER
   }
 
@@ -48,8 +48,7 @@ export class PokemonListComponent implements OnInit, OnDestroy{
     protected pokemonService            : PokemonService,
     protected route                     : ActivatedRoute,           // Pour accéder aux paramètres de l'URL
     protected pokemonPaginationService  : PokemonPaginationService, // Service de gestion de la pagination
-    private router                      : Router,
-
+    protected router                    : Router,
   ) {}
 
 

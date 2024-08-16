@@ -1,4 +1,4 @@
-<div *ngIf="pokemon" class="container">
+<div *ngIf="!isLoading" class="container">
 
     <!-- NUMERO DU POKEMON -->
     <div class="row">Pokemon Details for ID: {{ pokemon.formattedId }}</div>
@@ -26,7 +26,6 @@
         <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let ability of pokemon.abilities">
             <span>{{ability.formattedName}}</span>
             <span *ngIf="ability.is_hidden"> (Capacité caché)</span>
-             
         </div>
     </div>
 
@@ -84,7 +83,7 @@
     <!-- SELECTION DE LA VERSION -->
     <div>
         <h3>Sélectionner la version du jeu :</h3>
-        <select [(ngModel)]="selectedVersion" (change)="onVersionChange($event)">
+        <select [(ngModel)]="selectedVersion" (change)="getMovesForSelectedVersion()">
             <option *ngFor="let version of gameVersions" [value]="version">{{version}}</option>
         </select>
     </div>
@@ -391,4 +390,9 @@
 
     </div>
 
+</div>
+
+<!-- Affiche un spinner de chargement si isLoading est vrai -->
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center vh-100">
+    <app-spinner></app-spinner>
 </div>

@@ -33,9 +33,13 @@
                 sidebar-scroll : Classe personnalisée pour le défilement vertical -->
                 
                 <!-- Sidebar de navigation -->
-                <div class="mb-2 animation-pokemon" *ngFor="let pokemon of pokemons">
+                <div class="mb-2 animation-pokemon" *ngFor="let pokemon of pokemons" [id]="'pokemon-' + pokemon.id">
                     <!-- Boucle sur la liste des pokémons et affiche un résumé pour chacun -->
-                    <app-pokemon-summary-tile [pokemon]="pokemon" (selectPokemon)="onSelectPokemon($event)"></app-pokemon-summary-tile>
+                    <app-pokemon-summary-tile 
+                        [pokemon]="pokemon" 
+                        (selectPokemon)="onSelectPokemon($event)"
+                        [isSelected]="pokemon.id === selectedPokemonId"
+                    ></app-pokemon-summary-tile>
                 </div>
                 
                 <!-- Gestion de l'affichage du chargement -->

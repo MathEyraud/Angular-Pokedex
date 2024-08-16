@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { PokemonSummaryComponent } from '../pokemon-summary.component';
 
 @Component({
@@ -10,5 +10,8 @@ import { PokemonSummaryComponent } from '../pokemon-summary.component';
   ]
 })
 export class PokemonSummaryTileComponent extends PokemonSummaryComponent {
+
+  // Entrée pour indiquer si le Pokémon est sélectionné
+  @Input() isSelected: boolean = false; 
 
 }
