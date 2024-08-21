@@ -8,7 +8,10 @@ const routes: Routes = [
   { path: '', pathMatch:'full', redirectTo: '/pokemon',},
   
   // Route pour la page non trouvée
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent },
+
+  // Route pour la page non trouvée
+  { path: 'NotFound', component: PageNotFoundComponent }
 ];
 
 @NgModule({

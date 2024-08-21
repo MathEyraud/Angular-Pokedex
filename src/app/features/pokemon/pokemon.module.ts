@@ -12,7 +12,8 @@ import { PokemonSummaryTileComponent } from './pokemon-summary/pokemon-summary-t
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MovesModule } from '../moves/moves.module';
 import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
-import { PokemonEvolutionCardComponent } from './pokemon-evolution-card/pokemon-evolution-card.component';
+import { PokemonSummaryCardEvolutionComponent } from './pokemon-summary/pokemon-summary-card-evolution/pokemon-summary-card-evolution.component';
+import { PokemonListEvolutionComponent } from './pokemon-list/pokemon-list-evolution/pokemon-list-evolution.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PokemonEvolutionCardComponent } from './pokemon-evolution-card/pokemon-
     PokemonListComponent,
     PokemonSummaryCardComponent,
     PokemonSummaryTileComponent,
-    PokemonEvolutionCardComponent,
+    PokemonSummaryCardEvolutionComponent,
+    PokemonListEvolutionComponent,
   ],
   imports: [
     CommonModule,

@@ -19,16 +19,10 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
   // ViewChild permet d'obtenir une référence à l'élément HTML qui contient la liste des Pokémon
   @ViewChild('sidebarScroll') sidebarScroll !: ElementRef;
 
-  // Utilisation d'un BehaviorSubject pour suivre l'état de chargement initial
-  private loadingState$ = new BehaviorSubject<boolean>(false);
-
-  // Utilisation d'un BehaviorSubject pour suivre l'état de chargement initial
-  private loadDataInListBar$ = new BehaviorSubject<boolean>(false);
-
-  // Variable pour éviter un scroll a chaque chargement de nouveau pokemon
-  private firstRender = false;
-
   private destroy$ = new Subject<void>();
+
+  isLoadingPokemonDetail : boolean = false;      // Indicateur de chargement en cours
+
 
 
 
@@ -38,63 +32,33 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
   // HOOKS //
   // ----- //
   // Méthode d'initialisation du composant
-  override ngOnInit(): void {
+  override async ngOnInit() {
 
-    super.ngOnInit();
+    // 1. Récupération des Pokémon déjà chargés.
+    // 2. S'ils ne sont pas chargés, il y a un premier chargement (Cas où l'utilisateur vient directement via l'URL.)
+    await super.ngOnInit().then(()=>{
 
-    this.initRouteParamsSubscription();       // Récupération via la page d'acceuil classique
-    this.initPokemonLoadingSubscription();    // S'abonner à la mise à jour du tableau des Pokémon pour savoir quand le premier chargement est terminé
-    this.initLoadingStateSubscription();      // Abonnement : Réagit au chargement initial complet
-    this.initLoadDataInListBarSubscription(); // Abonnement : Réagit au chargement complet de la barre latérale
-  }
+      // Récupération de l'ID du pokemon à afficher avec vérif
+      this.initRouteParamsSubscription().then(()=>{ 
 
-  private initRouteParamsSubscription(): void {
+        // On vérifie que il y a des pokémons dans la sideBar de gauche
+        // Si c'est le cas, on va vérifier que le Pokémon que l'on recherche est dedans
+        if (this.pokemons.length > 0) {
+          this.checkAndLoadSelectedPokemon();
 
-    // Si un ID est présent dans les paramètres d'URL, on le récupère
-    this.route.params.pipe(
-
-      takeUntil(this.destroy$),
-      filter(params => params['id'] != null)
-
-    ).subscribe(params => {
-      this.selectedPokemonId = +params['id'];
+        // Sinon, c'est que l'on vient d'arriver sur la page via l'URL 
+        // et donc il faut charger tous les pokémons Jusqu'à celui que l'on recherche
+        // Puis on scroll
+        } else {
+          this.loadPokemonBatch().then(()=>{
+            this.scrollToSelectedPokemon(); 
+          });
+        }
+      });       
+      
     });
-  }
-
-  private initPokemonLoadingSubscription(): void {
-
-    this.pokemonPaginationService.pokemons$.pipe(
-
-      takeUntil(this.destroy$),
-      filter(pokemons => pokemons.length > 0)
-
-    ).subscribe(() => {
-      this.loadingState$.next(true);
-    });
-  }
-
-  private initLoadingStateSubscription(): void {
-
-    this.loadingState$.pipe(
-
-      takeUntil(this.destroy$),
-      filter(isComplete => isComplete && !this.firstRender)
-
-    ).subscribe(() => {
-      this.checkAndLoadSelectedPokemon();
-    });
-  }
-
-  private initLoadDataInListBarSubscription(): void {
-
-    this.loadDataInListBar$.pipe(
-
-      takeUntil(this.destroy$),
-      filter(isComplete => isComplete)
-
-    ).subscribe(() => {
-      this.checkAndLoadSelectedPokemon();
-    });
+    
+    
   }
 
   // Initialisation après le rendu de la vue
@@ -115,8 +79,6 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
     }
 
     // Nettoyer l'abonnement au BehaviorSubject
-    this.loadingState$.complete();
-    this.loadDataInListBar$.complete();
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -129,13 +91,25 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
   // LISTENER //
   // -------- //
   // Écouteur d'événement de défilement
-  onSidebarScroll(): void {
+  private onSidebarScroll(): void {
 
     const element = this.sidebarScroll.nativeElement;
 
     if (element.scrollHeight - element.scrollTop <= element.clientHeight + SCROLL_THRESHOLD) {
       this.loadMorePokemons();
     }
+  }
+
+  // Selection d'un pokemon dans la sideBar
+  override onSelectPokemon(id: number): void {
+    super.onSelectPokemon(id);
+    this.scrollToSelectedPokemon()
+  }
+
+  // Méthode lorsque l'utilisateur clique sur un pokemon de sa chaine d'évolution
+  onSelectFromEvolutionList(id: number): void {
+    super.onSelectPokemon(id);
+    this.checkAndLoadSelectedPokemon();
   }
 
 
@@ -145,20 +119,45 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
   // -------- //
   // METHODES //
   // -------- //
-  // Ajout de la méthode dans onSelectPokemon
-  override onSelectPokemon(id: number): void {
-    super.onSelectPokemon(id);
-    this.scrollToSelectedPokemon();
+  // Récupération de l'ID du pokemon lors du 1er chargement
+  private async initRouteParamsSubscription() {
+
+    // Si un ID est présent dans les paramètres d'URL, on le récupère
+    this.route.params.pipe(
+
+      takeUntil(this.destroy$),
+      filter(params => params['id'] != null)
+
+    ).subscribe(params => {
+
+      this.selectedPokemonId = +params['id'];
+
+      // Si l'utilisateur cherche à trouver le Pokémon via son nom directement dans l'URL
+      // On le renvoie aussi vers la page d'erreur
+      if (isNaN(this.selectedPokemonId)) {
+        this.router.navigate(['/notfound']);
+      }
+
+      // Vérifier si l'ID du Pokémon est valide
+      // Rediriger vers la page notfound cas échéant
+      if (this.selectedPokemonId < 1 || this.selectedPokemonId > this.totalPokemons) {
+        this.router.navigate(['/notfound']);
+      }
+
+      // TODO : Vérifiez que l'on ne requête pas l'i D d'un Pokémon qui n'existe pas.
+      // Il faudrait savoir combien d'id de Pokémon il y a et comparer à l'id sélectionné
+
+    });
   }
 
   // Méthode pour vérifier si le Pokémon sélectionné est dans la liste et charger si nécessaire
-  private checkAndLoadSelectedPokemon(): void {
+  private async checkAndLoadSelectedPokemon() : Promise<void> {
 
     // Vérifie si le Pokémon sélectionné est déjà dans la liste chargée
     const selectedPokemon = this.pokemons.find(pokemon => pokemon.id === this.selectedPokemonId);
 
     if (!selectedPokemon) {
-      this.loadPokemonBatch();
+      await this.loadPokemonBatch();
     
     // Centre la vue si le Pokémon est déjà chargé
     } else {
@@ -166,25 +165,29 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
     }
   }
 
-  private loadPokemonBatch(): void {
+  // Charger plus de pokemon à partir d'un pokemon de référence
+  // Cela assure que le pokemon sera dans la liste
+  private async loadPokemonBatch(): Promise<void> {
 
+    // Modification des données pour la récupération des pokmons
     const estimatedOffset = Math.max(0, this.selectedPokemonId - ITEMS_PER_LOAD);
 
     if (this.currentOffset < estimatedOffset) {
       this.itemsPerLoad = estimatedOffset + ITEMS_PER_LOAD;
     }
 
-    this.loadMorePokemons();
-
-    setTimeout(() => {
-      this.itemsPerLoad = ITEMS_PER_LOAD;
-      this.loadingState$.next(true);
-    }, 0);
+    // Charger plus de pokemon puis scroll
+    await this.loadMorePokemons().then(() => {
+      setTimeout(() => {
+        this.itemsPerLoad = ITEMS_PER_LOAD;
+        this.scrollToSelectedPokemon();
+      }, 0);
+    });
   }
 
 
   // Méthode pour centrer la vue sur le Pokémon sélectionné
-  scrollToSelectedPokemon() {
+  private async scrollToSelectedPokemon() : Promise<void> {
       
     const sidebarElement    = this.sidebarScroll.nativeElement;
     
@@ -203,8 +206,6 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
         top: elementTop - (sidebarHeight / 2) + (elementHeight / 2),
         behavior: 'smooth',
       });
-
-      this.firstRender = true;
     };
   }
 }

@@ -65,11 +65,10 @@
 
             <!-- AFFICHER LES DETAILS DU POKEMON ICI -->
             <div *ngIf="selectedPokemonId">
-                <app-pokemon-details [pokemonId]="selectedPokemonId"></app-pokemon-details>
-            </div>
-
-            <div *ngIf="!selectedPokemonId" class="text-center">
-                <p>Merci de selectionner un pokemon</p>
+                <app-pokemon-details 
+                    [pokemonId]="selectedPokemonId"
+                    (selectPokemon)="onSelectFromEvolutionList($event)"
+                />
             </div>
 
         </main>

@@ -1,0 +1,41 @@
+.evolution-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.evolution-title {
+    color: black;
+    font-size: 20px;
+    font-family: Brown, sans-serif;
+    font-weight: 700;
+}
+
+.evolution-chain {
+    display: flex;
+    gap: 32px;
+    overflow-x: auto;
+    padding-bottom: 16px; /* Ajoute un peu d'espace pour la barre de défilement */
+    scrollbar-width: thin; /* Pour Firefox */
+    scrollbar-color: #888 #f1f1f1; /* Pour Firefox */
+}
+
+/* Styles pour la barre de défilement (pour Webkit browsers comme Chrome, Safari) */
+.evolution-chain::-webkit-scrollbar {
+    height: 8px;
+}
+
+.evolution-chain::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.evolution-chain::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.evolution-chain::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

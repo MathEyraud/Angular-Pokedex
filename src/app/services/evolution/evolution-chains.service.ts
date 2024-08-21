@@ -6,6 +6,7 @@ import { EvolutionChain } from 'src/app/models/evolution/evolution-chain';
 import { IPokemonSpecies } from 'src/app/interfaces/pokemon-species/pokemon-species';
 import { catchError, map, Observable, switchMap } from 'rxjs';
 import { IEvolutionChain } from 'src/app/interfaces/evolution/evolution-chains';
+import { EvolutionChainMapper } from 'src/app/mappers/evolution/evolution-chains/evolution-chain.mapper';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class EvolutionChainsService {
     private errorService  : ErrorService,
   ) { }
 
-  getEvolutionChains(urlSpecies: string): Observable<EvolutionChain> {
+  getEvolutionChain(urlSpecies: string): Observable<EvolutionChain> {
 
     return this.httpClient.get<IPokemonSpecies>(urlSpecies).pipe(
 
@@ -28,7 +29,7 @@ export class EvolutionChainsService {
       }),
 
       map(evolutionChainData => {
-        return new EvolutionChain(evolutionChainData);
+        return EvolutionChainMapper.mapToEvolutionChain(evolutionChainData);
       }),
 
       catchError(error => {

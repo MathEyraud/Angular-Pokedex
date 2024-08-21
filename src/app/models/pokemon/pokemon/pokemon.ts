@@ -31,8 +31,6 @@ export class Pokemon {
         private _species                : NamedAPIResource,
         private _stats                  : PokemonStat[],
         private _types                  : PokemonType[],
-        //private _urlPhoto               : string                | null,
-        //private _evolutionChain         : EvolutionChain        | null,
     ) {}
 
     // ---------------------------------------- //
@@ -58,15 +56,11 @@ export class Pokemon {
     get types1(): PokemonType | null { return this._types && this._types.length > 0 ? this._types[0] : null;}
     get types2(): PokemonType | null { return this._types && this._types.length > 0 ? this._types[1] : null;}
 
-    get typesName1(): string | null | undefined { return this.types1?.type?.name ?? null;}
-    get typesName2(): string | null | undefined{ return this.types2?.type?.name ?? null;}
+    get typesName1(): string | null { return this.types1?.type?.name ?? null;}
+    get typesName2(): string | null { return this.types2?.type?.name ?? null;}
 
     get types(): PokemonType[]{ return this._types; }
     set types(value: PokemonType[]) { this._types = value; }
-
-    // urlPhoto
-    // get urlPhoto(): string | null {return this._urlPhoto;}
-    // set urlPhoto(value: string | null) {this._urlPhoto = value;}
 
     // sprites
     get sprites(): PokemonSprites | null {return this._sprites;}
@@ -123,13 +117,6 @@ export class Pokemon {
     // isDefault
     get isDefault(): Boolean {return this._isDefault;}
     set isDefault(value: Boolean) {this._isDefault = value;}
-
-    // evolutionChain
-    // get evolutionChain(): EvolutionChain | null {return this._evolutionChain ?? null;}
-    // set evolutionChain(value: EvolutionChain | null) {this._evolutionChain = value;}
-
-    // get currentEvolution(): Evolution | null {return this._evolutionChain?.currentForm ?? null;}
-    // get allEvolutions(): { name: string; details: EvolutionDetails }[] {return this._evolutionChain?.getAllEvolutions() ?? [];}
 
     // ---------------------------------------------- //
     // ----- Getter avec logique supplémentaire ----- //
