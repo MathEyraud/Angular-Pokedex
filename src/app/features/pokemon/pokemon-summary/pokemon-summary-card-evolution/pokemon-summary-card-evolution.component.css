@@ -1,0 +1,65 @@
+.evolution-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex: 0 0 auto; /* Empêche la carte de se rétrécir */
+  }
+  
+  .pokemon-card {
+    display: flex;
+    width: 132px;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    border-radius: 16px;
+    border: 1px solid #C5C5C5;
+    background: #FFF;
+  }
+    
+  .pokemon-image {
+    width: 69px;
+    height: 69px;
+
+    border-radius: 10px;
+  }
+  
+  .pokemon-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+  }
+  
+  .pokemon-id {
+    color: #888;
+    font-size: 12px;
+    font-style: normal;
+  }
+  
+  .pokemon-name {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+  }
+  
+  .pokemon-types {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .evolution-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .evolution-method {
+  }

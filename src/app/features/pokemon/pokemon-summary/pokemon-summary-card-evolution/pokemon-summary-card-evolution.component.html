@@ -1,0 +1,32 @@
+<div class="evolution-card" (click)="onSelectPokemon(pokemon.id)">
+
+  <div class="pokemon-card">
+
+    <img [src]="pokemon.sprites?.otherSprites?.officialArtwork?.frontDefault" alt="{{ pokemon.name }}" class="pokemon-image">
+
+    <div class="pokemon-info">
+      <div class="pokemon-id">{{ pokemon.formattedId }}</div>
+      <div class="pokemon-name">{{ pokemon.formattedName }}</div>
+    </div>
+
+    <div class="pokemon-types">
+      <div *ngFor="let type of pokemon.types">
+        <app-pokemon-type [type]="type.type?.name"></app-pokemon-type>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="evolution-info">
+
+    <div class="evolution-method">
+      {{ getEvolutionTrigger() }}
+    </div>
+
+    <div class="evolution-method" *ngFor="let method of evolutionMethods">
+      {{ method }}
+    </div>
+    
+  </div>
+
+</div>

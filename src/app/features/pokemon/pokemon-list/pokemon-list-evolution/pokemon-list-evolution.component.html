@@ -1,0 +1,23 @@
+<!-- Vérifie si la chaîne d'évolution a lieu d'être -->
+<div *ngIf="pokemon && evolutionChain.length>1" class="evolution-container">
+
+    <div class="evolution-title">Evolutions</div>
+
+    <div class="evolution-chain">
+
+        <!-- Boucle sur chaque maillon de la chaîne d'évolution aplatie -->
+        <app-pokemon-summary-card-evolution 
+            *ngFor="let evolution of evolutionChain"
+            [pokemon]="evolution.pokemonDetails"
+            [evolutionDetails]="evolution.chainLink.evolutionDetail"
+            (selectPokemon)="onSelectPokemon($event)"
+        />
+
+    </div>
+
+</div>
+
+<!-- Affiche un spinner de chargement si isLoading est vrai -->
+<div *ngIf="!pokemon && evolutionChain.length==1" class="d-flex justify-content-center align-items-center vh-100">
+    <app-spinner></app-spinner>
+</div>

@@ -1,4 +1,4 @@
-<div *ngIf="!isLoading" class="container">
+<div *ngIf="!isLoading && pokemon" class="container">
 
     <!-- NUMERO DU POKEMON -->
     <div class="row">Pokemon Details for ID: {{ pokemon.formattedId }}</div>
@@ -37,53 +37,15 @@
     </div>
 
     <!-- CHAINE D'EVOLUTION -->
-    <!-- TODO : A REFAIRE AVEC LES NOUVELLES CLASSES -->
-    <div *ngIf="evolutionChain">
-        
-        <h3>Chaîne d'évolution</h3>
-
-        <ul>
-            <li *ngFor="let evo of evolutionChain.getAllEvolutions()">
-
-                {{ evo.name }}
-
-                <ng-container *ngIf="evo.details.minLevel">
-                    (Niveau {{ evo.details.minLevel }})
-                </ng-container>
-
-                <ng-container *ngIf="evo.details.item">
-                    (Pierre {{ evo.details.item }})
-                </ng-container>
-
-                <ng-container *ngIf="evo.details.heldItem">
-                    (Objet à tenir {{ evo.details.heldItem }})
-                </ng-container>
-
-                <ng-container *ngIf="evo.details.minHappiness">
-                    (Bonheur minimum {{ evo.details.minHappiness }})
-                </ng-container>
-
-                <ng-container *ngIf="evo.details.minAffection">
-                    (Affection minimum {{ evo.details.minAffection }})
-                </ng-container>
-
-                <ng-container *ngIf="evo.details.gender">
-                    (Affection minimum {{ evo.details.gender }})
-                </ng-container>
-
-                <ng-container *ngIf="evo.details.timeOfDay">
-                    (Affection minimum {{ evo.details.timeOfDay }})
-                </ng-container>
-
-            </li>
-        </ul>
-
-    </div>
+    <app-pokemon-list-evolution 
+        [pokemon]="pokemon"
+        (selectPokemon)="onSelectFromEvolutionList($event)"
+    />
 
     <!-- SELECTION DE LA VERSION -->
     <div>
         <h3>Sélectionner la version du jeu :</h3>
-        <select [(ngModel)]="selectedVersion" (change)="getMovesForSelectedVersion()">
+        <select [(ngModel)]="selectedVersion" (change)="loadMovesForSelectedVersion()">
             <option *ngFor="let version of gameVersions" [value]="version">{{version}}</option>
         </select>
     </div>
@@ -215,16 +177,16 @@
                                 </span>
                             </td>
 
-                            <td>{{ moveDetailsMap.get(move)?.power }}</td>
-                            <td>{{ moveDetailsMap.get(move)?.accuracy }}</td>
-                            <td>{{ moveDetailsMap.get(move)?.pp }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.power }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.accuracy }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.pp }}</td>
                             <td>
-                                <!-- {{ moveDetailsMap.get(move)?.type?.name }} -->
-                                <app-pokemon-type [type]="moveDetailsMap.get(move)?.type?.name"></app-pokemon-type>
+                                <!-- {{ moveDetailsByMoveMap.get(move)?.type?.name }} -->
+                                <app-pokemon-type [type]="moveDetailsByMoveMap.get(move)?.type?.name"></app-pokemon-type>
                             </td>
                             <td>
-                                <!-- {{ moveDetailsMap.get(move)?.damage_class?.name }} -->
-                                <app-damage-class [damageClass]="moveDetailsMap.get(move)?.damage_class?.name"></app-damage-class>
+                                <!-- {{ moveDetailsByMoveMap.get(move)?.damage_class?.name }} -->
+                                <app-damage-class [damageClass]="moveDetailsByMoveMap.get(move)?.damage_class?.name"></app-damage-class>
                             </td>
                             
                         </tr>
@@ -274,16 +236,16 @@
                                 </span>
                             </td> -->
 
-                            <td>{{ moveDetailsMap.get(move)?.power }}</td>
-                            <td>{{ moveDetailsMap.get(move)?.accuracy }}</td>
-                            <td>{{ moveDetailsMap.get(move)?.pp }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.power }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.accuracy }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.pp }}</td>
                             <td>
-                                <!-- {{ moveDetailsMap.get(move)?.type?.name }} -->
-                                <app-pokemon-type [type]="moveDetailsMap.get(move)?.type?.name"></app-pokemon-type>
+                                <!-- {{ moveDetailsByMoveMap.get(move)?.type?.name }} -->
+                                <app-pokemon-type [type]="moveDetailsByMoveMap.get(move)?.type?.name"></app-pokemon-type>
                             </td>
                             <td>
-                                <!-- {{ moveDetailsMap.get(move)?.damage_class?.name }} -->
-                                <app-damage-class [damageClass]="moveDetailsMap.get(move)?.damage_class?.name"></app-damage-class>
+                                <!-- {{ moveDetailsByMoveMap.get(move)?.damage_class?.name }} -->
+                                <app-damage-class [damageClass]="moveDetailsByMoveMap.get(move)?.damage_class?.name"></app-damage-class>
                             </td>
 
                         </tr>
@@ -321,16 +283,16 @@
                                 {{ move.displayMoveName }} 
                             </td>
 
-                            <td>{{ moveDetailsMap.get(move)?.power }}</td>
-                            <td>{{ moveDetailsMap.get(move)?.accuracy }}</td>
-                            <td>{{ moveDetailsMap.get(move)?.pp }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.power }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.accuracy }}</td>
+                            <td>{{ moveDetailsByMoveMap.get(move)?.pp }}</td>
                             <td>
-                                <!-- {{ moveDetailsMap.get(move)?.type?.name }} -->
-                                <app-pokemon-type [type]="moveDetailsMap.get(move)?.type?.name"></app-pokemon-type>
+                                <!-- {{ moveDetailsByMoveMap.get(move)?.type?.name }} -->
+                                <app-pokemon-type [type]="moveDetailsByMoveMap.get(move)?.type?.name"></app-pokemon-type>
                             </td>
                             <td>
-                                <!-- {{ moveDetailsMap.get(move)?.damage_class?.name }} -->
-                                <app-damage-class [damageClass]="moveDetailsMap.get(move)?.damage_class?.name"></app-damage-class>
+                                <!-- {{ moveDetailsByMoveMap.get(move)?.damage_class?.name }} -->
+                                <app-damage-class [damageClass]="moveDetailsByMoveMap.get(move)?.damage_class?.name"></app-damage-class>
                             </td>
 
                         </tr>
@@ -367,16 +329,16 @@
                                     {{ move.displayMoveName }} 
                                 </td>
 
-                                <td>{{ moveDetailsMap.get(move)?.power }}</td>
-                                <td>{{ moveDetailsMap.get(move)?.accuracy }}</td>
-                                <td>{{ moveDetailsMap.get(move)?.pp }}</td>
+                                <td>{{ moveDetailsByMoveMap.get(move)?.power }}</td>
+                                <td>{{ moveDetailsByMoveMap.get(move)?.accuracy }}</td>
+                                <td>{{ moveDetailsByMoveMap.get(move)?.pp }}</td>
                                 <td>
-                                    <!-- {{ moveDetailsMap.get(move)?.type?.name }} -->
-                                    <app-pokemon-type [type]="moveDetailsMap.get(move)?.type?.name"></app-pokemon-type>
+                                    <!-- {{ moveDetailsByMoveMap.get(move)?.type?.name }} -->
+                                    <app-pokemon-type [type]="moveDetailsByMoveMap.get(move)?.type?.name"></app-pokemon-type>
                                 </td>
                                 <td>
-                                    <!-- {{ moveDetailsMap.get(move)?.damage_class?.name }} -->
-                                    <app-damage-class [damageClass]="moveDetailsMap.get(move)?.damage_class?.name"></app-damage-class>
+                                    <!-- {{ moveDetailsByMoveMap.get(move)?.damage_class?.name }} -->
+                                    <app-damage-class [damageClass]="moveDetailsByMoveMap.get(move)?.damage_class?.name"></app-damage-class>
                                 </td>
 
                             </tr>
@@ -393,6 +355,6 @@
 </div>
 
 <!-- Affiche un spinner de chargement si isLoading est vrai -->
-<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center vh-100">
+<div *ngIf="isLoading && !pokemon" class="d-flex justify-content-center align-items-center vh-100">
     <app-spinner></app-spinner>
 </div>
