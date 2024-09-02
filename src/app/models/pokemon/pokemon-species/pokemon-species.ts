@@ -168,6 +168,14 @@ export class PokemonSpecies {
     return (this.genderRate / 8) * 100
   }
 
+  getEggGroupText(): string {
+    if (this.eggGroups === 'No-eggs') {
+      return "Egg not obtainable";
+    }
+    return `${this.eggGroups} (${this.hatchCounter} cycles)`;
+  }
+
+
   get generationName() : string{ 
     const generationField = this.generationRessource.name;
     const generation = this.getGeneration(generationField);
