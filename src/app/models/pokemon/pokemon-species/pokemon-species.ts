@@ -160,6 +160,14 @@ export class PokemonSpecies {
     return this.habitatRessource?.name  ? capitalizeFirstLetter(this.habitatRessource?.name) : 'N/A';
   }
 
+  get percentageGenderRateMale(): number {
+    return (1 - this.genderRate / 8) * 100
+  }
+
+  get percentageGenderRateFemale(): number {
+    return (this.genderRate / 8) * 100
+  }
+
   get generationName() : string{ 
     const generationField = this.generationRessource.name;
     const generation = this.getGeneration(generationField);
