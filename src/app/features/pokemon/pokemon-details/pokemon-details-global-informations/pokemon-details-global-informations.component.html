@@ -57,7 +57,7 @@
 
                   <app-info-section title="Capture rate"            text="{{pokemonSpecies.formattedCaptureRate}} ({{pokemonSpecies.captureRate}}/255)"/>
                   <app-info-section title="Base happiness"          text="{{pokemonSpecies.baseHappiness}}/255"/>
-                  <app-info-section title="Egg groups (Hatch time)" text="{{pokemonSpecies.eggGroups}} ({{pokemonSpecies.hatchCounter}} cycles)"/>
+                  <app-info-section title="Egg groups (Hatch time)" text="{{pokemonSpecies.getEggGroupText()}}"/>
                   <app-info-section title="Growth rate"             text="{{growthRate.formattedName}}"/>
                   <app-info-section title="Gender rate">
 
