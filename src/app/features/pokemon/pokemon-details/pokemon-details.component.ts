@@ -42,7 +42,7 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   tutorMovesMethod    : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
   eggMovesMethod      : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
   
-  @Input() pokemonId !: number;                 // ID du Pokémon actuel
+  @Input() pokemonId !: number;                         // ID du Pokémon actuel
   @Output() selectPokemon = new EventEmitter<number>();
 
 
@@ -160,7 +160,6 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
       switchMap(pokemonSpecies => {
 
         // Filtrez pour exclure la forme de base en utilisant le nom du Pokémon
-
         const alternativeFormRequests = pokemonSpecies.varieties
 
           // Filtre les formes alternatives pour exclure la forme de base en utilisant le nom du Pokémon
@@ -171,16 +170,23 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
             // Convertit les données brutes en une instance de la classe `Pokemon`
             switchMap(data => this.pokemonService.createPokemonFromDetail(data))
           ));
-
-        // Utilisation de `forkJoin` pour exécuter toutes les requêtes de formes alternatives en parallèle
-        return forkJoin(alternativeFormRequests).pipe(
+        
+        if (alternativeFormRequests.length === 0) {
+          // Définit `alternativeForms` comme un tableau vide si aucune forme alternative n'est trouvée
+          this.alternativeForms = [];
+          return of(pokemonSpecies);
           
-          // Assigne les formes alternatives récupérées à l'attribut de classe `alternativeForms`
-          tap(alternativeForms => this.alternativeForms = alternativeForms),
-          
-          // Retourne l'espèce de Pokémon après le traitement des formes alternatives
-          map(() => pokemonSpecies)
-        );
+        } else {
+          // Utilisation de `forkJoin` pour exécuter toutes les requêtes de formes alternatives en parallèle
+          return forkJoin(alternativeFormRequests).pipe(
+            
+            // Assigne les formes alternatives récupérées à l'attribut de classe `alternativeForms`
+            tap(alternativeForms => this.alternativeForms = alternativeForms),
+            
+            // Retourne l'espèce de Pokémon après le traitement des formes alternatives
+            map(() => pokemonSpecies)
+          );
+        }
       }),
   
       // Gestion des erreurs
