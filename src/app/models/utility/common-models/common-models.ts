@@ -1,3 +1,28 @@
+export class ApiResponse {
+
+    constructor(
+        private _count      : number,
+        private _next       : string | null,
+        private _previous   : string | null,
+        private _results    : NamedAPIResource[],
+    ) {}
+
+    // ---------------------------------------- //
+    // ----- Getters et setters classique ----- //
+    // ---------------------------------------- //
+    get count(): number { return this._count; }
+    set count(value: number) { this._count = value; }
+
+    get next(): string | null { return this._next; }
+    set next(value: string | null) { this._next = value; }
+
+    get previous(): string | null { return this._previous; }
+    set previous(value: string | null) { this._previous = value; }
+
+    get results(): NamedAPIResource[] { return this._results; }
+    set results(value: NamedAPIResource[]) { this._results = value; }
+}
+
 export class NamedAPIResource {
 
     constructor(
@@ -70,16 +95,33 @@ export class FlavorText {
     ) {}
 
     // Getter and setter for flavorText
-    get flavorText() : string | null { return this._flavor_text; }
+    get flavorText() { return this._flavor_text }
     set flavorText(value: string | null) { this._flavor_text = value; }
-
+    
     // Getter and setter for language
     get languageRessource() : NamedAPIResource { return this._language; }
     set languageRessource(value: NamedAPIResource) { this._language = value; }
 
     // Getter and setter for version
-    get version() : NamedAPIResource { return this._version; }
-    set version(value: NamedAPIResource) { this._version = value; }
+    get versionRessource() : NamedAPIResource { return this._version; }
+    set versionRessource(value: NamedAPIResource) { this._version = value; }
+
+    // https://github.com/veekun/pokedex/issues/218#issuecomment-339841781
+    get formattedFlavorText() : string | null { 
+
+        if (this._flavor_text) {
+            const flavorText = this._flavor_text.replace('\f',       '\n')
+                                            .replace('\u00ad\n', '')
+                                            .replace('\u00ad',   '')
+                                            .replace(' -\n',     ' - ')
+                                            .replace('-\n',      '-')
+                                            .replace('\n',       ' ');
+            return flavorText;
+
+        } else {
+            return null;
+        }
+    }
 }
 
 export class Description {

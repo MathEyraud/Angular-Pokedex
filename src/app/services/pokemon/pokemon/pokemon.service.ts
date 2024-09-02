@@ -105,8 +105,8 @@ export class PokemonService {
    * @returns Observable contenant un objet Pokemon
    */
   createPokemonFromDetail(detailJSON: IPokemon): Observable<Pokemon> {
-    const pokemon = PokemonMapper.mapPokemon(detailJSON);  // Mapping IPokemon to Pokemon
-    return of(pokemon);                                 // Wrapping the Pokemon object in an Observable
+    const pokemon = PokemonMapper.mapPokemon(detailJSON); // Mapping IPokemon to Pokemon
+    return of(pokemon);                                   // Wrapping the Pokemon object in an Observable
   }
 
   /**

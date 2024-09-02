@@ -2,7 +2,7 @@ import { PokemonMove } from "./pokemon-move";
 import { PokemonSprites } from "./pokemon-sprites";
 import { PokemonStat } from "./pokemon-stat";
 import { PokemonType } from "./pokemon-type";
-import { capitalizeFirstLetter } from "src/app/utils/string-utils";
+import { capitalizeFirstLetter, convertKilogramsToPounds, convertMetersToFeetAndInches } from "src/app/utils/string-utils";
 import { PokemonAbility } from "./pokemon-ability";
 import { NamedAPIResource, VersionGameIndex } from "../../utility/common-models/common-models";
 import { PokemonHeldItem } from "./pokemon-held-item";
@@ -130,7 +130,15 @@ export class Pokemon {
     }
 
     get formattedName(): string {
-        return this._name  ? capitalizeFirstLetter(this._name) : 'N/A';
+
+        if (this._name) {
+            const newName = this._name?.replace(/-/g, ' ');
+            return capitalizeFirstLetter(newName);
+            
+        } else {
+            return "N/A";
+        }
+        
     }
 
     // getter pour la hauteur formatée avec un chiffre après la virgule
@@ -143,5 +151,26 @@ export class Pokemon {
         return this._weight ? (this._weight / 10).toFixed(1) : null;
     }
 
+    // getter pour la hauteur formatée avec un chiffre après la virgule
+    get displayHeights(): string {
+        return this._height ? 
+        (this._height / 10).toFixed(1)  + "m - " + 
+        convertMetersToFeetAndInches(this._height / 10)
+        : "";
+    }
 
+    // getter pour le poids formaté avec un chiffre après la virgule
+    get displayWeights(): string {
+        return this._weight ? 
+        (this._weight / 10).toFixed(1) + "kg - " + 
+        convertKilogramsToPounds(this._weight / 10).toFixed(1) + "lbs"
+        : "";
+    }
+
+    // Getter pour récupérer directement la photo officiel
+    get officialArtwork() : string | null {
+        const urlPicture = this.sprites?.otherSprites?.officialArtwork?.frontDefault;
+        if(urlPicture){return urlPicture}
+        else{return null}
+    }
 }

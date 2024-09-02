@@ -19,7 +19,20 @@ export class EvolutionChainsService {
     private errorService  : ErrorService,
   ) { }
 
-  getEvolutionChain(urlSpecies: string): Observable<EvolutionChain> {
+  getEvolutionChain(urlEvolutionChain: string): Observable<EvolutionChain> {
+
+    return this.httpClient.get<IEvolutionChain>(urlEvolutionChain).pipe(
+
+      map(response => EvolutionChainMapper.mapToEvolutionChain(response)),
+
+      catchError(error => {
+        this.loggerService.error("[EvolutionChainsService - getEvolutionChain] error : ", error);
+        return this.errorService.handleEvolutionChainError(error);
+      })
+    );
+  }
+
+  getEvolutionChainFromSpecies(urlSpecies: string): Observable<EvolutionChain> {
 
     return this.httpClient.get<IPokemonSpecies>(urlSpecies).pipe(
 
@@ -33,7 +46,7 @@ export class EvolutionChainsService {
       }),
 
       catchError(error => {
-        this.loggerService.error("[EvolutionChainsService - getEvolutionChains] error : ", error);
+        this.loggerService.error("[EvolutionChainsService - getEvolutionChainFromSpecies] error : ", error);
         return this.errorService.handleEvolutionChainError(error);
       })
     );

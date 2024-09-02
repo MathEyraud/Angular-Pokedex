@@ -14,6 +14,8 @@ import { MovesModule } from '../moves/moves.module';
 import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { PokemonSummaryCardEvolutionComponent } from './pokemon-summary/pokemon-summary-card-evolution/pokemon-summary-card-evolution.component';
 import { PokemonListEvolutionComponent } from './pokemon-list/pokemon-list-evolution/pokemon-list-evolution.component';
+import { PokemonDetailsGlobalInformationsComponent } from './pokemon-details/pokemon-details-global-informations/pokemon-details-global-informations.component';
+import { InfoSectionComponent } from './pokemon-details/pokemon-details-global-informations/pokemon-details-tabs-informations/info-section/info-section.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { PokemonListEvolutionComponent } from './pokemon-list/pokemon-list-evolu
     PokemonSummaryTileComponent,
     PokemonSummaryCardEvolutionComponent,
     PokemonListEvolutionComponent,
+    PokemonDetailsGlobalInformationsComponent,
+    InfoSectionComponent,
   ],
   imports: [
     CommonModule,

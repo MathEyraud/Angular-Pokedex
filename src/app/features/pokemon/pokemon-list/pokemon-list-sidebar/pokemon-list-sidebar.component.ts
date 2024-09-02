@@ -107,7 +107,7 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
   }
 
   // Méthode lorsque l'utilisateur clique sur un pokemon de sa chaine d'évolution
-  onSelectFromEvolutionList(id: number): void {
+  onSelectPokemonFromOther(id: number): void {
     super.onSelectPokemon(id);
     this.checkAndLoadSelectedPokemon();
   }
@@ -134,18 +134,20 @@ export class PokemonListSidebarComponent extends PokemonListComponent implements
 
       // Si l'utilisateur cherche à trouver le Pokémon via son nom directement dans l'URL
       // On le renvoie aussi vers la page d'erreur
+      // TODO : Il faudra implémenter cette fonctionnalité
       if (isNaN(this.selectedPokemonId)) {
         this.router.navigate(['/notfound']);
       }
 
       // Vérifier si l'ID du Pokémon est valide
       // Rediriger vers la page notfound cas échéant
-      if (this.selectedPokemonId < 1 || this.selectedPokemonId > this.totalPokemons) {
+      if (this.selectedPokemonId < 1) {
         this.router.navigate(['/notfound']);
       }
 
       // TODO : Vérifiez que l'on ne requête pas l'i D d'un Pokémon qui n'existe pas.
       // Il faudrait savoir combien d'id de Pokémon il y a et comparer à l'id sélectionné
+      // Regarder ce que l'API nous retourne si le pokemon n'existe pas
 
     });
   }

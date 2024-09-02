@@ -19,7 +19,7 @@ export class PokemonSpeciesMapper {
             ApiRessourceMapper.mapToNamedAPIResource(data.color),
             ApiRessourceMapper.mapToNamedAPIResources(data.egg_groups),
             ApiRessourceMapper.mapToAPIResource(data.evolution_chain),
-            ApiRessourceMapper.mapToNamedAPIResource(data.evolves_from_species),
+            data.evolves_from_species ? ApiRessourceMapper.mapToNamedAPIResource(data.evolves_from_species) : null,
             FlavorTextMapper.mapToFlavorsText(data.flavor_text_entries),
             DescriptionMapper.mapToDescriptions(data.form_descriptions),
             data.forms_switchable,
@@ -27,7 +27,7 @@ export class PokemonSpeciesMapper {
             GenusMapper.mapToGenuss(data.genera),
             ApiRessourceMapper.mapToNamedAPIResource(data.generation),
             ApiRessourceMapper.mapToNamedAPIResource(data.growth_rate),
-            ApiRessourceMapper.mapToNamedAPIResource(data.habitat),
+            data.habitat ? ApiRessourceMapper.mapToNamedAPIResource(data.habitat) : null,
             data.has_gender_differences,
             data.hatch_counter,
             data.id,
@@ -39,7 +39,7 @@ export class PokemonSpeciesMapper {
             data.order,
             PalParkEncounterAreaMapper.mapToPalParkEncounterAreas(data.pal_park_encounters),
             PokemonSpeciesDexEntryMapper.mapToPokemonSpeciesDexEntries(data.pokedex_numbers),
-            ApiRessourceMapper.mapToNamedAPIResource(data.shape),
+            data.shape ? ApiRessourceMapper.mapToNamedAPIResource(data.shape) : null,
             PokemonSpeciesVarietyMapper.mapToPokemonSpeciesVarieties(data.varieties),
         )
     }

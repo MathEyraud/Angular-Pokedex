@@ -39,7 +39,7 @@
                         [pokemon]="pokemon" 
                         (selectPokemon)="onSelectPokemon($event)"
                         [isSelected]="pokemon.id === selectedPokemonId"
-                    ></app-pokemon-summary-tile>
+                    />
                 </div>
                 
                 <!-- Gestion de l'affichage du chargement -->
@@ -58,16 +58,20 @@
                 </div>
                 
             </div>
+            
         </nav>
   
         <!-- Ecran de détails du Pokémon -->
-        <main class="col-md-9 offset-md-3 detail-scroll">
+        <main class="
+            col-md-9 offset-md-3 
+            detail-scroll"
+        >
 
             <!-- AFFICHER LES DETAILS DU POKEMON ICI -->
             <div *ngIf="selectedPokemonId">
                 <app-pokemon-details 
                     [pokemonId]="selectedPokemonId"
-                    (selectPokemon)="onSelectFromEvolutionList($event)"
+                    (selectPokemon)="onSelectPokemonFromOther($event)"
                 />
             </div>
 
