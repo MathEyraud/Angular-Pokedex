@@ -1,3 +1,11 @@
+
+export interface IApiResponse {
+    count   : number;
+    next    : string | null;
+    previous: string | null;
+    results : INamedAPIResource[];
+}
+
 export interface INamedAPIResource {
     name: string;
     url: string;

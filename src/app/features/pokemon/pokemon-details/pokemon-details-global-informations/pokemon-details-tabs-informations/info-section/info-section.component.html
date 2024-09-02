@@ -1,0 +1,5 @@
+<div class="container-section">
+    <p *ngIf="title" class="label-title">{{title}}</p>
+    <p *ngIf="text" class="label-text">{{text}}</p>
+    <ng-content class="label-text" select="[extra-content]"></ng-content>
+</div>

@@ -1,0 +1,31 @@
+.container-section{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    width: 100%;
+}
+
+.label-title, .label-text{
+    display: flex;
+    font-family: var(--main-font-family);
+    align-self: stretch;
+    margin: 0;
+    width:100%
+}
+
+.label-title{
+    color: #888;
+    font-size: 14px;
+}
+
+.label-text{
+    flex-direction: column;
+    justify-content: center;
+    text-align: justify; 
+
+    color: var(--main-color-black);
+    font-size: 16px;
+}

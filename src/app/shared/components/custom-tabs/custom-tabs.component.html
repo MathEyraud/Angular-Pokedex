@@ -1,0 +1,24 @@
+<div class="tabs-container">
+
+    <ul class="tab-list">
+
+        <li *ngFor="let tab of tabContents?.toArray(); let i = index" 
+            [class.active]="i === selectedTab"
+            (click)="selectTab(i)"
+        >
+            {{ tab.title }}
+        </li>
+
+    </ul>
+
+    <div #tabContentContainer class="tab-content-container" [@tabAnimation]="{ value: animationState, params: { direction: direction } }">
+       
+        <div *ngIf="selectedTabContent" class="tab-content" [class.active]="true">
+          
+            <ng-container *ngTemplateOutlet="selectedTabContent.templateRef"></ng-container>
+        
+        </div>
+
+    </div>
+    
+</div>

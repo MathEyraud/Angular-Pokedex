@@ -48,4 +48,19 @@ export class ErrorService {
     return throwError(() => new Error(errorMessage));
   }
 
+  // GESTION DES ERREURS LIEE AUX DETAILS DES POKEMONS
+  handlePokemonSpeciesError(error: HttpErrorResponse): Observable<never> {
+    const errorMessage = 'Erreur lors de la récupération des données Pokémon-Species';
+    this.loggerService.error(errorMessage, error);
+    return throwError(() => new Error(errorMessage));
+  }
+
+  // GESTION DES ERREURS LIEE AUX DETAILS DES POKEMONS
+  handleGrowthRatesServiceError(error: HttpErrorResponse): Observable<never> {
+    const errorMessage = 'Erreur lors de la récupération des données GrowthRates';
+    this.loggerService.error(errorMessage, error);
+    return throwError(() => new Error(errorMessage));
+  }
+
+
 }

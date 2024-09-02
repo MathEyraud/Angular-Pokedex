@@ -1,72 +1,39 @@
 <div *ngIf="!isLoading && pokemon" class="container">
 
-    <!-- NUMERO DU POKEMON -->
-    <div class="row">Pokemon Details for ID: {{ pokemon.formattedId }}</div>
-
-    <!-- NOM DU POKEMON -->
-    <div class="row">Pokemon Details for name: {{ pokemon.formattedName }}</div>
-
-    <!-- TYPES DU POKEMON -->
-    <div class="row">
-        <div>Pokemon Details for types: {{ pokemon.typesName1 }}</div>
-        <div *ngIf="pokemon.typesName2">Pokemon Details for type2: {{ pokemon.typesName2 }}</div>
-    </div>
-
-    <!-- TAILLE DU POKEMON -->
-    <div class="row">Pokemon Details for height: {{ pokemon.formattedHeight }} m</div>
-    
-    <!-- POIDS DU POKEMON -->
-    <div class="row">Pokemon Details for weight: {{ pokemon.formattedWeight }} kg</div>
-
-    <!-- EXP2RIENCE DE BASE DU POKEMON -->
-    <div class="row">Pokemon Details for base_experience: {{ pokemon.base_experience }}</div>
-
-    <!-- COMPETENCE SPECIAL DU POKEMON -->
-    <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let ability of pokemon.abilities">
-            <span>{{ability.formattedName}}</span>
-            <span *ngIf="ability.is_hidden"> (Capacité caché)</span>
-        </div>
-    </div>
-
-    <!-- STATS DE BASE DU POKEMON -->
-    <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let stat of pokemon.stats">
-            {{stat.stat.name}} : {{stat.baseStat}}
-        </div>
-    </div>
-
-    <!-- CHAINE D'EVOLUTION -->
-    <app-pokemon-list-evolution 
+    <app-pokemon-details-global-informations 
         [pokemon]="pokemon"
-        (selectPokemon)="onSelectFromEvolutionList($event)"
+        [pokemonSpecies]="pokemonSpecies"
+        [growthRate]="growthRate"
+        [selectedVersion]="selectedVersion"
+        [alternativeForms]="alternativeForms"
+        (selectPokemon)="onSelectPokemon($event)"
     />
 
-    <!-- SELECTION DE LA VERSION -->
+    <!-- SENSIBILITES & STAT DE BASE -->
     <div>
-        <h3>Sélectionner la version du jeu :</h3>
-        <select [(ngModel)]="selectedVersion" (change)="loadMovesForSelectedVersion()">
-            <option *ngFor="let version of gameVersions" [value]="version">{{version}}</option>
-        </select>
     </div>
 
-    <!-- SPRITES DU POKEMON -->
-    <!-- TODO : DOIT DEPENDRE DU CHOIX DE LA VERSION -->
-    <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let sprite of objectValue(pokemon.sprites)">
-            <img 
-                alt=""
-                style="background-color: beige" 
-                class="rounded justify-content-center" 
-                *ngIf="sprite;else noPhoto" 
-                [src]="sprite"
-            >
-            <ng-template #noPhoto></ng-template>
-        </div>
+
+    <!-- CHAINE D'EVOLUTION -->
+    <div class="container-evolution">
+        <app-pokemon-list-evolution 
+            [pokemon]="pokemon"
+            [pokemonSpecies]="pokemonSpecies"
+            (selectPokemon)="onSelectPokemon($event)"
+        />
     </div>
+    
     
     <!-- ATTAQUES DU POKEMON -->
     <div>
+
+        <!-- SELECTION DE LA VERSION -->
+        <div>
+            <h3>Sélectionner la version du jeu :</h3>
+            <select [(ngModel)]="selectedVersion" (change)="loadMovesForSelectedVersion()">
+                <option *ngFor="let version of gameVersions" [value]="version">{{version}}</option>
+            </select>
+        </div>
 
         <!-- TABS : MENU -->
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -356,5 +323,35 @@
 
 <!-- Affiche un spinner de chargement si isLoading est vrai -->
 <div *ngIf="isLoading && !pokemon" class="d-flex justify-content-center align-items-center vh-100">
-    <app-spinner></app-spinner>
+    <app-spinner/>
 </div>
+
+    <!-- COMPETENCE SPECIAL DU POKEMON -->
+    <!-- <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let ability of pokemon.abilities">
+            <span>{{ability.formattedName}}</span>
+            <span *ngIf="ability.is_hidden"> (Capacité caché)</span>
+        </div>
+    </div> -->
+
+    <!-- STATS DE BASE DU POKEMON -->
+    <!-- <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let stat of pokemon.stats">
+            {{stat.stat.name}} : {{stat.baseStat}}
+        </div>
+    </div> -->
+
+    <!-- SPRITES DU POKEMON -->
+    <!-- TODO : DOIT DEPENDRE DU CHOIX DE LA VERSION -->
+    <!-- <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let sprite of objectValue(pokemon.sprites)">
+            <img 
+                alt=""
+                style="background-color: beige" 
+                class="rounded justify-content-center" 
+                *ngIf="sprite;else noPhoto" 
+                [src]="sprite"
+            >
+            <ng-template #noPhoto></ng-template>
+        </div>
+    </div> -->

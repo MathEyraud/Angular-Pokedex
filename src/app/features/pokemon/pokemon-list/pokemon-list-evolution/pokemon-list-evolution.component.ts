@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { forkJoin, map, Observable } from 'rxjs';
 import { ChainLink } from 'src/app/models/evolution/chain-link';
 import { EvolutionChain } from 'src/app/models/evolution/evolution-chain';
+import { PokemonSpecies } from 'src/app/models/pokemon/pokemon-species/pokemon-species';
 import { Pokemon } from 'src/app/models/pokemon/pokemon/pokemon';
 import { EvolutionChainsService } from 'src/app/services/evolution/evolution-chains.service';
 import { PokemonService } from 'src/app/services/pokemon/pokemon/pokemon.service';
@@ -14,7 +15,8 @@ import { PokemonService } from 'src/app/services/pokemon/pokemon/pokemon.service
 })
 export class PokemonListEvolutionComponent implements OnInit, OnChanges {
 
-  @Input() pokemon  : Pokemon | null = null;                                        // Pokémon de référence : Input qui reçoit l'objet Pokémon du composant parent.
+  @Input() pokemon        : Pokemon | null = null;                                  // Pokémon de référence : Input qui reçoit l'objet Pokémon du composant parent.
+  @Input() pokemonSpecies : PokemonSpecies | null = null;                           // Pokémon de référence avec des détails.
   @Output() selectPokemon = new EventEmitter<number>();                             // Charger un autre pokemon de la liste d'évvolution
   public evolutionChain: { chainLink: ChainLink, pokemonDetails: Pokemon }[] = [];  // Liste des maillons de la chaîne et des détails associés
 
@@ -52,10 +54,9 @@ export class PokemonListEvolutionComponent implements OnInit, OnChanges {
     this.evolutionChain = [];
 
     // Vérifie si le Pokémon de référence, son espèce, et l'URL de l'espèce sont définis.
-    if (this.pokemon && this.pokemon.species && this.pokemon.species.url) {
+    if (this.pokemonSpecies && this.pokemonSpecies.evolutionChainRessource.url) {
 
-      // Récupère l'URL de la chaîne d'évolution à partir des informations de l'espèce du Pokémon.
-      const evolutionChainUrl = this.pokemon.species.url;
+      const evolutionChainUrl = this.pokemonSpecies.evolutionChainRessource.url;
 
       // Appelle le service pour récupérer la chaîne d'évolution complète à partir de l'URL.
       this.evolutionChainsService.getEvolutionChain(evolutionChainUrl)

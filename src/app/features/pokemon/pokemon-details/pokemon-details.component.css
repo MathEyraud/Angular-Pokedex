@@ -13,3 +13,16 @@ table td {
 table td:first-child {
     text-align: left;
 }
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    align-self: stretch;
+}
+
+.container-evolution{
+    width: 100%;          /* Largeur du conteneur */
+    overflow-x: auto;     /* Active le défilement horizontal si nécessaire */
+    white-space: nowrap;  /* Empêche le retour à la ligne du contenu à l'intérieur du conteneur */
+}

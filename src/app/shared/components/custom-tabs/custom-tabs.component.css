@@ -1,0 +1,84 @@
+.tabs-container {
+    font-family: var(--main-font-family);
+    max-width: 100%;
+    width: 100%;
+    margin: 20px auto;
+
+    position: relative;
+    overflow: hidden; /* Gardez ceci pour masquer le contenu hors des limites pendant l'animation */
+}
+
+.tab-content-container {
+    position: relative;
+    overflow: hidden;
+    height: auto; /* Hauteur initiale est auto, sera mise à jour par JS */
+    transition: height 0.5s ease-out; /* Ajoutez une transition pour la hauteur */
+}
+
+.tab-list {
+    display: flex;
+    justify-content: flex-start;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    gap: 12px;
+}
+
+.tab-list li {
+    display: flex;
+    padding: 2px 4px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    padding-bottom: 6px;
+    font-size: 16px;
+    color: #757575;
+
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab-list li:hover {
+    background-color: #E9E9E9;
+}
+
+.tab-list li.active {
+    
+    border-bottom: 2px solid var(--main-color-black);
+    color: var(--main-color-black);
+}
+
+.container-tab-bar-informations {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+
+/* Pour la gestion de l'animation en hauteur */
+.tab-content {
+    position: absolute;
+    width: 100%;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.tab-content.ng-enter {
+    opacity: 0;
+}
+
+.tab-content.ng-enter-active {
+    opacity: 1;
+    position: relative; /* Seul le contenu actif est positionné de manière relative */
+}
+
+.tab-content.ng-leave {
+    opacity: 1;
+}
+
+.tab-content.ng-leave-active {
+    opacity: 0;
+}

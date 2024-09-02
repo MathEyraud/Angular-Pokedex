@@ -1,0 +1,174 @@
+/*
+    CONTAINER
+*/
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 42px;
+    align-self: stretch;
+    width: 100%;
+}
+
+.container-head-information-base{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    align-self: stretch;
+}
+
+.container-text{
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 8px;
+
+    line-height: 1;             /* Hauteur de ligne à 1 fois la taille de la police */
+    overflow-wrap: break-word;  /* Permet de couper les mots qui ne tiennent pas */
+    white-space: normal;        /* Autorise les retours à la ligne automatique */
+}
+
+.container-types{
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 8px;
+}
+
+.container-description-img {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 42px;
+    align-self: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.container-img, .container-tab-bar{
+    flex: 1;                /* Permet à chaque enfant de prendre une part égale de l'espace */
+}
+
+.container-img {
+    position: relative;
+}
+
+.container-tab-bar {}
+
+.container-tab-bar-informations{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+
+.container-label-gender-rate{
+    display: flex;
+    gap: 8px;
+}
+
+.container-alternative-forms{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Répartit les images avec un espace égal entre elles */
+    align-items: center;          /* Centre les images verticalement dans le conteneur */
+    gap: 20px;
+}
+
+.container-alternative-form{
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 4px;
+}
+
+@media (max-width: 768px) {
+
+    .container-description-img {
+      flex-direction: column;    /* Passe les conteneurs en colonne sur les écrans de moins de 768px de large */
+    }
+  
+    .container-img, .container-tab-bar {
+      flex: 1 1 100%;            /* Chaque conteneur prend 100% de la largeur du parent sur les petits écrans */
+      width: 100%;
+    }
+}
+
+/*
+    IMAGE
+*/
+.img-pokemon, .blur {
+    max-width: 100%;  /* L'image ne sera jamais plus large que 100% de son conteneur */
+    height: auto;     /* La hauteur s'ajuste automatiquement pour maintenir le ratio d'aspect */
+    border-radius: 16px;
+}
+
+.img-pokemon{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.img-forms-alternative{
+    flex: 1 1 auto;               /* Les images s'étendent également pour remplir le conteneur */
+    max-width: 100%;              /* Assure que les images ne dépassent pas la largeur du conteneur */
+    height: auto;                 /* Maintient le ratio d'aspect d'origine des images */
+    object-fit: contain;          /* Les images conservent leur format d'origine et sont entièrement visibles */
+  
+    border-radius: 12px;
+}
+
+.blur{
+    filter: blur(40px);
+}
+
+/*
+    LABEL
+*/
+.label-pokemon-id{
+    color: var(--main-color-grey);
+    font-family: var(--main-font-family);
+    font-size: 18px;
+    font-style: normal;
+}
+
+
+.label-pokemon-name{
+    color: var(--main-color-black);
+    font-family: var(--main-font-family);
+    font-size: 56px;
+    font-style: normal;
+}
+
+.label-gender-rate-male{
+    color : blue /*Même couleur que la bar*/
+}
+
+.label-gender-rate-female{
+    color : pink /*Même couleur que la bar*/
+}
+
+.label-alternative-form{
+    align-self: stretch;
+    color: var(--main-color-black);
+    text-align: center;
+    font-family: var(--main-font-family);
+    font-size: 12px;
+    font-style: normal;
+}
+
+
+.progress-bar-male{
+    background-color: blue;
+}
+
+.progress-bar-female{
+    background-color: pink;
+}

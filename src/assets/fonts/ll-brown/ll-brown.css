@@ -1,0 +1,121 @@
+/* Déclaration des différentes variantes de la police Brown */
+
+/* Brown Regular */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Brown Regular Italic */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Brown Bold */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Brown Bold Italic */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Brown Thin */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* Brown Thin Italic */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+/* Brown Light */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Brown Light Italic */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* Brown Bold Backslanted */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-BoldBackslanted.ttf') format('truetype');
+    font-weight: bold;
+    font-style: oblique;
+}
+
+/* Brown Bold Backslanted Alt */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-BoldBackslanted-Alt.ttf') format('truetype');
+    font-weight: bold;
+    font-style: oblique;
+}
+
+/* Brown Regular Backslanted */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-RegularBackslanted.ttf') format('truetype');
+    font-weight: normal;
+    font-style: oblique;
+}
+
+/* Brown Regular Backslanted Alt */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-RegularBackslanted-Alt.ttf') format('truetype');
+    font-weight: normal;
+    font-style: oblique;
+}
+
+/* Brown Bold Italic Alt */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-BoldItalicAlt.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Brown Light Italic Alt */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-LightItalicAlt.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* Brown Bold Alt */
+@font-face {
+    font-family: 'Brown';
+    src: url('/assets/fonts/ll-brown/Brown-BoldAlt.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}

@@ -1,12 +1,16 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, finalize, Observable, of, Subject, switchMap, tap } from 'rxjs';
+import { catchError, finalize, forkJoin, map, Observable, of, Subject, switchMap, tap } from 'rxjs';
 import { PokemonMove, PokemonMoveVersion } from 'src/app/models/pokemon/pokemon/pokemon-move';
 import { Pokemon } from 'src/app/models/pokemon/pokemon/pokemon';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { PokemonService } from 'src/app/services/pokemon/pokemon/pokemon.service';
 import { environment } from 'src/environments/environment';
 import { Moves } from 'src/app/models/moves/moves/moves';
+import { PokemonSpeciesService } from 'src/app/services/pokemon/pokemon-species/pokemon-species.service';
+import { PokemonSpecies } from 'src/app/models/pokemon/pokemon-species/pokemon-species';
+import { GrowthRatesService } from 'src/app/services/pokemon/growth-rates/growth-rates.service';
+import { GrowthRate } from 'src/app/models/pokemon/growth-rates/growth-rate.model';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -17,22 +21,26 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * ATTRIBUT
-   */
+  */
   // Déclaration des propriétés du composant
-  private apiUrl    = environment.apis.dataPokemon.url;  // URL de l'API Pokémon
-  private destroy$  = new Subject<void>();
+  private apiUrl          = environment.apis.dataPokemon.url;  // URL de l'API Pokémon
+  private destroy$        = new Subject<void>();
   moveDetailsByMoveMap    = new Map<PokemonMove, Moves>();
 
-  pokemon             : Pokemon | null  = null; // Objet Pokémon contenant les détails
-  gameVersions        : string[] = [];          // Liste des versions de jeu disponibles
-  selectedVersion     : string = '';            // Version de jeu actuellement sélectionnée
-  isFirstGenerate     : number = 0;             // Gérer la 1er génération pour le passage de la page d'acceuil à la version sidebar
-  isLoading           : boolean = false;        // Indicateur de chargement en cours
+  pokemon             : Pokemon | null  = null;         // Objet Pokémon contenant les détails de bases
+  alternativeForms    !: Pokemon[];                     // Objet avec les formes alternatives
+  pokemonSpecies      !: PokemonSpecies;                // Objet Pokémon contenant les détails plus avancés
+  growthRate          !: GrowthRate;                    // Autre détails du pokemon 
 
-  levelUpMovesMethod  : PokemonMove[] = [];     // Tableau pour stocker les attaques que peut apprendre le pokemon par montée de lvl
-  machineMovesMethod  : PokemonMove[] = [];     // Tableau pour stocker les attaques que peut apprendre le pokemon par CT/CS
-  tutorMovesMethod    : PokemonMove[] = [];     // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
-  eggMovesMethod      : PokemonMove[] = [];     // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
+  gameVersions        : string[] = [];                  // Liste des versions de jeu disponibles
+  selectedVersion     : string = '';                    // Version de jeu actuellement sélectionnée
+  isFirstGeneration   : boolean = true;                 // Gérer la 1er génération pour le passage de la page d'acceuil à la version sidebar
+  isLoading           : boolean = false;                // Indicateur de chargement en cours
+
+  levelUpMovesMethod  : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par montée de lvl
+  machineMovesMethod  : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par CT/CS
+  tutorMovesMethod    : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
+  eggMovesMethod      : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
   
   @Input() pokemonId !: number;                 // ID du Pokémon actuel
   @Output() selectPokemon = new EventEmitter<number>();
@@ -44,10 +52,12 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
    * @param route 
    */
   constructor(
-    private route           : ActivatedRoute,         // Pour accéder aux paramètres de l'URL
-    private router          : Router,                 // Pour la navigation
-    private pokemonService  : PokemonService,         // Service pour récupérer les données Pokémon
-    private loggerService   : LoggerService,          // Service de logging
+    private route                   : ActivatedRoute,         // Pour accéder aux paramètres de l'URL
+    private router                  : Router,                 // Pour la navigation
+    private pokemonService          : PokemonService,         // Service pour récupérer les données de base du Pokémon
+    private pokemonSpeciesService   : PokemonSpeciesService,  // Service pour récupérer les données plus avancé du Pokémon
+    private loggerService           : LoggerService,          // Service de logging
+    private growthRatesService      : GrowthRatesService,      // Service pour avoir des détails supplémentaires sur le pokemon
   ) { }
 
 
@@ -57,14 +67,15 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * HOOKS
    */
-  ngOnInit(): void {
-    this.initializeComponent();
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['pokemonId'] && changes['pokemonId'].currentValue) {
+    if (changes['pokemonId'] && changes['pokemonId'].currentValue && !this.isFirstGeneration) {
       this.initializeComponent();
     }
+  }
+
+  ngOnInit(): void {
+    this.initializeComponent();
+    this.isFirstGeneration = false;
   }
 
   // Méthode de nettoyage lors de la destruction du composant
@@ -109,13 +120,78 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   // Récupère les détails du Pokémon en utilisant l'ID
-  getPokemonDetail(): Observable<Pokemon> {
-
+  getPokemonDetail(): Observable<PokemonSpecies | null> {
+    
+    // Début de la chaîne d'observables pour récupérer les détails du Pokémon
     return this.pokemonService.getPokemonDetail(this.apiUrl + this.pokemonId).pipe(
-      switchMap(data => this.pokemonService.createPokemonFromDetail(data)),
-      tap(pokemon => {this.pokemon = pokemon;})
+  
+      // Utilisation de switchMap pour effectuer une nouvelle requête après avoir obtenu les détails de base du Pokémon
+      switchMap(data => 
+        
+        // Convertit les données brutes en une instance de la classe `Pokemon`
+        this.pokemonService.createPokemonFromDetail(data).pipe(
+
+          tap(pokemon => {
+
+            // Assigne le Pokémon à l'attribut de classe
+            this.pokemon = pokemon; 
+    
+            // Vérifie que le Pokémon et son espèce sont valides avant de continuer
+            if (!pokemon?.species?.url) {
+              throw new Error('Invalid Pokémon species URL');
+            }
+          })
+        )
+      ),
+  
+      // Après avoir récupéré les détails du Pokémon, récupère les informations sur l'espèce associée
+      switchMap(pokemon => this.pokemonSpeciesService.getPokemonSpecies(pokemon.species.url)),
+      tap(pokemonSpecies => {
+
+        // Assigne les données de l'espèce de Pokémon à l'attribut de classe `pokemonSpecies`
+        this.pokemonSpecies = pokemonSpecies;
+
+        // Récupérer le taux de croissance après avoir obtenu les données de l'espèces
+        this.fetchGrowthRate(this.pokemonSpecies.growthRateRessource.url);
+
+      }),
+
+      // Traitement des formes alternatives du Pokémon
+      switchMap(pokemonSpecies => {
+
+        // Filtrez pour exclure la forme de base en utilisant le nom du Pokémon
+
+        const alternativeFormRequests = pokemonSpecies.varieties
+
+          // Filtre les formes alternatives pour exclure la forme de base en utilisant le nom du Pokémon
+          .filter(variety => variety.pokemon.name !== this.pokemon!.name)
+
+          // Pour chaque forme alternative, effectue une requête pour récupérer ses détails
+          .map(variety => this.pokemonService.getPokemonDetail(variety.pokemon.url).pipe(
+            // Convertit les données brutes en une instance de la classe `Pokemon`
+            switchMap(data => this.pokemonService.createPokemonFromDetail(data))
+          ));
+
+        // Utilisation de `forkJoin` pour exécuter toutes les requêtes de formes alternatives en parallèle
+        return forkJoin(alternativeFormRequests).pipe(
+          
+          // Assigne les formes alternatives récupérées à l'attribut de classe `alternativeForms`
+          tap(alternativeForms => this.alternativeForms = alternativeForms),
+          
+          // Retourne l'espèce de Pokémon après le traitement des formes alternatives
+          map(() => pokemonSpecies)
+        );
+      }),
+  
+      // Gestion des erreurs
+      catchError(error => {
+        this.loggerService.error('Error fetching Pokémon details or species:', error);
+        return of(null);  // Retourner un observable null pour gérer l’erreur en douceur
+      })
     );
   }
+  
+  
 
   // Initialise la liste des versions de jeu disponibles
   initializeGameVersions(): void {
@@ -216,6 +292,17 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  fetchGrowthRate(url: string): void {
+
+    this.growthRatesService.getGrowthRate(url).subscribe({
+
+      // Store the growth rate data
+      next: (growthRate) => {this.growthRate = growthRate},
+
+      error: (error) => {this.loggerService.error('Error fetching growth rate data:', error)}
+    });
+  }
+
   // Méthode pour convertir une Map en une liste triée par niveau
   convertMapToSortedList(moveMap: Map<string, PokemonMove>): PokemonMove[] {
     return Array.from(moveMap.values())
@@ -239,8 +326,7 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
     return Object.values(obj);
   }
 
-  onSelectFromEvolutionList(id: number): void {
+  onSelectPokemon(id: number): void {
     this.selectPokemon.emit(id);
   }
-
 }

@@ -1,4 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/fonts/ll-brown/ll-brown.css';
 
+/*  */
+:root {
+    --main-font-family: 'Brown', sans-serif;
+
+    --main-color-black: #2C2C2C;
+    --colors-neutral-black:#000;
+    --colors-light-black:#4B4B4B;
+
+    --main-color-white: #ffffff;
+
+
+    --main-color-grey: grey;
+
+    --color-inactive-button: #757575;
+
+    /* --sds-size-space-300: */
+}
+
+/* styles globaux */
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+    font-family: var(--main-font-family);
+}
