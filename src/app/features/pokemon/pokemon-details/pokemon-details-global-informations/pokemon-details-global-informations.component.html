@@ -60,21 +60,27 @@
                   <app-info-section title="Egg groups (Hatch time)" text="{{pokemonSpecies.eggGroups}} ({{pokemonSpecies.hatchCounter}} cycles)"/>
                   <app-info-section title="Growth rate"             text="{{growthRate.formattedName}}"/>
                   <app-info-section title="Gender rate">
-                      <div extra-content>
 
-                        <div class="progress-stacked">
+                    <div extra-content *ngIf="pokemonSpecies.genderRate != -1; else genderUnknown">
 
-                          <div class="progress-bar progress-bar-male" role="progressbar" [style.width.%]="(1 - pokemonSpecies.genderRate / 8) * 100"></div>
-                          <div class="progress-bar progress-bar-female" role="progressbar"  [style.width.%]="(pokemonSpecies.genderRate / 8) * 100" ></div>
-                          
-                        </div>
+                      <div class="progress-stacked">
 
-                        <div class="container-label-gender-rate">
-                          <p class="label-gender-rate-male">{{ (1 - pokemonSpecies.genderRate / 8) * 100 | number: '1.0-2' }}% Male</p>
-                          <p class="label-gender-rate-female">{{ (pokemonSpecies.genderRate / 8) * 100 | number: '1.0-2' }}% Female</p>
-                        </div>
-
+                        <div class="progress-bar progress-bar-male" role="progressbar" [style.width.%]="pokemonSpecies.percentageGenderRateMale"></div>
+                        <div class="progress-bar progress-bar-female" role="progressbar"  [style.width.%]="pokemonSpecies.percentageGenderRateFemale" ></div>
+                        
                       </div>
+
+                      <div class="container-label-gender-rate">
+                        <p class="label-gender-rate-male">{{ pokemonSpecies.percentageGenderRateMale | number: '1.0-2' }}% Male</p>
+                        <p class="label-gender-rate-female">{{ pokemonSpecies.percentageGenderRateFemale | number: '1.0-2' }}% Female</p>
+                      </div>
+
+                    </div>
+                    
+                    <ng-template #genderUnknown>
+                      <div class="gender-unknown">Gender unknown</div>
+                    </ng-template>
+
                   </app-info-section>
 
                 </div>
