@@ -82,21 +82,22 @@
               </ng-template>
                 
               <!-- Contenu des formes alternatives -->
-              <ng-template *ngIf="alternativeForms.length!=1" appPokemonTabContent title="Alternative form(s)">
+              <ng-template *ngIf="this.alternativeForms && this.alternativeForms.length > 0" appPokemonTabContent title="Alternative form(s)">
 
                 <div class="container-tab-bar-informations">
 
                   <div class="container-alternative-forms" >
                     
-                    <div *ngFor="let form of alternativeForms" class="container-alternative-form" (click)="selectedAlternativeForm(form.id)">
+                    <div 
+                      *ngFor="let form of alternativeForms" 
+                      class="container-alternative-form" 
+                      (click)="selectedAlternativeForm(form.id)"
+                      [ngClass]="{'single-form': alternativeForms.length === 1}"
+                    >
                       
                       <!-- TODO : FAIRE UN COMPOSANT -->
-                      <div *ngIf="form.name!=pokemon.name">
-
-                        <p class="label-alternative-form">{{form.formattedName}}</p>
-                        <img [src]="form.officialArtwork" class="img-forms-alternative"/>
-
-                      </div>
+                      <p class="label-alternative-form">{{form.formattedName}}</p>
+                      <img [src]="form.officialArtwork" class="img-forms-alternative"/>
 
                     </div>
 

@@ -20,7 +20,6 @@ export class PokemonDetailsGlobalInformationsComponent {
   // Charger un pokemon depuis une forme alternative
   @Output() selectPokemon = new EventEmitter<number>();
   selectedAlternativeForm(id: number): void {
-    console.log("test");
     this.selectPokemon.emit(id);
   }
 
