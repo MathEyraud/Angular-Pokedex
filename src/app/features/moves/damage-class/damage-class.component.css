@@ -1,3 +1,21 @@
+.container-type{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+
+    padding: 3px 6px;
+}
+
+.label-title{
+    color: var(--color-text-white);
+    font-family: var(--main-font-family);
+    font-size: 12px;
+    line-height:normal;
+    margin: 0;
+}
+
 .damage-physical {
     background-color: #c77b19;
     color: white;

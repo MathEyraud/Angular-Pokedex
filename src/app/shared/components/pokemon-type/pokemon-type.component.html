@@ -1,3 +1,5 @@
-<div class="badge text-capitalize" style="display: block;" [ngClass]="getTypeClass(type)">
-    {{ type ? getFormattedType() : '' }}
+<div class="container-type" [ngClass]="[getTypeClass(type), showBorder ? 'with-border' : '']">
+
+    <p class="label-title">{{ type ? getFormattedType() : '' }}</p>
+
 </div>

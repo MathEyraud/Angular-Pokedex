@@ -8,36 +8,16 @@ import { capitalizeFirstLetter } from 'src/app/utils/string-utils';
 })
 export class PokemonTypeComponent {
 
-  @Input() type: string | null | undefined;
+  @Input() type: string | null | undefined; // Type du Pokemon
+  @Input() showBorder: boolean = false;     // Gérer l'affichage de la bordure
+
 
   getFormattedType() : string {
     return this.type ? capitalizeFirstLetter(this.type) : '';  
   }
 
+  // Fonction pour obtenir la classe de type
   getTypeClass(type: string | null | undefined) : string {
-
-    if(type === null || type === undefined) {return ''}
-
-    switch (type.toLowerCase()) {
-      case 'steel'      : return 'type-steel';
-      case 'fighting'   : return 'type-fighting';
-      case 'dragon'     : return 'type-dragon';
-      case 'water'      : return 'type-water';
-      case 'electric'   : return 'type-electric';
-      case 'fairy'      : return 'type-fairy';
-      case 'fire'       : return 'type-fire';
-      case 'ice'        : return 'type-ice';
-      case 'bug'        : return 'type-bug';
-      case 'normal'     : return 'type-normal';
-      case 'grass'      : return 'type-grass';
-      case 'poison'     : return 'type-poison';
-      case 'rock'       : return 'type-rock';
-      case 'ground'     : return 'type-ground';
-      case 'ghost'      : return 'type-ghost';
-      case 'dark'       : return 'type-dark';
-      case 'flying'     : return 'type-flying';
-      case 'psychic'    : return 'type-psychic';
-      default: return '';
-    }
+    return `type-${type?.toLowerCase()}`;
   }
 }

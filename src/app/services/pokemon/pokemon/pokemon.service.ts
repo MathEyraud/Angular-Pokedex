@@ -11,6 +11,8 @@ import { ErrorService } from '../../error/error.service';
 
 import { PokemonMapper } from 'src/app/mappers/pokemon/pokemon/pokemon.mapper';
 import { IPokemon, IPokemonApiResponse } from 'src/app/interfaces/pokemon/pokemon';
+import { IType } from 'src/app/interfaces/pokemon/types';
+import { TypeMapper } from 'src/app/mappers/pokemon/types/type.mapper';
 
 // Décorateur Injectable pour que ce service puisse être injecté dans d'autres composants/services
 @Injectable({
@@ -21,7 +23,8 @@ export class PokemonService {
   /**
    * ATTRIBUT
   */
-  private apiUrl = environment.apis.dataPokemon.url;  // URL de l'API Pokémon
+  private apiUrlPokemon = environment.apis.dataPokemon.url;  // URL de l'API Pokémon
+  private apiUrlType    = environment.apis.dataType.url;  // URL de l'API des types
 
   // Constructeur : injection de HttpClient
   constructor(
@@ -48,7 +51,7 @@ export class PokemonService {
       .set('offset', offset.toString());
 
     // Appel à l'API et traitement de la réponse
-    return this.httpClient.get<IPokemonApiResponse>(this.apiUrl, { params }).pipe(
+    return this.httpClient.get<IPokemonApiResponse>(this.apiUrlPokemon, { params }).pipe(
 
       switchMap(response => this.mapApiResponse(response)),
       catchError(error => this.errorService.handlePokemonError(error))
@@ -148,8 +151,66 @@ export class PokemonService {
 
   // Utilise le nom ou l'ID pour construire l'URL de l'API et récupérer les détails du Pokémon
   getPokemonDetailByNameOrId(nameOrId: string | number): Observable<Pokemon> {
-    return this.httpClient.get<any>(`${this.apiUrl}/${nameOrId}`).pipe(
+    return this.httpClient.get<any>(`${this.apiUrlPokemon}/${nameOrId}`).pipe(
       map(data => PokemonMapper.mapPokemon(data))
     );
   }
+
+  /**
+   * Méthode pour récupérer les faiblesses et résistances d'un Pokémon
+   * @param pokemon - Un objet de type Pokemon pour lequel on souhaite récupérer les relations de dégâts
+   * @returns Un Observable qui émet un objet avec les types et leurs multiplicateurs de dégâts correspondants
+   */
+  getPokemonWeaknessesAndResistances(pokemon: Pokemon): Observable<{ [type: string]: number }> {
+
+    // Créer une requête HTTP pour chaque type du Pokémon
+    const typeRequests = pokemon.types.map(type => this.httpClient.get<IType>(`${this.apiUrlType}/${type.type?.name}`));
+
+    // Utiliser forkJoin pour exécuter toutes les requêtes de type en parallèle
+    return forkJoin(typeRequests).pipe(
+
+      map(types => {
+
+        // Mapper les données des types obtenues à partir de l'API vers le modèle de données local
+        const mappedTypes = types.map(type => TypeMapper.mapData(type));
+
+        // Initialiser un objet pour les relations de dégâts avec tous les types ayant un multiplicateur de dégâts de 1 (neutre)
+        const damageRelations: { [type: string]: number } = {};
+
+        // Liste de tous les types possibles dans le jeu Pokémon
+        const allTypes = [
+          'normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 
+          'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 
+          'psychic', 'ice', 'dragon', 'dark', 'fairy'
+        ];
+
+        // Initialiser le multiplicateur de dégâts pour chaque type à 1 (neutre)
+        allTypes.forEach(type => damageRelations[type] = 1);
+
+        // Parcourir chaque type pour calculer les faiblesses et résistances du Pokémon
+        mappedTypes.forEach(type => {
+
+          // Parcourir les types contre lesquels le Pokémon subit des dégâts doubles
+          type.damageRelations.doubleDamageFrom.forEach(df => {
+            damageRelations[df.name] *= 2; // Multiplie le multiplicateur de dégâts par 2
+          });
+
+          // Parcourir les types contre lesquels le Pokémon subit des dégâts réduits de moitié
+          type.damageRelations.halfDamageFrom.forEach(hf => {
+            damageRelations[hf.name] *= 0.5; // Multiplie le multiplicateur de dégâts par 0.5
+          });
+
+          // Parcourir les types contre lesquels le Pokémon ne subit aucun dégât
+          type.damageRelations.noDamageFrom.forEach(nf => {
+            damageRelations[nf.name] *= 0; // Définit le multiplicateur de dégâts à 0
+          });
+
+        });
+
+        // Retourne l'objet contenant les relations de dégâts calculées
+        return damageRelations;
+      })
+    );
+  }
+  
 }

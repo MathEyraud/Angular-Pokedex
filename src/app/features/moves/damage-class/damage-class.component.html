@@ -1,3 +1,3 @@
-<span class="badge text-capitalize" style="display: block;" [ngClass]="getDamageClass(damageClass)">
-    {{ damageClass ? getFormattedDamageClass() : '' }}
+<span class="container-type" [ngClass]="getDamageClass(damageClass)">
+    <p class="label-title">{{ damageClass ? getFormattedDamageClass() : '' }}</p>
 </span>

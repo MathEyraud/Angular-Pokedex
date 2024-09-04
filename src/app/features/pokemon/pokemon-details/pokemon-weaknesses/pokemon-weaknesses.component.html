@@ -1,0 +1,109 @@
+<div class="container">
+    
+    <p class="label-title">Weaknesses and Resistances</p>
+    
+    <div class="container-data">
+
+        <div class="container-subtitle">
+
+            <div class="container-title-subtitle">
+                <p class="label-subtitle">
+                    <span class="full-text">Very resistant</span>
+                    <span class="short-text">Very R.</span>
+                    <span class="very-short-text">Very R.</span>
+                </p>
+                <p class="label-subtitle">(/4)</p>
+            </div>
+            
+            <div class="container-types">
+                <app-pokemon-type 
+                    *ngFor="let type of categorizedWeaknesses.veryResistant"
+                    [type]="type"
+                />
+            </div>
+
+        </div>
+        
+        <div class="container-subtitle">
+
+            <div class="container-title-subtitle">
+                <p class="label-subtitle">
+                    <span class="full-text">Resistant</span>
+                    <span class="short-text">Resistant</span>
+                    <span class="very-short-text">Res.</span>
+                </p>
+                <p class="label-subtitle">(/2)</p>
+            </div>
+            
+            <div class="container-types">
+                <app-pokemon-type 
+                    *ngFor="let type of categorizedWeaknesses.resistant"
+                    [type]="type"
+                />
+            </div>
+
+        </div>
+    
+        <div class="container-subtitle">
+
+            <div class="container-title-subtitle">
+                <p class="label-subtitle">
+                    <span class="full-text">Immune</span>
+                    <span class="short-text">Immune</span>
+                    <span class="very-short-text">Imm.</span>
+                </p>
+                <p class="label-subtitle">(x0)</p>
+            </div>
+
+            <div class="container-types">
+                <app-pokemon-type 
+                    *ngFor="let type of categorizedWeaknesses.immune"
+                    [type]="type"
+                />
+            </div>
+
+        </div>
+
+        <div class="container-subtitle">
+
+            <div class="container-title-subtitle">
+                <p class="label-subtitle">
+                    <span class="full-text">Weak</span>
+                    <span class="short-text">Weak</span>
+                    <span class="very-short-text">W.</span>
+                </p>
+                <p class="label-subtitle">(x2)</p>
+            </div>
+            
+            <div class="container-types">
+                <app-pokemon-type 
+                    *ngFor="let type of categorizedWeaknesses.weak"
+                    [type]="type"
+                />
+            </div>
+        
+        </div>
+    
+        <div class="container-subtitle">
+
+            <div class="container-title-subtitle">
+                <p class="label-subtitle">
+                    <span class="full-text">Very Weak</span>
+                    <span class="short-text">Very W.</span>
+                    <span class="very-short-text">Very W.</span>
+                </p>
+                <p class="label-subtitle">(x4)</p>
+            </div>
+
+            <div class="container-types">
+                <app-pokemon-type 
+                    *ngFor="let type of categorizedWeaknesses.veryWeak"
+                    [type]="type"
+                />
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

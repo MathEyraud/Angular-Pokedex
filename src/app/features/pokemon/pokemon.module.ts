@@ -16,6 +16,8 @@ import { PokemonSummaryCardEvolutionComponent } from './pokemon-summary/pokemon-
 import { PokemonListEvolutionComponent } from './pokemon-list/pokemon-list-evolution/pokemon-list-evolution.component';
 import { PokemonDetailsGlobalInformationsComponent } from './pokemon-details/pokemon-details-global-informations/pokemon-details-global-informations.component';
 import { InfoSectionComponent } from './pokemon-details/pokemon-details-global-informations/pokemon-details-tabs-informations/info-section/info-section.component';
+import { PokemonWeaknessesComponent } from './pokemon-details/pokemon-weaknesses/pokemon-weaknesses.component';
+import { PokemonBaseStatsComponent } from './pokemon-details/pokemon-base-stats/pokemon-base-stats.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { InfoSectionComponent } from './pokemon-details/pokemon-details-global-i
     PokemonListEvolutionComponent,
     PokemonDetailsGlobalInformationsComponent,
     InfoSectionComponent,
+    PokemonBaseStatsComponent,
+    PokemonWeaknessesComponent,
   ],
   imports: [
     CommonModule,

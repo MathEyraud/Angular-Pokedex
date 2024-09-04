@@ -17,7 +17,7 @@
 }
 
 .label-title{
-    color: #888;
+    color: var(--color-title-grey);
     font-size: 14px;
 }
 
