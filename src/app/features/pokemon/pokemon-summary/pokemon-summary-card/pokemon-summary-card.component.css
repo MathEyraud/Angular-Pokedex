@@ -1,0 +1,13 @@
+.container-types{
+    display:flex ;
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.container-type{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}

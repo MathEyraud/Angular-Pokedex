@@ -96,21 +96,9 @@
     max-width: 50%; /* Limit max width when only one form */
 }
 
-@media (max-width: 768px) {
-
-    .container-description-img {
-      flex-direction: column;    /* Passe les conteneurs en colonne sur les écrans de moins de 768px de large */
-    }
-  
-    .container-img, .container-tab-bar {
-      flex: 1 1 100%;            /* Chaque conteneur prend 100% de la largeur du parent sur les petits écrans */
-      width: 100%;
-    }
-}
-
-/*
+/********
     IMAGE
-*/
+*********/
 .img-pokemon, .blur {
     max-width: 100%;  /* L'image ne sera jamais plus large que 100% de son conteneur */
     height: auto;     /* La hauteur s'ajuste automatiquement pour maintenir le ratio d'aspect */
@@ -171,6 +159,10 @@
     font-style: normal;
 }
 
+.progress-stacked {
+    width: 100%; /* Full width for the progress container */
+    height: 6px;
+}
 
 .progress-bar-male{
     background-color: blue;
@@ -178,4 +170,20 @@
 
 .progress-bar-female{
     background-color: pink;
+}
+
+/***************/
+/* MEDIA QUERY */
+/***************/
+
+@media (max-width: 768px) {
+
+    .container-description-img {
+      flex-direction: column;    /* Passe les conteneurs en colonne sur les écrans de moins de 768px de large */
+    }
+  
+    .container-img, .container-tab-bar {
+      flex: 1 1 100%;            /* Chaque conteneur prend 100% de la largeur du parent sur les petits écrans */
+      width: 100%;
+    }
 }

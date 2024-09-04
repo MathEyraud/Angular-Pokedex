@@ -1,3 +1,66 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    align-self: stretch;
+}
+
+.container-weakness-stats{
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 60px;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+
+.container-weakness, .container-stats{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+}
+
+.container-weakness{
+    display: block;
+}
+
+.container-stats{
+}
+
+.container-base-stats{
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.container-evolution{
+    width: 100%;          /* Largeur du conteneur */
+    overflow-x: auto;     /* Active le défilement horizontal si nécessaire */
+    white-space: nowrap;  /* Empêche le retour à la ligne du contenu à l'intérieur du conteneur */
+}
+
+.label-title-weakness, .label-title-stats{
+    align-self: stretch;
+    color: var(--main-color-black);
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    font-style: normal;
+    line-height: normal;
+    margin: 0;
+}
+
+.label-title-weakness{
+}
+
+.label-title-stats{
+}
+
 table th {
     text-align: center;
 }
@@ -14,15 +77,37 @@ table td:first-child {
     text-align: left;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    gap: 120px;
-    align-self: stretch;
+/***************/
+/* MEDIA QUERY */
+/***************/
+/*  CF pokemon-weaknesses.component */
+@media (max-width: 882px) {
+    .label-title-stats{font-size: 19px;}
+}
+@media (max-width: 846px) {
+    .label-title-stats{font-size: 18px;}
+}
+@media (max-width: 810px) {
+    .label-title-stats{font-size: 17px;}
+}
+@media (max-width: 773px) {
+    .label-title-stats{font-size: 16px;}
 }
 
-.container-evolution{
-    width: 100%;          /* Largeur du conteneur */
-    overflow-x: auto;     /* Active le défilement horizontal si nécessaire */
-    white-space: nowrap;  /* Empêche le retour à la ligne du contenu à l'intérieur du conteneur */
+@media (max-width: 768px) {
+
+    .container{
+        gap: 96px;
+    }
+
+    .container-weakness-stats {
+      flex-direction: column;    /* Passe les conteneurs en colonne sur les écrans de moins de 768px de large */
+    }
+  
+    .container-weakness, .container-stats {
+      flex: 1 1 100%;            /* Chaque conteneur prend 100% de la largeur du parent sur les petits écrans */
+      width: 100%;
+    }
+
+    .label-title-stats{font-size: 20px;}
 }

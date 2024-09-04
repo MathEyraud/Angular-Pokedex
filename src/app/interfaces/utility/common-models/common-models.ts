@@ -51,3 +51,9 @@ export interface IMachineVersionDetail {
     machine: IAPIResource;
     version_group: INamedAPIResource;
 }
+
+// Interface for GenerationGameIndex (game index relevant to a generation)
+export interface IGenerationGameIndex {
+    game_index: number;
+    generation: INamedAPIResource; // Reference to a generation resource
+}

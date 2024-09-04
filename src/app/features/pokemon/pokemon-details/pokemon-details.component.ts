@@ -31,6 +31,7 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   alternativeForms    !: Pokemon[];                     // Objet avec les formes alternatives
   pokemonSpecies      !: PokemonSpecies;                // Objet Pokémon contenant les détails plus avancés
   growthRate          !: GrowthRate;                    // Autre détails du pokemon 
+  weaknessesAndResistances: { [type: string]: number } = {};
 
   gameVersions        : string[] = [];                  // Liste des versions de jeu disponibles
   selectedVersion     : string = '';                    // Version de jeu actuellement sélectionnée
@@ -186,6 +187,21 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
             // Retourne l'espèce de Pokémon après le traitement des formes alternatives
             map(() => pokemonSpecies)
           );
+        }
+      }),
+
+      // Récupérer les faiblesses et résistances après avoir récupéré les formes alternatives
+      switchMap(() => {
+
+        if (this.pokemon) {
+
+          return this.pokemonService.getPokemonWeaknessesAndResistances(this.pokemon).pipe(
+
+            tap(weaknessesAndResistances => {this.weaknessesAndResistances = weaknessesAndResistances || {}}),
+            map(() => this.pokemonSpecies) // Continue avec l'espèce du Pokémon comme résultat
+          );
+        } else {
+          return of(this.pokemonSpecies); // Si `this.pokemon` est null, retournez l'espèce
         }
       }),
   

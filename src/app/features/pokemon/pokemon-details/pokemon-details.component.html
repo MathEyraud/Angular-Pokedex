@@ -10,7 +10,29 @@
     />
 
     <!-- SENSIBILITES & STAT DE BASE -->
-    <div>
+    <div class="container-weakness-stats">
+
+        <div class="container-weakness">
+
+            <app-pokemon-weaknesses [weaknessesAndResistances]="weaknessesAndResistances"/>
+            
+        </div>
+
+        <div class="container-stats">
+
+            <p class="label-title-stats">Base stats</p>
+
+            <div class="container-base-stats">
+                <app-pokemon-base-stats 
+                    *ngFor="let stats of pokemon.stats"
+                    [title]="stats.stat.name"
+                    [value]="stats.baseStat"
+                />
+            </div>
+            
+
+        </div>
+
     </div>
 
 

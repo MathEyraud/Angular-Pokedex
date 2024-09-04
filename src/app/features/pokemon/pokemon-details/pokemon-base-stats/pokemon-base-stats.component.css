@@ -1,0 +1,104 @@
+
+/************/
+/* CONAINER */
+/************/
+.container {
+    display: flex;
+    align-items: center; /* Vertically centers the content */
+    width: 100%; /* Full width to ensure space is distributed evenly */
+    padding: 0;
+}
+
+/*********/
+/* LABEL */
+/*********/
+.label-title{
+    flex: 2;
+
+    color: var(--color-text-secondary-grey);
+    font-family: var(--main-font-family);
+    font-size: 14px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.label-value{
+    flex: 1;
+
+    color: var(--main-color-black);
+    font-family: var(--main-font-family);
+    font-size: 14px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.label-value{
+    text-align:right;
+}
+
+/****************/
+/* PROGRESS BAR */
+/****************/
+.container-progress-bar {
+    flex: 3; 
+    padding-left: 8px;
+}
+
+.progress {
+    width: 100%; /* Full width for the progress container */
+    height: 6px;
+}
+
+.progress-bar.low {
+    background-color: red;
+}
+
+.progress-bar.medium-low {
+    background-color: rgb(255, 123, 0);
+}
+
+.progress-bar.medium-hight {
+    background-color: #FAC200;
+}
+
+.progress-bar.high {
+    background-color: green;
+}
+
+.full-text {
+    display: inline;
+}
+
+.short-text {
+    display: none;
+}
+
+@media (max-width: 1050px) {
+    .full-text {
+        display: none;
+    }
+
+    .short-text {
+        display: inline;
+    }
+}
+
+@media (max-width: 767px) {
+    .full-text {
+        display: inline;
+    }
+
+    .short-text {
+        display: none;
+    }
+}
+
+@media (max-width: 380px) {
+    .full-text {
+        display: none;
+    }
+
+    .short-text {
+        display: inline;
+    }
+}

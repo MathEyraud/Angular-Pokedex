@@ -10,6 +10,9 @@ export const environment = {
         dataPokemon:{
             url:'https://pokeapi.co/api/v2/pokemon/'
         },
+        dataType:{
+            url:'https://pokeapi.co/api/v2/type/'
+        },
         dataSpeciesPokemon:{
             url:'https://pokeapi.co/api/v2/pokemon-species/'
         },
