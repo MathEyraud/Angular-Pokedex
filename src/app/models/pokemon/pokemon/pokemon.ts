@@ -16,7 +16,7 @@ export class Pokemon {
         private _name                   : string                | null,
         private _baseExperience         : number                | null,
         private _height                 : number                | null,
-        private _isDefault              : Boolean,
+        private _isDefault              : boolean,
         private _order                  : number,
         private _weight                 : number                | null,
         private _abilities              : PokemonAbility[]      | null,
@@ -115,8 +115,8 @@ export class Pokemon {
     set pastTypes(value: PokemonTypePast[] | null) {this._pastTypes = value;}
 
     // isDefault
-    get isDefault(): Boolean {return this._isDefault;}
-    set isDefault(value: Boolean) {this._isDefault = value;}
+    get isDefault(): boolean {return this._isDefault;}
+    set isDefault(value: boolean) {this._isDefault = value;}
 
     // ---------------------------------------------- //
     // ----- Getter avec logique supplémentaire ----- //
@@ -131,14 +131,25 @@ export class Pokemon {
 
     get formattedName(): string {
 
-        if (this._name) {
-            const newName = this._name?.replace(/-/g, ' ');
-            return capitalizeFirstLetter(newName);
-            
-        } else {
+        if (!this._name) {
             return "N/A";
         }
+    
+        // Remplacer les tirets par un espace
+        let newName = this._name.replace(/-/g, ' ');
         
+        // Traitement pour "mega" et "gmax"
+        newName = newName.replace(/\bmega\b/gi, 'Mega');
+        newName = newName.replace(/\bgmax\b/gi, 'Gmax');
+        
+        // Traitement spécial pour "mega x" et "mega y"
+        newName = newName.replace(/\bmega\s+x\b/gi, 'Mega X');
+        newName = newName.replace(/\bmega\s+y\b/gi, 'Mega Y');
+    
+        // Capitaliser la première lettre de chaque mot
+        return newName.split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
     }
 
     // getter pour la hauteur formatée avec un chiffre après la virgule
@@ -172,5 +183,9 @@ export class Pokemon {
         const urlPicture = this.sprites?.otherSprites?.officialArtwork?.frontDefault;
         if(urlPicture){return urlPicture}
         else{return null}
+    }
+
+    get totalStats(): number {
+        return this._stats.reduce((total, stat) => total + stat.baseStat, 0);
     }
 }

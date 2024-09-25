@@ -151,7 +151,7 @@ export class PokemonService {
 
   // Utilise le nom ou l'ID pour construire l'URL de l'API et récupérer les détails du Pokémon
   getPokemonDetailByNameOrId(nameOrId: string | number): Observable<Pokemon> {
-    return this.httpClient.get<any>(`${this.apiUrlPokemon}/${nameOrId}`).pipe(
+    return this.httpClient.get<IPokemon>(`${this.apiUrlPokemon}/${nameOrId}`).pipe(
       map(data => PokemonMapper.mapPokemon(data))
     );
   }

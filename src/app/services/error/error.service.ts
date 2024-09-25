@@ -13,6 +13,7 @@ export class ErrorService {
 
   // GESTION DES ERREURS
   handleError(error: HttpErrorResponse): Observable<never> {
+    
     let errorMessage = 'Une erreur est survenue';
 
     // Erreur côté client

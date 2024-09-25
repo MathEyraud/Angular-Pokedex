@@ -1,32 +1,102 @@
-<div class="evolution-card" (click)="onSelectPokemon(pokemon.id)">
+<div class="container" [class.expanded]="isExpanded">
 
-  <div class="pokemon-card">
+  <div class="container-head">
 
-    <img [src]="pokemon.sprites?.otherSprites?.officialArtwork?.frontDefault" alt="{{ pokemon.name }}" class="pokemon-image">
+    <p class="label-name-pokemon">{{pokemon.formattedName}}</p>
 
-    <div class="pokemon-info">
-      <div class="pokemon-id">{{ pokemon.formattedId }}</div>
-      <div class="pokemon-name">{{ pokemon.formattedName }}</div>
-    </div>
+    <!-- Affichage de la forme précédente ou "Initial form" -->
+    <p *ngIf="pokemonForm!='mega' && !pokemonSpecies?.evolvesFromSpeciesRessource" class="label-subtitle label-name-pokemon-previous">
+      Initial form {{ isRegionalForm ? ' ' + pokemonForm : '' }}
+    </p>
 
-    <div class="pokemon-types">
-      <div *ngFor="let type of pokemon.types">
-        <app-pokemon-type [type]="type.type?.name"></app-pokemon-type>
-      </div>
-    </div>
+    <p *ngIf="pokemonForm!='mega' && pokemonSpecies?.evolvesFromSpeciesRessource" class="label-subtitle label-name-pokemon-previous">
+      From {{ previousPokemonName }}
+    </p>
+
+    <!-- Afficher le Pokémon précédent : Cas Méga/Gmax -->
+    <p *ngIf="pokemonForm=='mega' || pokemonRarity=='Gmax'" class="label-subtitle label-name-pokemon-previous">
+      {{ 'From ' + pokemonSpecies?.formattedName }}
+    </p>
 
   </div>
 
-  <div class="evolution-info">
+  <div class="container-img-pokemon" [style.background-color]="getPokemonColor()">
+    <img 
+      [src]="pokemon.sprites?.otherSprites?.officialArtwork?.frontDefault" 
+      alt="{{ pokemon.name }}" 
+      class="img-pokemon"
+      (click)="onSelectPokemon(pokemon.id)"
+    >
+  </div>
 
-    <div class="evolution-method">
-      {{ getEvolutionTrigger() }}
-    </div>
+  <div class="container-rarity">
 
-    <div class="evolution-method" *ngFor="let method of evolutionMethods">
-      {{ method }}
-    </div>
+    <app-pokemon-rarity 
+      *ngIf="pokemonForm=='default' || pokemonRarity=='legendary' || pokemonRarity=='mythical'"
+      [title]="pokemonRarity"
+    />
+
+    <app-pokemon-rarity 
+      *ngIf="pokemonForm!='default'"
+      [title]="pokemonForm"
+    />
+
+  </div>
+  
+
+  <!-- Gestion des évolutions -->
+  <div class="container-condition">
+
+    <p class="label-subtitle">Evolution detail</p>
+
+    <div #containerEvolutionMethods class="container-evolution-methods" [class.truncated]="!isExpanded && contentOverflows">
+
+      <!-- Vérification de la mégaevolution -->
+      <ng-container *ngIf="pokemonForm === 'mega'; else normalEvolutionMethods">
+        <div class="container-evolution-method">
+          <p class="label-text">Mega Stone</p>
+        </div>
+      </ng-container>
+
+      <!-- Gestion des évolutions avec un seul bloc conditionnel -->
+      <ng-template #normalEvolutionMethods>
+
+        <!-- Cas où il n'y a pas d'évolution -->
+        <div *ngIf="evolutionMethods.length === 0" class="container-evolution-method">
+          <p class="label-text">---</p>
+        </div>
+
+        <!-- Cas où il y a une seule méthode d'évolution -->
+        <div *ngIf="evolutionMethods.length === 1" class="container-evolution-method">
+          <p class="label-text">{{ evolutionMethods[0] }}</p>
+        </div>
+
+        <!-- Cas où il y a plusieurs méthodes d'évolution -->
+        <ng-container *ngIf="evolutionMethods.length > 1">
+          <div *ngFor="let method of evolutionMethods; let i = index" class="container-evolution-method">
+            <p class="label-text">
+              - Method {{ i + 1 }} : {{ method }}
+            </p>
+          </div>
+        </ng-container>
+
+      </ng-template>
     
+    </div>
+
+    <button *ngIf="contentOverflows" (click)="toggleExpand(); $event.stopPropagation()" class="expand-button">
+      {{ isExpanded ? 'Show less' : '...' }}
+    </button>
+
+    <div *ngIf="!contentOverflows" class="expand-button-placeholder"></div>
+
+  </div>
+
+  <div class="container-types">
+    <p class="label-subtitle">Type(s)</p>
+    <div class="container-type">
+      <app-pokemon-type *ngFor="let type of pokemon.types" [type]="type.type?.name"></app-pokemon-type>
+    </div>
   </div>
 
 </div>

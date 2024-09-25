@@ -96,7 +96,7 @@ table td:first-child {
 
 @media (max-width: 768px) {
 
-    .container{
+    .container,.container-weakness-stats {
         gap: 96px;
     }
 

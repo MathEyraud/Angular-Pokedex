@@ -1,85 +1,175 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { PokemonSummaryComponent } from '../pokemon-summary.component';
+import { PokemonSpecies } from 'src/app/models/pokemon/pokemon-species/pokemon-species';
 import { EvolutionDetail } from 'src/app/models/evolution/evolution-detail';
+import { PokemonForm } from 'src/app/models/pokemon/pokemon-forms/pokemon-form';
+import { RegionService } from 'src/app/services/locations/regions/region.service';
+import { Router } from '@angular/router';
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import { Pokemon } from 'src/app/models/pokemon/pokemon/pokemon';
+import { PokemonColorService } from 'src/app/services/pokemon/pokemon-colors/pokemon-color.service';
 
 @Component({
   selector: 'app-pokemon-summary-card-evolution',
   templateUrl: './pokemon-summary-card-evolution.component.html',
   styleUrls: ['./pokemon-summary-card-evolution.component.css']
 })
-export class PokemonSummaryCardEvolutionComponent extends PokemonSummaryComponent{
+export class PokemonSummaryCardEvolutionComponent extends PokemonSummaryComponent implements OnInit{
 
-  @Input() evolutionDetails: EvolutionDetail[] = [];  // Entrée pour les détails de l'évolution, injectée depuis le composant parent.
-  evolutionMethods: string[] = [];
+  // Inputs du composant
+  @Input() evolutionDetails     : EvolutionDetail[] = [];  // Détails de l'évolution du Pokémon
+  @Input() pokemonSpecies       : PokemonSpecies | null = null;  // Espèce du Pokémon
+  @Input() pokemonForms         !: PokemonForm[];  // Formes du Pokémon
+  @Input() chainHasRegionalForms: boolean = false;
+  @Input() previousPokemon      : Pokemon | null = null;
+  
+  // Propriétés pour stocker les informations d'évolution
+  evolutionMethods    : string[] = [];    // Critères d'évolution pour chaque méthode
+  index               : number = 0;       // Index utilisé dans les boucles
+  pokemonRarity       : string = '';      // Rareté du Pokémon (baby, legendary, mythical, default)
+  pokemonForm         : string = '';      // Forme du Pokémon (Mega, Gmax, Alola, etc.)
+  isRegionalForm      : boolean = false;  // Indique si c'est une forme régionale
+  previousPokemonName : string = '';      // Nom du Pokémon précédent
+  isExpanded          : boolean = false;  // Propriété pour gérer l'état d'expansion
+  contentOverflows    : boolean = false;  // Propriété pour gérer l'état d'expansion
 
-
-
-
+  @ViewChild('containerEvolutionMethods') evolutionMethodsRef!: ElementRef;
+  
+  constructor(
+    protected override router: Router,
+    protected override loggerService: LoggerService,
+    private regionService: RegionService,
+    private cdr: ChangeDetectorRef,
+    private pokemonColorService: PokemonColorService,
+  ) {
+    super(router, loggerService);
+  }
 
   ngOnInit() {
-    this.evolutionMethods = this.getEvolutionMethods(this.evolutionDetails);
+
+    // Initialisation des données
+    this.initializeEvolutionMethods();
+    this.updatePokemonRarityAndForm();
+    this.updatePreviousPokemonInfo();
+  }
+
+  // Appelé lorsque les inputs changent
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['evolutionDetails'] || changes['pokemonSpecies'] || changes['pokemonForms']) {
+      this.initializeEvolutionMethods();
+      this.updatePokemonRarityAndForm();
+      this.updatePreviousPokemonInfo();
+    }
+  }
+
+  // Appelé lorsque le composant est rendu
+  ngAfterViewInit() {
+    this.checkContentOverflow();
+    this.cdr.detectChanges(); // Force la détection des changements après la vérification
   }
 
 
 
 
-  getEvolutionTrigger(): string | null {
 
-    if (this.evolutionDetails && this.evolutionDetails.length > 0) {
-
-      const detail = this.evolutionDetails[0];
-
-      if (detail.trigger?.name === 'level-up') return 'level-up';
-      if (detail.trigger?.name === 'trade') return 'trade';
-      if (detail.trigger?.name === 'use-item') return 'use-item';
-      if (detail.trigger?.name === 'shed') return 'shed';
-      if (detail.trigger?.name === 'spin') return 'spin';
-      if (detail.trigger?.name === 'tower-of-darkness') return 'tower-of-darkness';
-      if (detail.trigger?.name === 'tower-of-waters') return 'tower-of-waters';
-      if (detail.trigger?.name === 'three-critical-hits') return 'three-critical-hits';
-      if (detail.trigger?.name === 'take-damage') return 'take-damage';
-      if (detail.trigger?.name === 'other') return 'other';
-      if (detail.trigger?.name === 'agile-style-move') return 'agile-style-move';
-      if (detail.trigger?.name === 'strong-style-move') return 'strong-style-move';
-      if (detail.trigger?.name === 'recoil-damage') return 'recoil-damage';
-
-    }
-    return null;
-  }
-
-  getEvolutionMethods(evolutionDetails: EvolutionDetail[]): string[] {
-
-    if (!evolutionDetails || evolutionDetails.length === 0) {
-      return [' '];
-    }
+  // Initialise les méthodes d'évolution
+  private initializeEvolutionMethods() {
+    
+    this.evolutionMethods = [];
   
-    return evolutionDetails.map(detail => {
-      const criteria: string[] = [];
+    // Obtenir l'ordre de la forme actuelle
+    const currentFormOrder = this.pokemonForms && this.pokemonForms.length > 0 
+      ? this.pokemonForms[0].formOrder 
+      : 1; // Par défaut, on considère que c'est la forme 1
+    
+    let methodFound = false;
   
-      if (detail.minLevel) criteria.push(`Niveau ${detail.minLevel}`);
-      if (detail.item) criteria.push(`Utiliser ${detail.item.name}`);
-      if (detail.trigger?.name === 'trade') criteria.push('Échange');
-      if (detail.minHappiness) criteria.push(`Bonheur ≥ ${detail.minHappiness}`);
-      if (detail.minBeauty) criteria.push(`Beauté ≥ ${detail.minBeauty}`);
-      if (detail.minAffection) criteria.push(`Affection ≥ ${detail.minAffection}`);
-      if (detail.gender !== null) criteria.push(`Genre: ${detail.gender === 1 ? 'Femelle' : 'Mâle'}`);
-      if (detail.heldItem) criteria.push(`Tenir ${detail.heldItem.name}`);
-      if (detail.knownMove) criteria.push(`Connaître ${detail.knownMove.name}`);
-      if (detail.knownMoveType) criteria.push(`Connaître une attaque ${detail.knownMoveType.name}`);
-      if (detail.location) criteria.push(`À ${detail.location.name}`);
-      if (detail.needsOverworldRain) criteria.push('Sous la pluie');
-      if (detail.partySpecies) criteria.push(`Avec ${detail.partySpecies.name} dans l'équipe`);
-      if (detail.partyType) criteria.push(`Avec un Pokémon de type ${detail.partyType.name} dans l'équipe`);
-      if (detail.relativePhysicalStats !== null) {
-        if (detail.relativePhysicalStats === 1) criteria.push('Attaque > Défense');
-        if (detail.relativePhysicalStats === 0) criteria.push('Attaque = Défense');
-        if (detail.relativePhysicalStats === -1) criteria.push('Attaque < Défense');
+    // Vérifier si cette méthode d'évolution correspond à la forme actuelle
+    this.evolutionDetails.forEach((detail, index) => {
+      if (this.isMethodForCurrentForm(detail, index, currentFormOrder)) {
+        this.evolutionMethods.push(detail.getEvolutionDescription());
+        methodFound = true;
       }
-      if (detail.timeOfDay) criteria.push(`Pendant la ${detail.timeOfDay === 'day' ? 'journée' : 'nuit'}`);
-      if (detail.tradeSpecies) criteria.push(`Échange contre ${detail.tradeSpecies.name}`);
-      if (detail.turnUpsideDown) criteria.push('Console retournée');
-  
-      return criteria.length > 0 ? criteria.join(' & ') : ' ';
     });
+
+    // Si aucune méthode n'a été trouvée pour la forme actuelle et que ce n'est pas la forme de base,
+    // utilisez la méthode de la forme de base (index 0)
+    if (!methodFound && currentFormOrder > 1 && this.evolutionDetails.length > 0) {
+      this.evolutionMethods.push(this.evolutionDetails[0].getEvolutionDescription());
+    }
+  }
+  
+  // Vérifie si une méthode d'évolution correspond à la forme actuelle du Pokémon
+  private isMethodForCurrentForm(detail: EvolutionDetail, index: number, currentFormOrder: number): boolean {
+
+    // Pour les formes régionales, on prend la méthode correspondant à l'ordre de la forme
+    if (this.pokemon.name && this.regionService.isRegionalForm(this.pokemon.name)) {
+      return index + 1 === currentFormOrder;
+    }
+    
+    // Pour les formes non régionales, on prend soit la première méthode, 
+    // soit toutes s'il n'y a pas de forme régionale
+    return index === 0 || !this.chainHasRegionalForms;
+  }
+  
+  // Met à jour la rareté et la forme du Pokémon
+  private updatePokemonRarityAndForm() {
+    this.pokemonRarity = this.getRarity();
+    this.pokemonForm = this.getForm();
+  }
+
+  private updatePreviousPokemonInfo() {
+    if (this.previousPokemon) {this.previousPokemonName = this.previousPokemon.formattedName;} 
+    else {this.previousPokemonName = "";}
+  }
+
+    // Détermine la rareté du Pokémon
+    private getRarity(): string {
+      if (this.pokemonSpecies?.isLegendary) return 'legendary';
+      if (this.pokemonSpecies?.isMythical) return 'mythical';
+      return 'default';
+    }
+
+  // Détermine la forme du Pokémon
+  private getForm(): string {
+    
+    if (this.pokemonForms && this.pokemonForms.length > 0) {
+
+      const form = this.pokemonForms[0];
+
+      if (form.isMega) return 'mega';
+      if (this.pokemonSpecies?.isBaby) return 'baby';
+      if (form.formName !== '') return 'default';
+    }
+    return 'default';
+  }
+
+  checkContentOverflow() {
+    if (this.evolutionMethodsRef) {
+      const element        = this.evolutionMethodsRef.nativeElement;
+      const styles         = window.getComputedStyle(element);
+      const lineHeight     = parseFloat(styles.lineHeight);
+      const paddingTop     = parseFloat(styles.paddingTop);
+      const paddingBottom  = parseFloat(styles.paddingBottom);
+
+      // Calculer la hauteur totale d'une ligne, y compris le padding
+      const singleLineHeight = lineHeight + paddingTop + paddingBottom;
+
+      // Utiliser une marge de tolérance pour la détection du débordement
+      const overflowTolerance = 2; // en pixels
+
+      this.contentOverflows = element.scrollHeight > (singleLineHeight + overflowTolerance);
+    }
+  }
+
+  toggleExpand(): void {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  getPokemonColor(): string {
+    if (this.pokemonSpecies && this.pokemonSpecies.colorRessource) {
+      return this.pokemonColorService.getColor(this.pokemonSpecies.colorRessource.name);
+    }
+    return 'transparent'; // Couleur par défaut si aucune couleur n'est spécifiée
   }
 }

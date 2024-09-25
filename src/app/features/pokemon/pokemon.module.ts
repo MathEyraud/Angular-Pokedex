@@ -18,6 +18,8 @@ import { PokemonDetailsGlobalInformationsComponent } from './pokemon-details/pok
 import { InfoSectionComponent } from './pokemon-details/pokemon-details-global-informations/pokemon-details-tabs-informations/info-section/info-section.component';
 import { PokemonWeaknessesComponent } from './pokemon-details/pokemon-weaknesses/pokemon-weaknesses.component';
 import { PokemonBaseStatsComponent } from './pokemon-details/pokemon-base-stats/pokemon-base-stats.component';
+import { PokemonRarityComponent } from './pokemon-rarity/pokemon-rarity.component';
+import { IconShinyComponent } from './icon-shiny/icon-shiny.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { PokemonBaseStatsComponent } from './pokemon-details/pokemon-base-stats/
     InfoSectionComponent,
     PokemonBaseStatsComponent,
     PokemonWeaknessesComponent,
+    PokemonRarityComponent,
+    IconShinyComponent,
   ],
   imports: [
     CommonModule,

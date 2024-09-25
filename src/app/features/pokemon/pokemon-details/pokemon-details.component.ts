@@ -37,6 +37,7 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   selectedVersion     : string = '';                    // Version de jeu actuellement sélectionnée
   isFirstGeneration   : boolean = true;                 // Gérer la 1er génération pour le passage de la page d'acceuil à la version sidebar
   isLoading           : boolean = false;                // Indicateur de chargement en cours
+  hasEvolution        : boolean = true;                // Propriété pour suivre l'état d'évolution
 
   levelUpMovesMethod  : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par montée de lvl
   machineMovesMethod  : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par CT/CS
@@ -45,6 +46,8 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   
   @Input() pokemonId !: number;                         // ID du Pokémon actuel
   @Output() selectPokemon = new EventEmitter<number>();
+
+
 
 
 
@@ -94,6 +97,10 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
     // Activer l'indicateur de chargement
     this.isLoading = true; 
+
+    // Il faut le réinitialiser sinon lors du passage d'un pokemon sans évolution 
+    // à un pokemon avec évolution le composant ne sera pas généré
+    this.hasEvolution = true;
 
     // Récupération des détails du Pokémon
     // Puis exécutez diverses méthodes
@@ -350,5 +357,9 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   onSelectPokemon(id: number): void {
     this.selectPokemon.emit(id);
+  }
+
+  handleEvolutionStatusChange(hasEvolution: boolean): void {
+    this.hasEvolution = hasEvolution;
   }
 }

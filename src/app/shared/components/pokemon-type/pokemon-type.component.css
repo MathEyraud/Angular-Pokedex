@@ -25,124 +25,124 @@
     color: var(--color-text-white);
     
     border-color: #003345;
-    background: #5FA3BA;
+    background: var(--color-type-steel);
 }
 
 .type-fighting {
     color: var(--color-text-white);
     
     border-color: #5C2F00;
-    background: #FF8100;
+    background: var(--color-type-fighting);
 }
 
 .type-dragon {
     color: var(--color-text-white);
     
     border-color: #000B62;
-    background: #4F60E2;
+    background: var(--color-type-dragon);
 }
 
 .type-water {
     color: var(--color-text-white);
     
     border-color: #00316C;
-    background: #2681F0;
+    background: var(--color-type-water);
 }
 
 .type-electric {
     color: var(--color-text-black);
     
     border-color: #574400;
-    background: #FAC200;
+    background: var(--color-type-electric);
 }
 
 .type-fairy {
     color: var(--color-text-black);
     
     border-color: var(--colors-neutral-black);
-    background: #F071EF;
+    background: var(--color-type-fairy);
 }
 
 .type-fire {
     color: var(--color-text-white);
     
     border-color: #8B0001;
-    background: #E72324;
+    background: var(--color-type-fire);
 }
 
 .type-ice {
     color: var(--color-text-black);
     
     border-color: #00576C;
-    background: #3DD9FF;
+    background: var(--color-type-ice);
 }
 
 .type-bug {
     color: var(--color-text-white);
     
     border-color: #4C5700;
-    background: #92A312;
+    background: var(--color-type-bug);
 }
 
 .type-normal {
     color: var(--color-text-white);
     
     border-color: #303030;
-    background: #A1A2A1;
+    background: var(--color-type-normal);
 }
 
 .type-poison {
     color: var(--color-text-white);
     
     border-color: #3A0063;
-    background: #923FCC;
+    background: var(--color-type-poison);
 }
 
 .type-grass {
     color: var(--color-text-white);
     
     border-color: #105400;
-    background: #3DA225;
+    background: var(--color-type-grass);
 }
 
 .type-rock {
     color: var(--color-text-white);
     
     border-color: #463E00;
-    background: #B0AB82;
+    background: var(--color-type-rock);
 }
 
 .type-ground {
     color: var(--color-text-white);
     
     border-color: #381900;
-    background: #92501C;
+    background: var(--color-type-ground);
 }
 
 .type-ghost {
     color: var(--color-text-white);
     
     border-color: #3F203F;
-    background: #713F71;
+    background: var(--color-type-ghost);
 }
 
 .type-dark {
     color: var(--color-text-white);
     
     border-color: #2C2322;
-    background: #4F3E3D;
+    background: var(--color-type-dark);
 }
 
 .type-flying {
     color: var(--color-text-white);
     
     border-color: #2E4254;
-    background: #82BBF0;
+    background: var(--color-type-flying);
 }
 
 .type-psychic {
     color: var(--color-text-white);
     
     border-color: #4B0019;
-    background: #F03F7A;
+    background: var(--color-type-psychic);
 }
