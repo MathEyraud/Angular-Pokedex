@@ -20,7 +20,7 @@
 
         <div class="container-stats">
 
-            <p class="label-title-stats">Base stats</p>
+            <p class="label-title-stats">Base stats ({{pokemon.totalStats}})</p>
 
             <div class="container-base-stats">
                 <app-pokemon-base-stats 
@@ -37,11 +37,12 @@
 
 
     <!-- CHAINE D'EVOLUTION -->
-    <div class="container-evolution">
+    <div *ngIf="hasEvolution" class="container-evolution">
         <app-pokemon-list-evolution 
             [pokemon]="pokemon"
             [pokemonSpecies]="pokemonSpecies"
             (selectPokemon)="onSelectPokemon($event)"
+            (evolutionStatusChange)="handleEvolutionStatusChange($event)"
         />
     </div>
     

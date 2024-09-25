@@ -1,0 +1,19 @@
+<div class="container-rarity" [ngClass]="rarityClass">
+
+    <span class="label" [ngClass]="'label-' + title.toLowerCase()">{{ rarityLabel }}</span>
+
+    <!-------------------------------------------------->
+    <!-- Afficher les icones en fonction des pokemons -->
+    <!-------------------------------------------------->
+
+    <!-- Icone : Légendaires -->
+    <app-icon-shiny *ngIf="this.title == 'legendary'"[width]="10" [height]="10" [isLegendary]=true/>
+
+    <!-- Icone : Mythiques -->
+    <app-icon-shiny *ngIf="this.title == 'mythical'" [width]="10" [height]="10" [isMythical]=true/>
+
+    <!-- Icone : Bébé -->
+    <!-- Icone : Méga-évolution -->
+    <!-- Icone : Gmax -->
+     
+</div>

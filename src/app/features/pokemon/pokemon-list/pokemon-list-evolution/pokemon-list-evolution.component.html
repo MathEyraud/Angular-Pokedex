@@ -1,15 +1,18 @@
 <!-- Vérifie si la chaîne d'évolution a lieu d'être -->
 <div *ngIf="pokemon && evolutionChain.length>1" class="container">
 
-    <div class="evolution-title">Evolutions</div>
+    <div class="label-title">Evolutions</div>
 
-    <div class="evolution-chain">
+    <div class="container-evolution-chain">
 
         <!-- Boucle sur chaque maillon de la chaîne d'évolution aplatie -->
-        <app-pokemon-summary-card-evolution 
-            *ngFor="let evolution of evolutionChain"
-            [pokemon]="evolution.pokemonDetails"
-            [evolutionDetails]="evolution.chainLink.evolutionDetail"
+        <app-pokemon-summary-card-evolution *ngFor="let pokemon of evolutionChain"
+            [pokemon]="pokemon.pokemonDetails"
+            [pokemonSpecies]="pokemon.pokemonSpeciesDetails"
+            [evolutionDetails]="pokemon.chainLink ? pokemon.chainLink.evolutionDetail : []"
+            [pokemonForms]="pokemon.pokemonForms"
+            [chainHasRegionalForms]="chainHasRegionalForms"
+            [previousPokemon]="pokemon.previousPokemon"
             (selectPokemon)="onSelectPokemon($event)"
         />
 

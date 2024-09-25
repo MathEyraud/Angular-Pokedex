@@ -164,6 +164,18 @@ export class PokemonSpecies {
     return (1 - this.genderRate / 8) * 100
   }
 
+  get formattedNamePreviousPokemon(): string | null {
+
+    if (this._evolves_from_species?.name) {
+      const newName = this._name?.replace(/-/g, ' ');
+      return capitalizeFirstLetter(this._evolves_from_species?.name);
+        
+    } else {
+      return null;
+    }
+    
+}
+
   get percentageGenderRateFemale(): number {
     return (this.genderRate / 8) * 100
   }
@@ -187,6 +199,18 @@ export class PokemonSpecies {
   get eggGroups(): string {
     return this.eggGroupsRessource.map(eggGroup => capitalizeFirstLetter(eggGroup.name)).join(' / ');
   }
+
+  get formattedName(): string {
+
+    if (this._name) {
+      const newName = this._name?.replace(/-/g, ' ');
+      return capitalizeFirstLetter(newName);
+        
+    } else {
+      return "N/A";
+    }
+    
+}
 
   // Function to get flavor text by version and language
   getFlavorTextByVersion(versionGroup: string): string | null {
@@ -260,4 +284,34 @@ export class PokemonSpecies {
         return 'Unknown';  // Pour gérer les cas où la génération n'est pas reconnue
     }
   }
+
+  getPokemonColor(): string {
+    if (this.colorRessource && this.colorRessource.name) {
+      // Convertir le nom de la couleur en une valeur CSS valide
+      return this.convertColorNameToCss(this.colorRessource.name);
+    }
+    return 'transparent'; // Couleur par défaut si aucune couleur n'est spécifiée
+  }
+
+  private convertColorNameToCss(colorName: string): string {
+
+    const opacity = '20';
+
+    // Mapper les noms de couleurs de l'API à des valeurs CSS
+    const colorMap: { [key: string]: string } = {
+      black: '#000000' + opacity,
+      blue: '#0000FF' + opacity,
+      brown: '#A52A2A' + opacity,
+      gray: '#808080' + opacity,
+      green: '#008000' + opacity,
+      pink: '#FFC0CB' + opacity,
+      purple: '#800080' + opacity,
+      red: '#FF0000'+ opacity,
+      white: '#FFFFFF'+ opacity,
+      yellow: '#FFFF00'+ opacity,
+    };
+
+    return colorMap[colorName.toLowerCase()] || colorName;
+  }
+
 }

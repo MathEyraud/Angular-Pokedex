@@ -24,8 +24,8 @@ export class PokemonSummaryComponent {
    * @param router 
    */
   constructor(
-    private router        : Router,
-    private loggerService : LoggerService, 
+    protected router        : Router,
+    protected loggerService : LoggerService, 
   ) { }
 
   /**

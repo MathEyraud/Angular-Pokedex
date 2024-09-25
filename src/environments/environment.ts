@@ -19,6 +19,9 @@ export const environment = {
         dataMoves:{
             url:'https://pokeapi.co/api/v2/move/'
         },
+        dataForms:{
+            url: 'https://pokeapi.co/api/v2/pokemon-form/'
+        },
         dataPokemonFr1:{
             url:'https://tyradex.vercel.app/api/v1/pokemon/'
         },

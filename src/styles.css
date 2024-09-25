@@ -21,7 +21,42 @@
 
     --color-inactive-button: #757575;
 
-    /* --sds-size-space-300: */
+    --color-badge-legendary:#BC6E01;
+    --color-badge-mythical:#6E00A2;
+    --color-badge-baby:#505050;
+    --color-badge-mega:#895900;
+    --color-badge-gmax:#895900;
+
+    --color-type-normal:#A1A2A1;
+    --color-type-poison:#923FCC;
+    --color-type-grass:#3DA225;
+    --color-type-rock:#B0AB82;
+    --color-type-ground:#92501C;
+    --color-type-fairy:#F071EF;
+    --color-type-fighting:#FF8100;
+    --color-type-steel:#5FA3BA;
+    --color-type-dark:#4F3E3D;
+    --color-type-ghost:#713F71;
+    --color-type-bug:#92A312;
+    --color-type-dragon:#4F60E2;
+    --color-type-flying:#82BBF0;
+    --color-type-electric:#FAC200;
+    --color-type-ice:#3DD9FF;
+    --color-type-water:#2681F0;
+    --color-type-fire:#E72324;
+    --color-type-psychic:#F03F7A;
+
+    --sds-size-space-400:16px;
+    --sds-size-space-300:12px;
+    --sds-size-space-200:8px;
+    --sds-size-space-150:6.5px;
+    --sds-size-space-100:4px;
+
+    --sds-size-stroke-border:1px;
+
+    --sds-size-radius-400:16px;
+
+
 }
 
 /* styles globaux */
