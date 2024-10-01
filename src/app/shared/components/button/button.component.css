@@ -1,0 +1,55 @@
+.container-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: var(--padding-xs) var(--padding-s);
+    border: 1px solid var(--color-border-grey);
+    border-radius: 8px;
+    background-color: var(--main-color-white);
+    color: var(--color-text-black);
+
+    cursor: pointer;
+
+    font-family: var(--main-font-family);
+    font-size: 16px;
+
+    white-space: nowrap; /* Empêche le retour à la ligne du texte dans le bouton */
+    flex-shrink: 0; /* Empêche le bouton de rétrécir */
+
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.container-button.active {
+    background-color: var(--colors-light-black);
+    color: var(--main-color-white);
+
+    border-color: var(--color-text-black);
+    border-bottom: 4px solid var(--color-text-black);
+    padding: 6px var(--padding-s) var(--padding-xs) var(--padding-s);
+}
+
+.container-button:disabled {
+    color: var(--color-border-grey);
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
+
+.container-button:not(.active):not(:disabled):hover,
+/* Focus visible pour la navigation au clavier (accessibilité) */
+.container-button:not(.active):not(:disabled):focus-visible {
+    background-color: var(--color-background-secondary);  
+    border-bottom: 4px solid var(--color-border-grey);
+    padding: 6px var(--padding-s) var(--padding-xs) var(--padding-s);
+    
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.container-button:not(.active):not(:disabled):active {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transform: scale(0.90); /* Réduction de taille pour effet de "pression" */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}

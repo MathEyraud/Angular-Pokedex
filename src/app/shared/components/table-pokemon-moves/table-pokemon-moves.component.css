@@ -1,0 +1,56 @@
+/* Style pour le tableau */
+table{
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border : 1px solid var(--color-border-grey);
+
+    font-family: var(--main-font-family);
+    font-size: 12px;
+}
+
+/* Style pour les colonnes spécifiques */
+table th {
+    text-align: center;
+    background-color: #F4F4F4; /* Couleur de fond pour l'en-tête */
+}
+
+table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Appliquer nowrap à toutes les cellules sauf la dernière (description) */
+table td:not(:last-child) {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+table td:last-child {text-align: left;}
+
+/* Par défaut, afficher les titres complets et cacher les titres courts */
+.label-full {display: inline;}
+.label-short {display: none;}
+
+.label-table-description-short{display: none}
+.label-table-description-long{display: inline}
+
+/***************/
+/* MEDIA QUERY */
+/***************/
+@media (max-width: 1599px) {
+    .label-table-description-short{display: inline}
+    .label-table-description-long{display: none}
+}
+
+@media (max-width: 960px) {
+    .label-table-description{display: none}
+    .label-table-description-short{display: none}
+    .label-table-description-long{display: none}
+}
+
+@media (max-width: 574px) {
+    .label-full {display: none;}
+    .label-short {display: inline;}
+}

@@ -5,11 +5,18 @@
     align-self: stretch;
 }
 
+/* TODO : A gérer */
+.container-first-view{
+    display: flex;
+    flex-direction: column;
+    gap: var(--sds-size-space-verybig);
+}
+
 .container-weakness-stats{
     display: flex;
     align-items: flex-start;
     align-content: flex-start;
-    gap: 60px;
+    gap: var(--sds-size-space-big);
     align-self: stretch;
     flex-wrap: wrap;
 }
@@ -45,6 +52,12 @@
     white-space: nowrap;  /* Empêche le retour à la ligne du contenu à l'intérieur du conteneur */
 }
 
+.container-attacks{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .label-title-weakness, .label-title-stats{
     align-self: stretch;
     color: var(--main-color-black);
@@ -55,27 +68,39 @@
     margin: 0;
 }
 
+.label-title-attacks{
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    color: var(--main-color-black);
+}
+
 .label-title-weakness{
 }
 
 .label-title-stats{
 }
 
-table th {
-    text-align: center;
+.container-buttons {
+    display: flex;
+    gap: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+    overflow-x: auto; /* Active le défilement horizontal */
+    -webkit-overflow-scrolling: touch; /* Pour un défilement fluide sur iOS */
 }
 
-table th:first-child {
-    text-align: left; /* Ou une autre valeur comme 'right', selon vos besoins */
+.container-buttons::-webkit-scrollbar {height: 1px;}
+
+/* ------------------------------- */
+/* GESTION DU TABLEAU DES ATTAQUES */
+/* ------------------------------- */
+.container-table-attacks{
+    width: 100%;
+    overflow-x: auto; /* Active le défilement horizontal */
 }
 
-table td {
-    text-align: center;
-}
-
-table td:first-child {
-    text-align: left;
-}
+.container-table-attacks::-webkit-scrollbar {height: 1px;}
 
 /***************/
 /* MEDIA QUERY */
@@ -96,7 +121,7 @@ table td:first-child {
 
 @media (max-width: 768px) {
 
-    .container,.container-weakness-stats {
+    .container,.container-weakness-stats,.container-first-view {
         gap: 96px;
     }
 

@@ -4,14 +4,14 @@
 :root {
     --main-font-family: 'Brown', sans-serif;
 
-    --main-color-black: #2C2C2C;
     --colors-neutral-black:#000;
     --colors-light-black:#4B4B4B;
-
+    
+    --main-color-black: #2C2C2C;
     --main-color-white: #ffffff;
-
-
     --main-color-grey: grey;
+
+    --color-background-secondary:#F1F1F1;
 
     --color-title-grey: #999;
     --color-text-secondary-grey: #999;
@@ -20,6 +20,7 @@
     --color-text-black: #000000;
 
     --color-inactive-button: #757575;
+    --color-border-grey:#CACACA;
 
     --color-badge-legendary:#BC6E01;
     --color-badge-mythical:#6E00A2;
@@ -46,11 +47,18 @@
     --color-type-fire:#E72324;
     --color-type-psychic:#F03F7A;
 
+    --sds-size-space-verybig:128px;
+    --sds-size-space-big:64px;
+
     --sds-size-space-400:16px;
     --sds-size-space-300:12px;
     --sds-size-space-200:8px;
     --sds-size-space-150:6.5px;
     --sds-size-space-100:4px;
+
+    --padding-s:12px;
+    --padding-xs:8px;
+    --padding-xxs:4px;
 
     --sds-size-stroke-border:1px;
 
@@ -63,5 +71,9 @@
 html, body { height: 100%; }
 
 body {
+    font-family: var(--main-font-family);
+}
+
+p{
     font-family: var(--main-font-family);
 }
