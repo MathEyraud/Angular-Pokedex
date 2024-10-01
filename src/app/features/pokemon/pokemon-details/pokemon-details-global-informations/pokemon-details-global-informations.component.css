@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 42px;
+    gap: var(--sds-size-space-big);
     align-self: stretch;
     width: 100%;
 }
@@ -41,7 +41,7 @@
     display: flex;
     align-items: flex-start;
     align-content: flex-start;
-    gap: 42px;
+    gap: var(--sds-size-space-big);
     align-self: stretch;
     flex-wrap: wrap;
     width: 100%;
@@ -142,13 +142,11 @@
     font-style: normal;
 }
 
-.label-gender-rate-male{
-    color : blue /*Même couleur que la bar*/
-}
 
-.label-gender-rate-female{
-    color : pink /*Même couleur que la bar*/
-}
+.label-gender-rate-male{color : var(--color-type-water)}
+.label-gender-rate-female{color : var(--color-type-fairy)}
+.progress-bar-male{background-color: var(--color-type-water)}
+.progress-bar-female{background-color: var(--color-type-fairy)}
 
 .label-alternative-form{
     align-self: stretch;
@@ -164,13 +162,7 @@
     height: 6px;
 }
 
-.progress-bar-male{
-    background-color: blue;
-}
 
-.progress-bar-female{
-    background-color: pink;
-}
 
 /***************/
 /* MEDIA QUERY */

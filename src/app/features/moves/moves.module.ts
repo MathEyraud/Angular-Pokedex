@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MovesComponent } from './moves/moves.component';
 import { MovesRoutingModule } from './moves-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { DamageClassComponent } from './damage-class/damage-class.component';
 
 @NgModule({
   declarations: [
     MovesComponent,
-    DamageClassComponent,
   ],
   imports: [
     CommonModule,
@@ -16,7 +14,6 @@ import { DamageClassComponent } from './damage-class/damage-class.component';
     SharedModule,
   ],
   exports: [
-    DamageClassComponent,
   ]
 })
 export class MovesModule { }

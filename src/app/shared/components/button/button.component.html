@@ -1,0 +1,13 @@
+<button 
+  [type]="type"
+  [disabled]="disabled"
+  [class.active]="active"
+  [ngClass]="['container-button', customClass]"
+  (click)="onClick()"
+>
+
+  <i *ngIf="iconClass" [class]="iconClass"></i>
+
+  {{ label }}
+
+</button>

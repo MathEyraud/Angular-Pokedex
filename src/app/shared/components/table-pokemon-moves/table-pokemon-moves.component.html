@@ -1,0 +1,99 @@
+
+<table class="table table-hover">
+
+  <thead>
+    <tr>
+
+      <th *ngIf="isLevelUpMode">
+        <span class="label-full">{{ displayFullNameTH('level') }}</span>
+        <span class="label-short">{{ displayShortNameTH('level') }}</span>
+      </th>
+
+      <th>
+        <span class="label-full">{{ displayFullNameTH('name') }}</span>
+        <span class="label-short">{{ displayShortNameTH('name') }}</span>
+      </th>
+
+      <th>
+        <span class="label-full">{{ displayFullNameTH('power') }}</span>
+        <span class="label-short">{{ displayShortNameTH('power') }}</span>
+      </th>
+
+      <th>
+        <span class="label-full">{{ displayFullNameTH('accuracy') }}</span>
+        <span class="label-short">{{ displayShortNameTH('accuracy') }}</span>
+      </th>
+
+      <th>
+        <span class="label-full">{{ displayFullNameTH('pp') }}</span>
+        <span class="label-short">{{ displayShortNameTH('pp') }}</span>
+      </th>
+
+      <th>
+        <span class="label-full">{{ displayFullNameTH('type') }}</span>
+        <span class="label-short">{{ displayShortNameTH('type') }}</span>
+      </th>
+
+      <th>
+        <span class="label-full">{{ displayFullNameTH('dmgclass') }}</span>
+        <span class="label-short">{{ displayShortNameTH('dmgclass') }}</span>
+      </th>
+
+      <th>
+        <span class="label-table-description">{{ displayFullNameTH('description') }}</span>
+      </th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let move of moves">
+
+      <td *ngIf="isLevelUpMode">
+        <ng-container *ngFor="let version of getFilteredVersions(move)">
+
+        <ng-container *ngIf="version.level_learned_at !== 1 && version.level_learned_at !== 0; else initiallyLearned">
+          {{ version.level_learned_at }}
+        </ng-container>
+
+        <ng-template #initiallyLearned>
+          <span class="label-full">{{ displayFullNameTH('initially') }}</span>
+          <span class="label-short">{{ displayShortNameTH('initially') }}</span>
+        </ng-template>
+
+        </ng-container>
+      </td>
+
+      <td>{{ move.displayMoveName }}</td>
+
+      <td>{{ formatPower(moveDetailsByMoveMap.get(move)?.power) }}</td>
+
+      <td>{{ formatAccuracy(moveDetailsByMoveMap.get(move)?.accuracy) }}</td>
+
+      <td>{{ moveDetailsByMoveMap.get(move)?.pp }}</td>
+
+      <td><app-pokemon-type [type]="moveDetailsByMoveMap.get(move)?.type?.name"></app-pokemon-type></td>
+      <td><app-damage-class [damageClass]="moveDetailsByMoveMap.get(move)?.damage_class?.name"></app-damage-class></td>
+
+      <td>
+        
+        <ng-container *ngIf="moveDetailsByMoveMap.get(move) as moveDetails">
+
+          <ng-container *ngIf="moveDetails.effect_entries && moveDetails.effect_entries.length > 0; else noDescription">
+            <ng-container *ngFor="let effect of moveDetails.effect_entries">
+              <span class="label-table-description-long">{{ displayDescription(effect, 'long') }}</span>
+              <span class="label-table-description-short">{{ displayDescription(effect, 'short') }}</span>
+            </ng-container>
+          </ng-container>
+
+          <ng-template #noDescription>
+            <span class="no-description">No description.</span>
+          </ng-template>
+
+        </ng-container>
+
+      </td>
+
+    </tr>
+  </tbody>
+</table>

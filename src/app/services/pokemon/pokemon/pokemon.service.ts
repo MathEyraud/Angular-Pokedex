@@ -13,6 +13,8 @@ import { PokemonMapper } from 'src/app/mappers/pokemon/pokemon/pokemon.mapper';
 import { IPokemon, IPokemonApiResponse } from 'src/app/interfaces/pokemon/pokemon';
 import { IType } from 'src/app/interfaces/pokemon/types';
 import { TypeMapper } from 'src/app/mappers/pokemon/types/type.mapper';
+import { IMoves } from 'src/app/interfaces/moves/moves';
+import { MoveMapper } from 'src/app/mappers/moves/moves.mapper';
 
 // Décorateur Injectable pour que ce service puisse être injecté dans d'autres composants/services
 @Injectable({
@@ -141,7 +143,10 @@ export class PokemonService {
 
   // METHODE POUR RECUPERE LES INFORMATIONS DETAILLERS D'UNE ATTAQUE
   getMoveDetails(url: string): Observable<Moves> {
-    return this.httpClient.get<Moves>(url).pipe(
+    return this.httpClient.get<IMoves>(url).pipe(
+
+        map(data => MoveMapper.mapToMoves(data)),
+
         catchError(error => {
           this.loggerService.error("[PokemonService - getMoveDetails] Failed to fetch move details from ${url} : ", error);
           return of(null as any);

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, finalize, forkJoin, map, Observable, of, Subject, switchMap, tap } from 'rxjs';
-import { PokemonMove, PokemonMoveVersion } from 'src/app/models/pokemon/pokemon/pokemon-move';
+import { PokemonMove } from 'src/app/models/pokemon/pokemon/pokemon-move';
 import { Pokemon } from 'src/app/models/pokemon/pokemon/pokemon';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { PokemonService } from 'src/app/services/pokemon/pokemon/pokemon.service';
@@ -37,12 +37,18 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   selectedVersion     : string = '';                    // Version de jeu actuellement sélectionnée
   isFirstGeneration   : boolean = true;                 // Gérer la 1er génération pour le passage de la page d'acceuil à la version sidebar
   isLoading           : boolean = false;                // Indicateur de chargement en cours
-  hasEvolution        : boolean = true;                // Propriété pour suivre l'état d'évolution
+  hasEvolution        : boolean = true;                 // Propriété pour suivre l'état d'évolution
+
+  activeTabAttack     : string = 'lvl-up';
+  hasLvlUpMoves       : boolean = false;
+  hasMachineMoves     : boolean = false;
+  hasBreedingMoves    : boolean = false;
+  hasTutorMoves       : boolean = false;
 
   levelUpMovesMethod  : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par montée de lvl
   machineMovesMethod  : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par CT/CS
-  tutorMovesMethod    : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
   eggMovesMethod      : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
+  tutorMovesMethod    : PokemonMove[] = [];             // Tableau pour stocker les attaques que peut apprendre le pokemon par un pnj
   
   @Input() pokemonId !: number;                         // ID du Pokémon actuel
   @Output() selectPokemon = new EventEmitter<number>();
@@ -248,6 +254,9 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   // Filtre les moves pour la version de jeu sélectionnée
   loadMovesForSelectedVersion(): void {
 
+    // Réinitialiser l'onglet actif à 'lvl-up'
+    this.activeTabAttack = 'lvl-up';
+
     // Vérifie si les informations du Pokémon et ses mouvements sont disponibles
     if (!this.pokemon || !this.pokemon.moves) return;
 
@@ -278,6 +287,11 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
     this.machineMovesMethod = Array.from(moveMapMachine.values());
     this.eggMovesMethod     = Array.from(moveMapEgg.values());
     this.tutorMovesMethod   = Array.from(moveMapTutor.values());
+
+    this.hasLvlUpMoves    = this.convertMapToSortedList(moveMapLevelUp).length > 0;
+    this.hasMachineMoves  = Array.from(moveMapMachine.values()).length > 0;
+    this.hasBreedingMoves = Array.from(moveMapEgg.values()).length > 0;
+    this.hasTutorMoves    = Array.from(moveMapTutor.values()).length > 0;
   }
 
   // Méthode pour traiter les mouvements en fonction de la méthode d'apprentissage
@@ -342,11 +356,6 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
-  // Filtrer les versions d'une attaques
-  getFilteredVersions(move : PokemonMove): PokemonMoveVersion[] {
-    return move.versions.filter(version => version.version_group.name === this.selectedVersion);
-  }
-
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
   }
@@ -361,5 +370,9 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   handleEvolutionStatusChange(hasEvolution: boolean): void {
     this.hasEvolution = hasEvolution;
+  }
+
+  setActiveTab(tab: string): void {
+    this.activeTabAttack = tab;
   }
 }
