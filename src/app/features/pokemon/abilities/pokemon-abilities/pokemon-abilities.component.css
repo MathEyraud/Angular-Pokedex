@@ -1,0 +1,77 @@
+/* Conteneur principal pour les capacités */
+.container {
+    width: 100%;
+    padding:0;
+}
+
+.title{
+    font-family: var(--main-font-family);
+}
+
+/* Styles de base pour les composants app-ability-card */
+app-ability-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Grille pour organiser les cartes de capacités */
+.abilities-grid {
+    display: grid;  /* Utilise un layout en grille */
+    gap: 16px;
+}
+
+/* Styles pour les écrans larges (768px et plus) */
+@media (min-width: 768px) {
+
+    .abilities-grid {
+        display: grid;
+        gap: 16px;
+    }
+
+    /* Configuration pour 3 capacités (2 visibles + 1 cachée) */
+    .abilities-grid.three-abilities {
+        grid-template-columns: 1fr 1fr; /* Deux colonnes de largeur égale */
+        grid-template-rows: auto auto;  /* Deux rangées, hauteur automatique */
+        grid-template-areas: 
+            "ability1 ability2"
+            "hidden hidden";            /* Définit les zones de la grille */
+    }
+
+    /* Configuration pour 2 capacités */
+    .abilities-grid.two-abilities {
+        grid-template-columns: 1fr 1fr; /* Deux colonnes de largeur égale */
+        grid-template-rows: auto;       /* Une seule rangée, hauteur automatique */
+    }
+
+    /* Configuration pour 1 capacité */
+    .abilities-grid.one-ability {
+        grid-template-columns: 1fr 1fr; /* Deux colonnes de largeur égale */
+        grid-template-rows: auto;       /* Une seule rangée, hauteur automatique */
+    }
+
+    /* Place la dernière carte (capacité cachée) sur toute la largeur dans le cas de 3 capacités */
+    .abilities-grid.three-abilities app-ability-card:last-child {
+        grid-area: hidden;  /* Correspond à la zone "hidden" définie plus haut */
+    }
+
+    /* Assure que les cartes de la première ligne ont la même hauteur */
+    .abilities-grid.three-abilities app-ability-card:nth-child(-n+2),   /* Sélectionne les 2 premières cartes */
+    .abilities-grid.two-abilities app-ability-card,
+    .abilities-grid.one-ability app-ability-card {
+        height: 100%;   /* Force la hauteur à 100% du conteneur */
+    }
+
+  /* Style pour le contenu à l'intérieur des cartes de capacités */
+    app-ability-card ::ng-deep .ability-card {
+        height: 100%;           /* Remplit toute la hauteur disponible */
+        display: flex;
+        flex-direction: column; /* Organise le contenu verticalement */
+    }
+}
+
+/* Styles pour les écrans étroits (moins de 768px) */
+@media (max-width: 768px) {
+    .abilities-grid {
+        grid-template-columns: 1fr; /* Une seule colonne */
+    }
+}

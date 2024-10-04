@@ -11,6 +11,9 @@ import { PokemonSpeciesService } from 'src/app/services/pokemon/pokemon-species/
 import { PokemonSpecies } from 'src/app/models/pokemon/pokemon-species/pokemon-species';
 import { GrowthRatesService } from 'src/app/services/pokemon/growth-rates/growth-rates.service';
 import { GrowthRate } from 'src/app/models/pokemon/growth-rates/growth-rate.model';
+import { AbilityService } from 'src/app/services/pokemon/abilities/ability.service';
+import { Ability } from 'src/app/models/pokemon/abilities/ability';
+import { PokemonAbilityDetail } from '../abilities/pokemon-abilities/pokemon-abilities.component';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -31,6 +34,8 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
   alternativeForms    !: Pokemon[];                     // Objet avec les formes alternatives
   pokemonSpecies      !: PokemonSpecies;                // Objet Pokémon contenant les détails plus avancés
   growthRate          !: GrowthRate;                    // Autre détails du pokemon 
+  abilityDetails      : PokemonAbilityDetail[] = [];    // Talents du pokemon
+
   weaknessesAndResistances: { [type: string]: number } = {};
 
   gameVersions        : string[] = [];                  // Liste des versions de jeu disponibles
@@ -67,7 +72,8 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
     private pokemonService          : PokemonService,         // Service pour récupérer les données de base du Pokémon
     private pokemonSpeciesService   : PokemonSpeciesService,  // Service pour récupérer les données plus avancé du Pokémon
     private loggerService           : LoggerService,          // Service de logging
-    private growthRatesService      : GrowthRatesService,      // Service pour avoir des détails supplémentaires sur le pokemon
+    private growthRatesService      : GrowthRatesService,     // Service pour avoir des détails supplémentaires sur le pokemon
+    private abilitiesService        : AbilityService,         // Service pour avoir des détails supplémentaires sur les talents
   ) { }
 
 
@@ -205,17 +211,33 @@ export class PokemonDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
       // Récupérer les faiblesses et résistances après avoir récupéré les formes alternatives
       switchMap(() => {
+        if (this.pokemon) {return this.pokemonService.getPokemonWeaknessesAndResistances(this.pokemon);}
+        return of(null);
+      }),
+      tap(weaknessesAndResistances => {
+        if (weaknessesAndResistances) {this.weaknessesAndResistances = weaknessesAndResistances;}
+      }),
 
-        if (this.pokemon) {
+      // Récupération des détails des talents
+      switchMap(() => {
 
-          return this.pokemonService.getPokemonWeaknessesAndResistances(this.pokemon).pipe(
+        if (this.pokemon && this.pokemon.abilities) {
 
-            tap(weaknessesAndResistances => {this.weaknessesAndResistances = weaknessesAndResistances || {}}),
-            map(() => this.pokemonSpecies) // Continue avec l'espèce du Pokémon comme résultat
+          const abilityRequests = this.pokemon.abilities.map(ability => 
+            this.abilitiesService.getAbilityDetails(ability.ability.url).pipe(
+              map(abilityDetails => ({
+                ability: abilityDetails[0],
+                isHidden: ability.isHidden
+              }))
+            )
           );
-        } else {
-          return of(this.pokemonSpecies); // Si `this.pokemon` est null, retournez l'espèce
+          return forkJoin(abilityRequests).pipe(
+            tap(abilityDetails => {this.abilityDetails = abilityDetails;}),
+            map(() => this.pokemonSpecies) // Retourne pokemonSpecies après avoir stocké les détails des talents
+          );
         }
+        // Si pas de talents, on retourne simplement this.pokemonSpecies
+        return of(this.pokemonSpecies);
       }),
   
       // Gestion des erreurs

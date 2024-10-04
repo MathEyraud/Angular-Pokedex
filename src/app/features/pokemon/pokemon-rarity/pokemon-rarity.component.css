@@ -1,17 +1,19 @@
 /* Base container styles */
 .container-rarity {
-    display: inline-flex;
+    display: inline-block;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0;
     
-    height: 22px;
-    padding: var(--sds-size-space-150) var(--sds-size-space-200);
+    padding: 2px 8px;
     border-radius: 8px;
     
-    position: relative;
     background-color: white; /* White background inside the container */
-    border: 2px solid transparent;
+    border: 1px solid transparent;
+}
+
+.container-rarity .icon {
+    margin-left: 4px; 
+    vertical-align: middle; /* Alignement vertical pour que l'icône soit centré avec le texte */
 }
 
 /* Shared gradient and border styles */
@@ -20,7 +22,7 @@
 .container-border-gmax, 
 .container-border-default, 
 .gradient-border-legendary,
-.gradient-border-mythical 
+.gradient-border-mythical
 {
     position: relative;
     z-index: 1;
@@ -41,9 +43,9 @@
     right: 0;
     bottom: 0;
 
-    padding: 2px; /* Ajuste l'épaisseur de la bordure */
+    padding: 1px; /* Ajuste l'épaisseur de la bordure */
     
-    border-radius: inherit;
+    border-radius: 8px;
     -webkit-mask: 
         linear-gradient(#fff 0 0) content-box, 
         linear-gradient(#fff 0 0); /* Crée un masque pour ne pas remplir l'intérieur */
@@ -52,23 +54,22 @@
     z-index: -1; /* Positionne en arrière-plan */
 }
 
-.gradient-border-legendary::before{background: linear-gradient(90deg, #FFBF9C, #E9820B, #5C0683);}
-.gradient-border-mythical::before{background: linear-gradient(90deg, #E09CFF, #A30BE9, #DFAF2B);}
+.gradient-border-legendary::before{background: var(--gradient-legendary);}
+.gradient-border-mythical::before{background: var(--gradient-mythical);}
 .container-border-baby::before{background: var(--color-badge-baby);}
 .container-border-mega::before{background: var(--color-badge-mega);}
 .container-border-gmax::before{background: var(--color-badge-gmax);}
-.container-border-default::before{background: var(--color-text-black);}
+.container-border-default::before{background: var(--color-border-general-primary);}
 
 .label{
     font-family: var(--main-font-family);
-    font-size: 10px;
-    line-height:normal;
+    font-size: 14px;
     margin: 0;
 }
 
 .label-baby { color: var(--color-badge-baby); }
 .label-legendary { color: var(--color-badge-legendary); }
-.label-mythical { color: var(--color-badge-mythical); }
+.label-mythical,.label-hidden-ability { color: var(--color-badge-mythical); }
 .label-mega { color: var(--color-badge-mega); }
 .label-gmax { color: var(--color-badge-gmax); }
 .label-default { color: var(--color-text-black); }

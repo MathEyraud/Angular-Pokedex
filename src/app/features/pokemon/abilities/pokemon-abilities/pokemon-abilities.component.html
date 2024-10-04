@@ -1,0 +1,29 @@
+<div class="container">
+
+    <h2 class="title">Abilities</h2>
+
+    <div 
+        class="abilities-grid" 
+        [ngClass]="{
+            'three-abilities': visibleAbilities.length === 2 && hiddenAbility, 
+            'two-abilities': visibleAbilities.length === 1 || (visibleAbilities.length === 2 && !hiddenAbility), 
+            'one-ability': visibleAbilities.length === 1 && !hiddenAbility
+        }">
+    
+    <!-- Visible abilities -->
+    <ng-container *ngFor="let ability of visibleAbilities">
+        <app-ability-card [ability]="ability" [isHidden]="false"></app-ability-card>
+    </ng-container>
+
+    <!-- Hidden ability or "No hidden ability" variant -->
+    <ng-container *ngIf="visibleAbilities.length > 0">
+        <app-ability-card 
+            [ability]="hiddenAbility" 
+            [isHidden]="true"
+            [noHiddenAbility]="!hiddenAbility">
+        </app-ability-card>
+    </ng-container>
+
+    </div>
+
+</div>

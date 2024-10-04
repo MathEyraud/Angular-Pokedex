@@ -12,8 +12,8 @@ export class PokemonAbility {
     // ---------------------------------------- //
     // ----- Getters et setters classique ----- //
     // ---------------------------------------- //
-    get is_hidden(): boolean {return this._is_hidden;}
-    set is_hidden(value: boolean) {this._is_hidden = value;}
+    get isHidden(): boolean {return this._is_hidden;}
+    set isHidden(value: boolean) {this._is_hidden = value;}
 
     get slot(): number {return this._slot;}
     set slot(value: number) {this._slot = value;}

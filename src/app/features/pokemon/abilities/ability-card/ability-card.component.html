@@ -1,0 +1,21 @@
+<div class="container" [ngClass]="{'hidden-ability': isHidden, 'no-hidden-ability': showNoHiddenTalent}">
+
+  <div class="ability-card">
+
+    <app-pokemon-rarity title="ability"         *ngIf="!isHidden"/>
+    <app-pokemon-rarity title="hidden-ability"  *ngIf="isHidden"/>
+
+    <h3 class="label-name-ability" [ngClass]="{'label-name-hidden-ability': isHidden}">
+      {{ ability?.formattedName }}
+    </h3>
+
+    <p class="label-description-ability label-long">{{ displayDescription('long') }}</p>
+    <p class="label-description-ability label-short">{{ displayDescription('short') }}</p>
+
+  </div>
+  
+  <div class="label-no-hidden-talent" *ngIf="showNoHiddenTalent">
+    No hidden talent
+  </div>
+
+</div>

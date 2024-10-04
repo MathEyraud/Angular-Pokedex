@@ -4,7 +4,6 @@ import { IAPIResource, INamedAPIResource, IVerboseEffect, IMachineVersionDetail 
 import { ApiRessourceMapper } from "../utility/common-models/api-ressource.mapper";
 import { APIResource, MachineVersionDetail, NamedAPIResource, VerboseEffect } from "../../models/utility/common-models/common-models";
 import { AbilityEffectChange } from "../../models/pokemon/abilities/ability-effect-change";
-import { IAbilityEffectChange } from "../../interfaces/pokemon/abilities/ability-effect-change";
 import { ContestComboSets } from "src/app/models/moves/moves/contest-combo-sets";
 import { ContestComboDetail } from "src/app/models/moves/moves/contest-combo-detail";
 import { MoveFlavorText } from "src/app/models/moves/moves/move-flavor-text";
@@ -13,6 +12,7 @@ import { PastMoveStatValues } from "src/app/models/moves/moves/past-move-stat-va
 import { MoveStatChange } from "src/app/models/moves/moves/move-stat-change";
 import { NameMapper } from "../utility/common-models/name.mapper";
 import { EffectMapper } from "../utility/common-models/effect.mapper";
+import { IAbilityEffectChange } from "src/app/interfaces/pokemon/abilities/abilities";
 
 export class MoveMapper {
 

@@ -1,4 +1,4 @@
-import { IAbilityEffectChange } from "../pokemon/abilities/ability-effect-change";
+import { IAbilityEffectChange } from "../pokemon/abilities/abilities";
 import { IAPIResource, IMachineVersionDetail, IName, INamedAPIResource, IVerboseEffect } from "../utility/common-models/common-models";
 
 // Interface définissant la structure de la réponse de l'API des attaques
