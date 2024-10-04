@@ -16,17 +16,30 @@
     --color-title-grey: #999;
     --color-text-secondary-grey: #999;
 
+    --color-text-primary: #000000;
+    --color-text-secondary: #767676;
+
     --color-text-white: #FFFFFF;
     --color-text-black: #000000;
 
     --color-inactive-button: #757575;
     --color-border-grey:#CACACA;
 
-    --color-badge-legendary:#BC6E01;
-    --color-badge-mythical:#6E00A2;
-    --color-badge-baby:#505050;
+    --color-badge-baby:var(--color-type-normal);
     --color-badge-mega:#895900;
     --color-badge-gmax:#895900;
+    
+    --color-badge-legendary:var(--color-type-ground);
+    --color-gradient-legendary-1: var(--color-type-electric);
+    --color-gradient-legendary-2: var(--color-type-fighting);
+    --color-gradient-legendary-3: var(--color-type-poison);
+    --gradient-legendary:linear-gradient(90deg, var(--color-gradient-legendary-1),var(--color-gradient-legendary-2),var(--color-gradient-legendary-3));
+    
+    --color-badge-mythical:var(--color-type-poison);
+    --color-gradient-mythical-1: var(--color-type-fairy);
+    --color-gradient-mythical-2: var(--color-type-poison);
+    --color-gradient-mythical-3: var(--color-type-electric);
+    --gradient-mythical:linear-gradient(90deg, var(--color-gradient-mythical-1),var(--color-gradient-mythical-2),var(--color-gradient-mythical-3));
 
     --color-type-normal:#A1A2A1;
     --color-type-poison:#923FCC;
@@ -47,6 +60,26 @@
     --color-type-fire:#E72324;
     --color-type-psychic:#F03F7A;
 
+    /* TODO : POUR LE DARK THEME */
+    /* --color-dark-type-normal:#A1A2A1;
+    --color-dark-type-poison:#3A0063;
+    --color-dark-type-grass:#3DA225;
+    --color-dark-type-rock:#B0AB82;
+    --color-dark-type-ground:#92501C;
+    --color-dark-type-fairy:#F071EF;
+    --color-dark-type-fighting:#FF8100;
+    --color-dark-type-steel:#5FA3BA;
+    --color-dark-type-dark:#4F3E3D;
+    --color-dark-type-ghost:#713F71;
+    --color-dark-type-bug:#92A312;
+    --color-dark-type-dragon:#4F60E2;
+    --color-dark-type-flying:#82BBF0;
+    --color-dark-type-electric:#FAC200;
+    --color-dark-type-ice:#3DD9FF;
+    --color-dark-type-water:#2681F0;
+    --color-dark-type-fire:#E72324;
+    --color-dark-type-psychic:#F03F7A; */
+
     --sds-size-space-verybig:128px;
     --sds-size-space-big:64px;
 
@@ -56,19 +89,27 @@
     --sds-size-space-150:6.5px;
     --sds-size-space-100:4px;
 
+    --margin-s:16px;
+
+    --padding-m:16px;
     --padding-s:12px;
     --padding-xs:8px;
     --padding-xxs:4px;
 
-    --sds-size-stroke-border:1px;
+    --border-corner-large:16px;
+    --color-border-general-primary:#BDBDBD;
 
+    --sds-size-stroke-border:1px;
     --sds-size-radius-400:16px;
 
 
 }
 
 /* styles globaux */
-html, body { height: 100%; }
+html, body { 
+    height: 100%; 
+    font-family: var(--main-font-family);
+}
 
 body {
     font-family: var(--main-font-family);

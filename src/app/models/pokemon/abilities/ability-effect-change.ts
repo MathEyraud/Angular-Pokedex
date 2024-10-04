@@ -3,13 +3,13 @@ import { Effect, NamedAPIResource } from "../../utility/common-models/common-mod
 export class AbilityEffectChange {
 
     constructor(
-        private effect_entries: Effect[],
-        private version_group: NamedAPIResource,
+        private _effectEntries: Effect[],
+        private _versionGroup: NamedAPIResource,
     ) {}
 
-    get effectEntries(): Effect[] { return this.effect_entries; }
-    set effectEntries(value: Effect[]) { this.effect_entries = value; }
+    get effectEntries(): Effect[] { return this._effectEntries; }
+    set effectEntries(value: Effect[]) { this._effectEntries = value; }
 
-    get versionGroup(): NamedAPIResource { return this.version_group; }
-    set versionGroup(value: NamedAPIResource) { this.version_group = value; }
+    get versionGroup(): NamedAPIResource { return this._versionGroup; }
+    set versionGroup(value: NamedAPIResource) { this._versionGroup = value; }
 }

@@ -2,7 +2,7 @@ export const environment = {
     
     production: false,
 
-    // Ajoutez vos variables d'environnement de développement ici
+    // Variables d'environnement
     apis:{
         photosPokemon:{
             url:'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/'
@@ -21,6 +21,9 @@ export const environment = {
         },
         dataForms:{
             url: 'https://pokeapi.co/api/v2/pokemon-form/'
+        },
+        dataAbilities:{
+            url: 'https://pokeapi.co/api/v2/ability/'
         },
         dataPokemonFr1:{
             url:'https://tyradex.vercel.app/api/v1/pokemon/'

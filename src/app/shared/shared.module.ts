@@ -6,6 +6,7 @@ import { CustomTabsComponent, TabContentDirective } from './components/custom-ta
 import { ButtonComponent } from './components/button/button.component';
 import { TablePokemonMovesComponent } from './components/table-pokemon-moves/table-pokemon-moves.component';
 import { DamageClassComponent } from './components/damage-class/damage-class.component';
+import { IconEyeComponent } from './components/icon-eye/icon-eye.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { DamageClassComponent } from './components/damage-class/damage-class.com
     ButtonComponent,
     TablePokemonMovesComponent,
     DamageClassComponent,
+    IconEyeComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import { DamageClassComponent } from './components/damage-class/damage-class.com
     ButtonComponent,
     TablePokemonMovesComponent,
     DamageClassComponent,
+    IconEyeComponent,
   ]
 })
 export class SharedModule { }

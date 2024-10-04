@@ -20,6 +20,8 @@ import { PokemonWeaknessesComponent } from './pokemon-details/pokemon-weaknesses
 import { PokemonBaseStatsComponent } from './pokemon-details/pokemon-base-stats/pokemon-base-stats.component';
 import { PokemonRarityComponent } from './pokemon-rarity/pokemon-rarity.component';
 import { IconShinyComponent } from './icon-shiny/icon-shiny.component';
+import { PokemonAbilitiesComponent } from './abilities/pokemon-abilities/pokemon-abilities.component';
+import { AbilityCardComponent } from './abilities/ability-card/ability-card.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { IconShinyComponent } from './icon-shiny/icon-shiny.component';
     PokemonWeaknessesComponent,
     PokemonRarityComponent,
     IconShinyComponent,
+    PokemonAbilitiesComponent,
+    AbilityCardComponent,
   ],
   imports: [
     CommonModule,

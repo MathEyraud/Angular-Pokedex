@@ -48,6 +48,11 @@ export class PokemonRarityComponent implements OnInit, OnChanges {
         this.rarityClass = 'container-border-gmax';
         this.rarityLabel = 'Gmax';
         break;
+      
+      case 'hidden-ability':
+        this.rarityClass = 'gradient-border-mythical';
+        this.rarityLabel = 'Hidden ability';
+        break;
 
       default:
         this.rarityClass = 'container-border-default';
