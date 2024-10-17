@@ -11,3 +11,16 @@
     flex-direction: column;
     flex: 1;
 }
+
+.id {
+    color: var(--color-type-normal);
+    font-family: var(--main-font-family);
+    font-size: 12px;
+}
+
+.name {
+    color: var(--color-text-black);
+    font-family: var(--main-font-family);
+    font-size: 24px;
+    padding-bottom: 8px;
+}

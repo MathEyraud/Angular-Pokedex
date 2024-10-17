@@ -1,5 +1,5 @@
 <div class="container-type" [ngClass]="[getTypeClass(type), showBorder ? 'with-border' : '']">
 
-    <p class="label-title">{{ type ? getFormattedType() : '' }}</p>
+    <p class="label-title">{{ size=="veryShort" ? displayTypeVeryShortName(type) : size=="short" ? displayTypeShortName(type) : type ? getFormattedType() : '' }}</p>
 
 </div>

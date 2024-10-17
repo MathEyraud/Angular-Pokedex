@@ -14,11 +14,13 @@
 
 .container-weakness-stats{
     display: flex;
-    align-items: flex-start;
-    align-content: flex-start;
-    gap: var(--sds-size-space-big);
-    align-self: stretch;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.container-data-weakness-stats{
+    display: flex;
+    gap: 16px;
 }
 
 .container-weakness, .container-stats{
@@ -27,9 +29,11 @@
     align-items: flex-start;
     gap: 16px;
 
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: 0;
+    flex: 1;
+
+    border-radius: 12px;
+    border: var(--border-general-primary);
+    padding: var(--padding-m);
 }
 
 .container-weakness{
@@ -42,6 +46,7 @@
 .container-base-stats{
     display: flex;
     flex-direction: column;
+    gap: 16px;
 
     width: 100%;
 }
@@ -105,34 +110,21 @@
 /***************/
 /* MEDIA QUERY */
 /***************/
-/*  CF pokemon-weaknesses.component */
-@media (max-width: 882px) {
-    .label-title-stats{font-size: 19px;}
-}
-@media (max-width: 846px) {
-    .label-title-stats{font-size: 18px;}
-}
-@media (max-width: 810px) {
-    .label-title-stats{font-size: 17px;}
-}
-@media (max-width: 773px) {
-    .label-title-stats{font-size: 16px;}
-}
+/* IL FAUT LES MEMES REGLES QUE DANS pokemon-weaknesses.component  */
+@media (max-width: 915px) {
 
-@media (max-width: 768px) {
+    /* Passe les conteneurs en colonne sur les écrans moins large */
+    .container-data-weakness-stats {flex-direction: column;}
+    .container,.container-first-view {gap: 96px;}
+    .container-data-weakness-stats{gap:16px;}
 
-    .container,.container-weakness-stats,.container-first-view {
-        gap: 96px;
-    }
-
-    .container-weakness-stats {
-      flex-direction: column;    /* Passe les conteneurs en colonne sur les écrans de moins de 768px de large */
-    }
-  
     .container-weakness, .container-stats {
-      flex: 1 1 100%;            /* Chaque conteneur prend 100% de la largeur du parent sur les petits écrans */
-      width: 100%;
+        flex: 1 1 100%;            /* Chaque conteneur prend 100% de la largeur du parent sur les petits écrans */
+        width: 100%;
     }
+}
 
-    .label-title-stats{font-size: 20px;}
+/* IL FAUT LES MEMES REGLES QUE DANS POKEMON-Weakness  */
+@media (max-width: 359px) {
+    .label-title-stats{font-size: 18px;}
 }

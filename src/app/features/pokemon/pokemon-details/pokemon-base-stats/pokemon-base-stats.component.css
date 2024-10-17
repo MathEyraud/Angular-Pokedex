@@ -41,64 +41,39 @@
 /****************/
 .container-progress-bar {
     flex: 3; 
-    padding-left: 8px;
+    padding-left: 16px;
 }
 
 .progress {
     width: 100%; /* Full width for the progress container */
     height: 6px;
+    --bs-progress-bg: var(--main-color-white);
 }
 
-.progress-bar.low {
-    background-color: var(--color-type-fire);
+.progress-bar {border-radius: 8px}
+
+.progress-bar.low {background-color: var(--color-type-fire);}
+.progress-bar.medium-low {background-color: var(--color-type-fighting);}
+.progress-bar.medium-hight {background-color: var(--color-type-electric);}
+.progress-bar.high {background-color: var(--color-type-grass);}
+
+.full-text {display: inline;}
+.short-text {display: none;}
+
+/* EVITER QUE LE TITRE NE SOIT COUPE */
+@media (max-width: 1079px) {
+    .full-text {display: none;}
+    .short-text {display: inline;}
 }
 
-.progress-bar.medium-low {
-    background-color: var(--color-type-fighting);
+/* IL FAUT LES MEMES REGLES QUE DANS POKEMON-weaknesses && POKMON DETAILS  */
+@media (max-width: 915px) {
+    .full-text {display: inline;}
+    .short-text {display: none;}
 }
 
-.progress-bar.medium-hight {
-    background-color: var(--color-type-electric);
-}
-
-.progress-bar.high {
-    background-color: var(--color-type-grass);
-}
-
-.full-text {
-    display: inline;
-}
-
-.short-text {
-    display: none;
-}
-
-@media (max-width: 1050px) {
-    .full-text {
-        display: none;
-    }
-
-    .short-text {
-        display: inline;
-    }
-}
-
-@media (max-width: 767px) {
-    .full-text {
-        display: inline;
-    }
-
-    .short-text {
-        display: none;
-    }
-}
-
-@media (max-width: 380px) {
-    .full-text {
-        display: none;
-    }
-
-    .short-text {
-        display: inline;
-    }
+/* EVITER QUE LE TITRE NE SOIT COUPE */
+@media (max-width: 421px) {
+    .full-text {display: none;}
+    .short-text {display: inline;}
 }

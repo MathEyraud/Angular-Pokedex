@@ -6,11 +6,11 @@
     <!-- Afficher les icones en fonction des pokemons -->
     <!-------------------------------------------------->
 
-    <app-icon-shiny *ngIf="this.title == 'legendary'"       [width]="14" [height]="14" [isLegendary]=true       class="icon"/>
-    <app-icon-shiny *ngIf="this.title == 'mythical'"        [width]="14" [height]="14" [isMythical]=true        class="icon"/>
-    <app-icon-eye   *ngIf="this.title == 'hidden-ability'"  [width]="12" [height]="13" [isHiddenAbility]=true   class="icon"/>
-
-    <!-- Icone : Bébé -->
+    <app-icon-eggs          *ngIf="this.title == 'baby'"            [width]="14" [height]="20" [isBaby]=true            class="icon"/>
+    <app-icon-mega-stone    *ngIf="this.title == 'mega'"            [width]="14" [height]="20" [isMega]=true            class="icon"/>
+    <app-icon-shiny         *ngIf="this.title == 'legendary'"       [width]="14" [height]="14" [isLegendary]=true       class="icon"/>
+    <app-icon-shiny         *ngIf="this.title == 'mythical'"        [width]="14" [height]="14" [isMythical]=true        class="icon"/>
+    <app-icon-eye           *ngIf="this.title == 'hidden-ability'"  [width]="12" [height]="13" [isHiddenAbility]=true   class="icon"/>
     <!-- Icone : Méga-évolution -->
     <!-- Icone : Gmax -->
      

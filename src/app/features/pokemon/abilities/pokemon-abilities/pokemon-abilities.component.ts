@@ -15,10 +15,6 @@ export class PokemonAbilitiesComponent {
 
   @Input() abilities: PokemonAbilityDetail[] = [];
 
-  ngOnInit(){
-    console.log("abilities :", this.abilities);
-  }
-
   // Récupère uniquement les objets Ability des capacités visibles
   get visibleAbilities(): Ability[] {
     return this.abilities

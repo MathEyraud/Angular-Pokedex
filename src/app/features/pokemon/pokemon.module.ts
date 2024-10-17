@@ -19,7 +19,6 @@ import { InfoSectionComponent } from './pokemon-details/pokemon-details-global-i
 import { PokemonWeaknessesComponent } from './pokemon-details/pokemon-weaknesses/pokemon-weaknesses.component';
 import { PokemonBaseStatsComponent } from './pokemon-details/pokemon-base-stats/pokemon-base-stats.component';
 import { PokemonRarityComponent } from './pokemon-rarity/pokemon-rarity.component';
-import { IconShinyComponent } from './icon-shiny/icon-shiny.component';
 import { PokemonAbilitiesComponent } from './abilities/pokemon-abilities/pokemon-abilities.component';
 import { AbilityCardComponent } from './abilities/ability-card/ability-card.component';
 
@@ -39,7 +38,6 @@ import { AbilityCardComponent } from './abilities/ability-card/ability-card.comp
     PokemonBaseStatsComponent,
     PokemonWeaknessesComponent,
     PokemonRarityComponent,
-    IconShinyComponent,
     PokemonAbilitiesComponent,
     AbilityCardComponent,
   ],

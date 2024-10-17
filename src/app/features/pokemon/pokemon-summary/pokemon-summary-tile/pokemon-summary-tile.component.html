@@ -4,44 +4,48 @@
         'selected-pokemon': isSelected
     }" 
     (click)="onSelectPokemon(pokemon.id)" 
+    class="container-tile"
 >
 
     <!-- Photo -->
-    <div class="align-items-center">
+    <div class="container-img">
 
         <img 
-            style="background-color: lightgray; width: 50px; height: 50px;" 
-            class="rounded" 
+            class="img" 
             *ngIf="pokemon.sprites?.otherSprites?.officialArtwork?.frontDefault;else noPhoto" 
             [src]="pokemon.sprites?.otherSprites?.officialArtwork?.frontDefault"
         >
         <ng-template #noPhoto>
-            <div class="align-items-center justify-content-center rounded" style="width: 50px; height: 50px; background-color: lightgray;">
-                <b>Pas d'image</b>
-            </div>
+            <div class="container-no-img">No image</div>
         </ng-template>
 
     </div>
 
     <!-- Informations -->
-    <div class="justify-content-center align-items-center flex-grow-1">
+    <div class="container-informations">
 
         <!-- Numéro -->
-        <div class="d-flex flex-grow-1">
-            <div class="text-muted">N°{{pokemon.formattedId}}</div>
-        </div>
-
+        <div class="label-id" [ngClass]="{'color-not-selected': !isSelected,'color-selected': isSelected}">N°{{pokemon.formattedId}}</div>
         
-        <div class="d-flex flex-wrap flex-grow-1">
+        <div class="container-name-types" [class.wrap-types]="(typeSizeService.wrapTypes$ | async)">
 
             <!-- Nom -->
-            <div class="d-flex flex-grow-1 text-capitalize font-weight-bold">{{pokemon.name}}</div>
+            <div class="container-label-name" [ngClass]="{'color-selected': isSelected}">
+                <p class="label-name" [ngClass]="{'color-selected': isSelected}">{{pokemon.formattedName}}</p>
+            </div>
             
             <!-- Types -->
-            <div class="d-flex flex-wrap gap-2">
+            <div 
+                class="container-types" 
+                [class.wrap-types]="(typeSizeService.wrapTypes$ | async)" 
+                [class.display-types]="!(typeSizeService.displayTypes$ | async)"
+            >
 
-                <app-pokemon-type [type]="pokemon.typesName1"></app-pokemon-type>
-                <app-pokemon-type *ngIf="pokemon.types2" [type]="pokemon.typesName2"></app-pokemon-type>
+                <app-pokemon-type *ngFor="let type of pokemon?.types" 
+                    [type]="type.type?.name" 
+                    [size]="typeSizeService.getTypeSize()"
+                    [showBorder]="true"
+                />
 
             </div>
             

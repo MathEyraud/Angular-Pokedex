@@ -57,7 +57,7 @@
 .gradient-border-legendary::before{background: var(--gradient-legendary);}
 .gradient-border-mythical::before{background: var(--gradient-mythical);}
 .container-border-baby::before{background: var(--color-badge-baby);}
-.container-border-mega::before{background: var(--color-badge-mega);}
+.container-border-mega::before{background: var(--gradient-mega);}
 .container-border-gmax::before{background: var(--color-badge-gmax);}
 .container-border-default::before{background: var(--color-border-general-primary);}
 
