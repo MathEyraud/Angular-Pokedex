@@ -20,6 +20,24 @@ app-ability-card {
     gap: 16px;
 }
 
+@media (min-width: 1200px) {
+    .container .abilities-grid.three-abilities {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas: "ability1 ability2 hidden";
+        gap: 16px;
+    }
+
+    .container .abilities-grid.three-abilities app-ability-card {
+        width: 100%;
+    }
+
+    .container .abilities-grid.three-abilities app-ability-card:nth-child(1) { grid-area: ability1; }
+    .container .abilities-grid.three-abilities app-ability-card:nth-child(2) { grid-area: ability2; }
+    .container .abilities-grid.three-abilities app-ability-card:nth-child(3) { grid-area: hidden; }
+}
+
 /* Styles pour les écrans larges (768px et plus) */
 @media (min-width: 768px) {
 

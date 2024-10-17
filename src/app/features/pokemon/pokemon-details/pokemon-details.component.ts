@@ -12,7 +12,6 @@ import { PokemonSpecies } from 'src/app/models/pokemon/pokemon-species/pokemon-s
 import { GrowthRatesService } from 'src/app/services/pokemon/growth-rates/growth-rates.service';
 import { GrowthRate } from 'src/app/models/pokemon/growth-rates/growth-rate.model';
 import { AbilityService } from 'src/app/services/pokemon/abilities/ability.service';
-import { Ability } from 'src/app/models/pokemon/abilities/ability';
 import { PokemonAbilityDetail } from '../abilities/pokemon-abilities/pokemon-abilities.component';
 
 @Component({

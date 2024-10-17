@@ -8,10 +8,50 @@
     display: flex;
     padding: var(--padding-m);
     border-radius: var(--border-corner-large);
-    border: 1px solid var(--color-border-general-primary);
+    border: var(--border-general-primary);
     flex-direction: column;
     gap: 12px;
 }
+
+/* GESTION DU GRADIENT */
+.container.hidden-ability .ability-card {
+    border: var(--border-width-primary) solid transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.container.hidden-ability .ability-card::before {
+    content: '';
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: var(--border-width-primary); /* Ajuste l'épaisseur de la bordure */
+    
+    border-radius: inherit;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0); /* Crée un masque pour ne pas remplir l'intérieur */
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1; /* Positionne en arrière-plan */
+    background: var(--gradient-mythical);
+}
+
+/* Effet de flou */
+.container.no-hidden-ability .ability-card {
+    filter: blur(3px);
+    opacity: 0.7;
+    position: relative;
+}
+
+
+
+
+
 
 .label-name-ability{
     color: var(--color-text-primary);
@@ -36,49 +76,6 @@
     text-align: justify;
 }
 
-
-
-
-
-/* GESTION DU GRADIENT */
-.container.hidden-ability .ability-card {
-    border: 1px solid transparent;
-    position: relative;
-    z-index: 1;
-}
-
-.container.hidden-ability .ability-card::before {
-    content: '';
-    position: absolute;
-
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    padding: 1px; /* Ajuste l'épaisseur de la bordure */
-    
-    border-radius: inherit;
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0); /* Crée un masque pour ne pas remplir l'intérieur */
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    z-index: -1; /* Positionne en arrière-plan */
-    background: var(--gradient-mythical);
-}
-
-
-
-
-
-/* Effet de flou */
-.container.no-hidden-ability .ability-card {
-    filter: blur(3px);
-    opacity: 0.7;
-    position: relative;
-}
-
 /* Style pour le texte "No hidden talent" */
 .label-no-hidden-talent {
     position: absolute;
@@ -96,11 +93,3 @@
 
 .label-long{display: inline}
 .label-short{display: none}
-
-/***************/
-/* MEDIA QUERY */
-/***************/
-@media (max-width: 960px) {
-    .label-long{display: none}
-    .label-short{display: inline}
-}

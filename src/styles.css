@@ -26,9 +26,14 @@
     --color-border-grey:#CACACA;
 
     --color-badge-baby:var(--color-type-normal);
-    --color-badge-mega:#895900;
     --color-badge-gmax:#895900;
-    
+
+    --color-badge-mega:var(--color-type-steel);
+    --color-gradient-mega-1: var(--color-type-fairy);
+    --color-gradient-mega-2: var(--color-type-flying);
+    --color-gradient-mega-3: var(--color-type-electric);
+    --gradient-mega:linear-gradient(90deg, var(--color-gradient-mega-1),var(--color-gradient-mega-2),var(--color-gradient-mega-3));
+
     --color-badge-legendary:var(--color-type-ground);
     --color-gradient-legendary-1: var(--color-type-electric);
     --color-gradient-legendary-2: var(--color-type-fighting);
@@ -61,24 +66,24 @@
     --color-type-psychic:#F03F7A;
 
     /* TODO : POUR LE DARK THEME */
-    /* --color-dark-type-normal:#A1A2A1;
+    --color-dark-type-normal:#303030;
     --color-dark-type-poison:#3A0063;
-    --color-dark-type-grass:#3DA225;
-    --color-dark-type-rock:#B0AB82;
-    --color-dark-type-ground:#92501C;
-    --color-dark-type-fairy:#F071EF;
-    --color-dark-type-fighting:#FF8100;
-    --color-dark-type-steel:#5FA3BA;
-    --color-dark-type-dark:#4F3E3D;
-    --color-dark-type-ghost:#713F71;
-    --color-dark-type-bug:#92A312;
-    --color-dark-type-dragon:#4F60E2;
-    --color-dark-type-flying:#82BBF0;
-    --color-dark-type-electric:#FAC200;
-    --color-dark-type-ice:#3DD9FF;
-    --color-dark-type-water:#2681F0;
-    --color-dark-type-fire:#E72324;
-    --color-dark-type-psychic:#F03F7A; */
+    --color-dark-type-grass:#105400;
+    --color-dark-type-rock:#463E00;
+    --color-dark-type-ground:#381900;
+    --color-dark-type-fairy:var(--colors-neutral-black);
+    --color-dark-type-fighting:#5C2F00;
+    --color-dark-type-steel:#003345;
+    --color-dark-type-dark:#2C2322;
+    --color-dark-type-ghost:#3F203F;
+    --color-dark-type-bug:#4C5700;
+    --color-dark-type-dragon:#000B62;
+    --color-dark-type-flying:#2E4254;
+    --color-dark-type-electric:#574400;
+    --color-dark-type-ice:#00576C;
+    --color-dark-type-water:#00316C;
+    --color-dark-type-fire:#8B0001;
+    --color-dark-type-psychic:#4B0019;
 
     --sds-size-space-verybig:128px;
     --sds-size-space-big:64px;
@@ -98,11 +103,18 @@
 
     --border-corner-large:16px;
     --color-border-general-primary:#BDBDBD;
+    --border-width-primary:1px;
+    --border-general-primary:var(--border-width-primary) solid var(--color-border-general-primary);
 
     --sds-size-stroke-border:1px;
     --sds-size-radius-400:16px;
 
-
+    --screen-xs: 320px;
+    --screen-sm: 576px;
+    --screen-md: 768px;
+    --screen-lg: 992px;
+    --screen-xl: 1200px;
+    --screen-xxl: 1400px;
 }
 
 /* styles globaux */
@@ -117,4 +129,5 @@ body {
 
 p{
     font-family: var(--main-font-family);
+    margin: 0;
 }

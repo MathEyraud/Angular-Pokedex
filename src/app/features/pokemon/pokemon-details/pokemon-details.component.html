@@ -16,24 +16,29 @@
         <!-- SENSIBILITES & STAT DE BASE -->
         <div class="container-weakness-stats">
 
-            <div class="container-weakness">
+            <!-- <div class="label-title-attacks">Combat Profile</div> -->
+            <div class="label-title-attacks">Pokémon Profile</div>
 
-                <app-pokemon-weaknesses [weaknessesAndResistances]="weaknessesAndResistances"/>
-                
-            </div>
+            <div class="container-data-weakness-stats">
 
-            <div class="container-stats">
-
-                <p class="label-title-stats">Base stats ({{pokemon.totalStats}})</p>
-
-                <div class="container-base-stats">
-                    <app-pokemon-base-stats 
-                        *ngFor="let stats of pokemon.stats"
-                        [title]="stats.stat.name"
-                        [value]="stats.baseStat"
-                    />
+                <div class="container-weakness">
+                    <app-pokemon-weaknesses [weaknessesAndResistances]="weaknessesAndResistances"/>
                 </div>
-                
+
+                <div class="container-stats">
+
+                    <p class="label-title-stats">Base stats ({{pokemon.totalStats}})</p>
+
+                    <div class="container-base-stats">
+                        <app-pokemon-base-stats 
+                            *ngFor="let stats of pokemon.stats"
+                            [title]="stats.stat.name"
+                            [value]="stats.baseStat"
+                        />
+                    </div>
+                    
+
+                </div>
 
             </div>
 
@@ -41,7 +46,7 @@
         
     </div>
 
-    <!-- Capacités spéciales -->
+    <!-- TALENTS -->
     <app-pokemon-abilities [abilities]="abilityDetails"></app-pokemon-abilities>
 
 
@@ -122,26 +127,3 @@
 <div *ngIf="isLoading && !pokemon" class="d-flex justify-content-center align-items-center vh-100">
     <app-spinner/>
 </div>
-
-    <!-- COMPETENCE SPECIAL DU POKEMON -->
-    <!-- <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let ability of pokemon.abilities">
-            <span>{{ability.formattedName}}</span>
-            <span *ngIf="ability.is_hidden"> (Capacité caché)</span>
-        </div>
-    </div> -->
-
-    <!-- SPRITES DU POKEMON -->
-    <!-- TODO : DOIT DEPENDRE DU CHOIX DE LA VERSION -->
-    <!-- <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let sprite of objectValue(pokemon.sprites)">
-            <img 
-                alt=""
-                style="background-color: beige" 
-                class="rounded justify-content-center" 
-                *ngIf="sprite;else noPhoto" 
-                [src]="sprite"
-            >
-            <ng-template #noPhoto></ng-template>
-        </div>
-    </div> -->

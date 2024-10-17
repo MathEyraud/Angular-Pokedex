@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { Ability } from 'src/app/models/pokemon/abilities/ability';
 import { AbilityDisplayService } from 'src/app/services/pokemon/abilities/ability-display.service';
 
@@ -7,11 +7,15 @@ import { AbilityDisplayService } from 'src/app/services/pokemon/abilities/abilit
   templateUrl: './ability-card.component.html',
   styleUrls: ['./ability-card.component.css']
 })
-export class AbilityCardComponent implements OnInit {
+export class AbilityCardComponent implements OnInit, AfterViewInit{
 
   @Input() ability        : Ability | null = null;
   @Input() isHidden       : boolean = false;
   @Input() noHiddenAbility: boolean = false;
+
+  @ViewChild('abilityCard') abilityCard!: ElementRef;
+  @ViewChild('longDescription') longDescription!: ElementRef;
+  @ViewChild('shortDescription') shortDescription!: ElementRef;
 
   abilityName: string = '';
   abilityLongEffect: string = '';
@@ -21,6 +25,15 @@ export class AbilityCardComponent implements OnInit {
 
   ngOnInit() {
     this.updateAbilityDisplay();
+  }
+
+  ngAfterViewInit() {
+    this.checkDescription();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.checkDescription();
   }
 
   updateAbilityDisplay(language: string = 'en') {
@@ -59,6 +72,23 @@ export class AbilityCardComponent implements OnInit {
   // Getter pour vérifier si la carte doit afficher "No hidden talent"
   get showNoHiddenTalent(): boolean {
     return this.isHidden && this.noHiddenAbility;
+  }
+
+  private checkDescription() {
+
+    if (this.abilityCard && this.longDescription && this.shortDescription) {
+      
+      const cardHeight = this.abilityCard.nativeElement.offsetHeight;
+      const cardWidth = this.abilityCard.nativeElement.offsetWidth;
+
+      if (cardHeight > cardWidth) {
+        this.longDescription.nativeElement.style.display = 'none';
+        this.shortDescription.nativeElement.style.display = 'block';
+      } else {
+        this.longDescription.nativeElement.style.display = 'block';
+        this.shortDescription.nativeElement.style.display = 'none';
+      }
+    }
   }
 
 }

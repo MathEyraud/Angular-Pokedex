@@ -12,39 +12,25 @@ export class PokemonBaseStatsComponent {
 
   displayFullStatName(title: string): string {
     switch (title) {
-      case 'hp':
-        return 'HP';
-      case 'attack':
-        return 'Attack';
-      case 'defense':
-        return 'Defense';
-      case 'special-attack':
-        return 'Special Attack';
-      case 'special-defense':
-        return 'Special Defense';
-      case 'speed':
-        return 'Speed';
-      default:
-        return '';  // Retourne une chaîne vide si l'attribut ne correspond à aucun cas
+      case 'hp':              return 'Hp';
+      case 'attack':          return 'Attack';
+      case 'defense':         return 'Defense';
+      case 'special-attack':  return 'Special Attack';
+      case 'special-defense': return 'Special Defense';
+      case 'speed':           return 'Speed';
+      default:                return '';  // Retourne une chaîne vide si l'attribut ne correspond à aucun cas
     }
   }
 
   displayShortStatName(title: string): string {
     switch (title) {
-      case 'hp':
-        return 'HP';
-      case 'attack':
-        return 'Att.';
-      case 'defense':
-        return 'Def.';
-      case 'special-attack':
-        return 'Spe. Att.';
-      case 'special-defense':
-        return 'Spe. Def.';
-      case 'speed':
-        return 'Speed';
-      default:
-        return '';  // Retourne une chaîne vide si l'attribut ne correspond à aucun cas
+      case 'hp':              return 'Hp';
+      case 'attack':          return 'Att.';
+      case 'defense':         return 'Def.';
+      case 'special-attack':  return 'Spe. Att.';
+      case 'special-defense': return 'Spe. Def.';
+      case 'speed':           return 'Speed';
+      default:                return '';  // Retourne une chaîne vide si l'attribut ne correspond à aucun cas
     }
   }
   
@@ -54,18 +40,10 @@ export class PokemonBaseStatsComponent {
 
     const percentage = (value / 255) * 100;
 
-    if (percentage < 20) {
-      return 'low';
-
-    } else if (percentage >= 20 && percentage < 40) {
-      return 'medium-low';
-
-    } else if (percentage >= 40 && percentage < 60) {
-      return 'medium-hight';
-
-    } else {
-      return 'high';
-    }
+    if (percentage < 20) {return 'low';
+    } else if (percentage >= 20 && percentage < 40) {return 'medium-low';
+    } else if (percentage >= 40 && percentage < 60) {return 'medium-hight';
+    } else {return 'high';}
   }
 
 }

@@ -1,3 +1,85 @@
+.container-tile {
+    overflow: hidden; /* Empêcher le débordement */
+}
+
+.container-img, .container-no-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img, .container-no-img{
+    background-color: lightgray; 
+    border-radius: 8px;
+    width: 50px; 
+    height: 50px;
+
+    text-align: center;
+}
+
+.container-informations{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    min-width: 0; /* Permettre la réduction de la largeur */
+    overflow: hidden; /* Empêcher le débordement */
+}
+
+.container-name-types{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-name-types.wrap-types {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.container-types{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 4px;
+}
+
+.container-types.wrap-types{
+    padding-top: 6px;
+}
+
+.container-types.display-types{
+    display : none;
+}
+
+.label-id{
+    font-size: 12px;
+    color: var(--color-type-normal);
+    font-family: var(--main-font-family);
+}
+
+.container-label-name{
+    display: flex;
+    width: 100%;
+}
+
+.label-name{
+    font-size: 16px;
+    color: var(--color-text-black);
+    font-family: var(--main-font-family);
+
+    margin: 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
+    max-width: 100%; /* Assure que le texte ne dépasse pas la largeur du conteneur */
+}
+
+/* ---------------------------------------------- */
+/* GESTION DE L'AFFICHAGE DE LA TUILE SELECTIONNE */
+/* ---------------------------------------------- */
 .selected-pokemon {
     display: flex;
     padding: 8px;
@@ -5,11 +87,11 @@
     gap: 16px;
 
     border-radius: 16px;
-    border-top: 1px solid #791C30;
-    border-right: 1px solid #791C30;
-    border-bottom: 4px solid #791C30;
-    border-left: 1px solid #791C30;
-    background: #F02D34;
+    border-top: 1px solid var(--color-dark-type-fire);
+    border-right: 1px solid var(--color-dark-type-fire);
+    border-bottom: 4px solid var(--color-dark-type-fire);
+    border-left: 1px solid var(--color-dark-type-fire);
+    background: var(--color-type-fire);
     transition: background-color 0.3s ease, border 0.3s ease;
 }
 
@@ -20,6 +102,12 @@
     gap: 16px;
 
     border-radius: 16px;
-    border: 1px solid #C5C5C5;
-    background: #FFF;
+    border: var(--border-general-primary);
+    background: var(--main-color-white);    
+}
+
+.color-selected{color: var(--color-text-white);}
+
+@media (max-width: 992px) {
+    .container-types{display: none;}
 }

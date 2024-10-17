@@ -24,125 +24,125 @@
 .type-steel {
     color: var(--color-text-white);
     
-    border-color: #003345;
+    border-color: var(--color-dark-type-steel);
     background: var(--color-type-steel);
 }
 
 .type-fighting {
     color: var(--color-text-white);
     
-    border-color: #5C2F00;
+    border-color: var(--color-dark-type-fighting);
     background: var(--color-type-fighting);
 }
 
 .type-dragon {
     color: var(--color-text-white);
     
-    border-color: #000B62;
+    border-color: var(--color-dark-type-dragon);
     background: var(--color-type-dragon);
 }
 
 .type-water {
     color: var(--color-text-white);
     
-    border-color: #00316C;
+    border-color: var(--color-dark-type-water);
     background: var(--color-type-water);
 }
 
 .type-electric {
     color: var(--color-text-black);
     
-    border-color: #574400;
+    border-color: var(--color-dark-type-electric);
     background: var(--color-type-electric);
 }
 
 .type-fairy {
     color: var(--color-text-black);
     
-    border-color: var(--colors-neutral-black);
+    border-color: var(--color-dark-type-fairy);
     background: var(--color-type-fairy);
 }
 
 .type-fire {
     color: var(--color-text-white);
     
-    border-color: #8B0001;
+    border-color: var(--color-dark-type-fire);
     background: var(--color-type-fire);
 }
 
 .type-ice {
     color: var(--color-text-black);
     
-    border-color: #00576C;
+    border-color: var(--color-dark-type-ice);
     background: var(--color-type-ice);
 }
 
 .type-bug {
     color: var(--color-text-white);
     
-    border-color: #4C5700;
+    border-color: var(--color-dark-type-bug);
     background: var(--color-type-bug);
 }
 
 .type-normal {
     color: var(--color-text-white);
     
-    border-color: #303030;
+    border-color: var(--color-dark-type-normal);
     background: var(--color-type-normal);
 }
 
 .type-poison {
     color: var(--color-text-white);
     
-    border-color: #3A0063;
+    border-color: var(--color-dark-type-poison);
     background: var(--color-type-poison);
 }
 
 .type-grass {
     color: var(--color-text-white);
     
-    border-color: #105400;
+    border-color: var(--color-dark-type-grass);
     background: var(--color-type-grass);
 }
 
 .type-rock {
     color: var(--color-text-white);
     
-    border-color: #463E00;
+    border-color: var(--color-dark-type-rock);
     background: var(--color-type-rock);
 }
 
 .type-ground {
     color: var(--color-text-white);
     
-    border-color: #381900;
+    border-color: var(--color-dark-type-ground);
     background: var(--color-type-ground);
 }
 
 .type-ghost {
     color: var(--color-text-white);
     
-    border-color: #3F203F;
+    border-color: var(--color-dark-type-ghost);
     background: var(--color-type-ghost);
 }
 
 .type-dark {
     color: var(--color-text-white);
     
-    border-color: #2C2322;
+    border-color: var(--color-dark-type-dark);
     background: var(--color-type-dark);
 }
 
 .type-flying {
     color: var(--color-text-white);
     
-    border-color: #2E4254;
+    border-color: var(--color-dark-type-flying);
     background: var(--color-type-flying);
 }
 
 .type-psychic {
     color: var(--color-text-white);
     
-    border-color: #4B0019;
+    border-color: var(--color-dark-type-psychic);
     background: var(--color-type-psychic);
 }

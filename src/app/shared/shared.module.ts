@@ -6,7 +6,10 @@ import { CustomTabsComponent, TabContentDirective } from './components/custom-ta
 import { ButtonComponent } from './components/button/button.component';
 import { TablePokemonMovesComponent } from './components/table-pokemon-moves/table-pokemon-moves.component';
 import { DamageClassComponent } from './components/damage-class/damage-class.component';
-import { IconEyeComponent } from './components/icon-eye/icon-eye.component';
+import { IconEyeComponent } from './components/icons/icon-eye/icon-eye.component';
+import { IconShinyComponent } from './components/icons/icon-shiny/icon-shiny.component';
+import { IconEggsComponent } from './components/icons/icon-eggs/icon-eggs.component';
+import { IconMegaStoneComponent } from './components/icons/icon-mega-stone/icon-mega-stone.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { IconEyeComponent } from './components/icon-eye/icon-eye.component';
     ButtonComponent,
     TablePokemonMovesComponent,
     DamageClassComponent,
+    IconShinyComponent,
     IconEyeComponent,
+    IconEggsComponent,
+    IconMegaStoneComponent,
   ],
   imports: [
     CommonModule,
@@ -30,7 +36,10 @@ import { IconEyeComponent } from './components/icon-eye/icon-eye.component';
     ButtonComponent,
     TablePokemonMovesComponent,
     DamageClassComponent,
+    IconShinyComponent,
     IconEyeComponent,
+    IconEggsComponent,
+    IconMegaStoneComponent,
   ]
 })
 export class SharedModule { }

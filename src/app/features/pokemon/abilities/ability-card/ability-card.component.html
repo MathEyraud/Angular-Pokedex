@@ -1,6 +1,6 @@
 <div class="container" [ngClass]="{'hidden-ability': isHidden, 'no-hidden-ability': showNoHiddenTalent}">
 
-  <div class="ability-card">
+  <div class="ability-card" #abilityCard>
 
     <app-pokemon-rarity title="ability"         *ngIf="!isHidden"/>
     <app-pokemon-rarity title="hidden-ability"  *ngIf="isHidden"/>
@@ -9,8 +9,10 @@
       {{ ability?.formattedName }}
     </h3>
 
-    <p class="label-description-ability label-long">{{ displayDescription('long') }}</p>
-    <p class="label-description-ability label-short">{{ displayDescription('short') }}</p>
+    <p class="label-description-ability label-long"   #longDescription>{{ displayDescription('long') }}</p>
+
+    <!-- TODO : EMPLEMENTER LA POSSIBILITE D"AFFICHER LE LONG TEXTE VIA UN BOUTON ?? -->
+    <p class="label-description-ability label-short"  #shortDescription>{{ displayDescription('short') }}</p>
 
   </div>
   
